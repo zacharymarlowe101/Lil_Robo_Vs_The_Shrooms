@@ -6,10 +6,13 @@ import Engine.GraphicsHandler;
 import Engine.Key;
 import Engine.KeyLocker;
 import Engine.Keyboard;
+import GameObject.Frame;
 import GameObject.GameObject;
+import GameObject.ImageEffect;
 import GameObject.Rectangle;
 import GameObject.SpriteSheet;
 import Utils.Direction;
+import Utils.ImageUtils;
 
 public abstract class Player extends GameObject {
     // values that affect player movement
@@ -41,6 +44,8 @@ public abstract class Player extends GameObject {
 
     protected boolean isLocked = false;
 
+    public boolean didProjectileSpawn = false;
+
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
         super(spriteSheet, x, y, startingAnimationName);
         facingDirection = Direction.RIGHT;
@@ -64,6 +69,15 @@ public abstract class Player extends GameObject {
             // move player with respect to map collisions based on how much player needs to move this frame
             lastAmountMovedY = super.moveYHandleCollision(moveAmountY);
             lastAmountMovedX = super.moveXHandleCollision(moveAmountX);
+        }
+
+        if(Keyboard.isKeyDown(Key.SPACE) && didProjectileSpawn == false){
+            GameObject projectile = new GameObject(lastAmountMovedX,lastAmountMovedY,new Frame(ImageUtils.createSolidImage(new Color(255, 0, 255)), ImageEffect.NONE, 1, null));
+            System.out.println("Spawned Projectile");
+            didProjectileSpawn = true;
+        }
+        if(Keyboard.isKeyUp(Key.SPACE) && didProjectileSpawn == true){
+            didProjectileSpawn = false;
         }
 
         handlePlayerAnimation();
