@@ -5,6 +5,9 @@ import Level.*;
 import NPCs.Bug;
 import NPCs.Dinosaur;
 import NPCs.Walrus;
+import NPCs.Mushroom1;
+import NPCs.Mushroom2;
+import NPCs.Mushroom3;
 import Scripts.SimpleTextScript;
 import Scripts.TestMap.*;
 import Tilesets.CommonTileset;
@@ -44,6 +47,15 @@ public class TestMap extends Map {
         Bug bug = new Bug(3, getMapTile(7, 12).getLocation().subtractX(20));
         bug.setInteractScript(new BugScript());
         npcs.add(bug);
+
+        Mushroom1 mushroom1 = new Mushroom1(101, getMapTile(17, 21).getLocation());
+        npcs.add(mushroom1);
+
+        Mushroom2 mushroom2 = new Mushroom2(102, getMapTile(18, 21).getLocation());
+        npcs.add(mushroom2);
+
+        Mushroom3 mushroom3 = new Mushroom3(103, getMapTile(19, 21).getLocation());
+        npcs.add(mushroom3);
 
         return npcs;
     }
