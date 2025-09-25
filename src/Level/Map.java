@@ -4,6 +4,8 @@ import Engine.Config;
 import Engine.GraphicsHandler;
 import Engine.ScreenManager;
 import GameObject.Rectangle;
+import Projectiles.Projectile;
+import Projectiles.Projectile;
 import Utils.Direction;
 import Utils.Point;
 
@@ -57,6 +59,7 @@ public abstract class Map {
     protected ArrayList<EnhancedMapTile> enhancedMapTiles;
     protected ArrayList<NPC> npcs;
     protected ArrayList<Trigger> triggers;
+    protected ArrayList<Projectile> projectiles;
 
     // current script that is being executed (if any)
     protected Script activeScript;
@@ -108,6 +111,11 @@ public abstract class Map {
         this.npcs = loadNPCs();
         for (NPC npc: this.npcs) {
             npc.setMap(this);
+        }
+
+        this.projectiles = loadProjectiles();
+        for (Projectile projectile: this.projectiles) {
+            projectile.setMap(this);
         }
 
         this.triggers = loadTriggers();
@@ -291,6 +299,10 @@ public abstract class Map {
         return new ArrayList<>();
     }
 
+    protected ArrayList<Projectile> loadProjectiles() { //New
+        return new ArrayList<>();
+    }
+
     protected ArrayList<Trigger> loadTriggers() {
         return new ArrayList<>();
     }
@@ -306,6 +318,11 @@ public abstract class Map {
     public ArrayList<NPC> getNPCs() {
         return npcs;
     }
+
+    public ArrayList<Projectile> getProjectiles() {
+        return projectiles;
+    }
+
     public ArrayList<Trigger> getTriggers() { return triggers; }
 
     public ArrayList<MapTile> getAnimatedMapTiles() {
@@ -405,6 +422,11 @@ public abstract class Map {
     public void addNPC(NPC npc) {
         npc.setMap(this);
         this.npcs.add(npc);
+    }
+
+    public void addProjectile(Projectile projectiles) {
+        projectiles.setMap(this);
+        //this.npcs.add(projectiles);
     }
 
     // add a trigger to the map's list of triggers

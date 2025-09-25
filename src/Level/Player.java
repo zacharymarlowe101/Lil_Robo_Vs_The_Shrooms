@@ -1,6 +1,7 @@
 package Level;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 import Engine.GraphicsHandler;
 import Engine.Key;
@@ -11,6 +12,7 @@ import GameObject.GameObject;
 import GameObject.ImageEffect;
 import GameObject.Rectangle;
 import GameObject.SpriteSheet;
+import Projectiles.Projectile;
 import Utils.Direction;
 import Utils.ImageUtils;
 
@@ -45,6 +47,8 @@ public abstract class Player extends GameObject {
     protected boolean isLocked = false;
 
     public boolean didProjectileSpawn = false;
+    protected ArrayList<NPC> projectiles = new ArrayList<NPC>();
+    protected ArrayList<Direction> directions = new ArrayList<Direction>();
 
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
         super(spriteSheet, x, y, startingAnimationName);
@@ -71,13 +75,26 @@ public abstract class Player extends GameObject {
             lastAmountMovedX = super.moveXHandleCollision(moveAmountX);
         }
 
-        if(Keyboard.isKeyDown(Key.SPACE) && didProjectileSpawn == false){
-            GameObject projectile = new GameObject(lastAmountMovedX,lastAmountMovedY,new Frame(ImageUtils.createSolidImage(new Color(255, 0, 255)), ImageEffect.NONE, 1, null));
-            System.out.println("Spawned Projectile");
+        if(Keyboard.isKeyDown(Key.E) && didProjectileSpawn == false){
+            //NPC projectile = new NPC(0,x,y,new Frame(ImageUtils.createSolidImage(new Color(255, 0, 0), 20, 20), ImageEffect.NONE, 1, null));
+            //Projectile projectile = new Projectile(x, y,new Frame(ImageUtils.createSolidImage(new Color(255, 0, 0), 20, 20), ImageEffect.NONE, 1, null));
+            projectiles.add(new NPC(0, x, y,new Frame(ImageUtils.createSolidImage(new Color(255, 0, 0), 20, 20), ImageEffect.NONE, 1, null)));
             didProjectileSpawn = true;
+            map.addNPC(projectiles.get(projectiles.size()-1));
+            directions.add(facingDirection);
+            //map.addNPC(projectile);
+            //map.addProjectile(projectile);
+            //projectile.mapEntityStatus = MapEntityStatus.ACTIVE;
+            System.out.println("Spawned Projectile");
+            
         }
-        if(Keyboard.isKeyUp(Key.SPACE) && didProjectileSpawn == true){
+        if(Keyboard.isKeyUp(Key.E) && didProjectileSpawn == true){
             didProjectileSpawn = false;
+        }
+        if(projectiles != null){
+            for(NPC projectile : projectiles){
+                projectiles.get(projectiles.size()-1).walk(directions.get(projectiles.size()-1), 5);
+            }
         }
 
         handlePlayerAnimation();
