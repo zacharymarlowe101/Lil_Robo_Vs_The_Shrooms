@@ -371,6 +371,14 @@ public abstract class Map {
                 npc.getInteractScript().initialize();
             }
         }
+        for (Projectile projectile : projectiles) {
+            if (projectile.getInteractScript() != null) {
+                projectile.getInteractScript().setMap(this);
+                projectile.getInteractScript().setPlayer(player);
+                projectile.getInteractScript().setListeners(listeners);
+                projectile.getInteractScript().initialize();
+            }
+        }
         for (EnhancedMapTile enhancedMapTile : enhancedMapTiles) {
             if (enhancedMapTile.getInteractScript() != null) {
                 enhancedMapTile.getInteractScript().setMap(this);
@@ -424,8 +432,9 @@ public abstract class Map {
         this.npcs.add(npc);
     }
 
-    public void addProjectile(Projectile projectiles) {
-        projectiles.setMap(this);
+    public void addProjectile(Projectile projectile) {
+        projectile.setMap(this);
+        this.projectiles.add(projectile);
         //this.npcs.add(projectiles);
     }
 

@@ -48,6 +48,7 @@ public abstract class Player extends GameObject {
 
     public boolean didProjectileSpawn = false;
     protected ArrayList<NPC> projectiles = new ArrayList<NPC>();
+    protected ArrayList<Projectile> projectile = new ArrayList<Projectile>();
     protected ArrayList<Direction> directions = new ArrayList<Direction>();
 
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
@@ -77,14 +78,14 @@ public abstract class Player extends GameObject {
 
         if(Keyboard.isKeyDown(Key.E) && didProjectileSpawn == false){
             //NPC projectile = new NPC(0,x,y,new Frame(ImageUtils.createSolidImage(new Color(255, 0, 0), 20, 20), ImageEffect.NONE, 1, null));
-            //Projectile projectile = new Projectile(x, y,new Frame(ImageUtils.createSolidImage(new Color(255, 0, 0), 20, 20), ImageEffect.NONE, 1, null));
-            projectiles.add(new NPC(0, x, y,new Frame(ImageUtils.createSolidImage(new Color(255, 0, 0), 20, 20), ImageEffect.NONE, 1, null)));
+            Projectile projectile = new Projectile(x, y,new Frame(ImageUtils.createSolidImage(new Color(255, 0, 0), 20, 20), ImageEffect.NONE, 1, null), lastMovementDirection);
+            //projectiles.add(new NPC(0, x, y,new Frame(ImageUtils.createSolidImage(new Color(255, 0, 0), 20, 20), ImageEffect.NONE, 1, null)));
             didProjectileSpawn = true;
-            map.addNPC(projectiles.get(projectiles.size()-1));
-            directions.add(lastMovementDirection);
-            System.out.println(lastMovementDirection);
+            //map.addNPC(projectiles.get(projectiles.size()-1));
+            //directions.add(lastMovementDirection);
+            //System.out.println(lastMovementDirection);
             //map.addNPC(projectile);
-            //map.addProjectile(projectile);
+            map.addProjectile(projectile);
             //projectile.mapEntityStatus = MapEntityStatus.ACTIVE;
             System.out.println("Spawned Projectile");
             
@@ -92,11 +93,10 @@ public abstract class Player extends GameObject {
         if(Keyboard.isKeyUp(Key.E) && didProjectileSpawn == true){
             didProjectileSpawn = false;
         }
-        if(projectiles != null){
-            for(int i = 0; i < projectiles.size(); i++){
-                projectiles.get(i).walk(directions.get(i), 5);
-            }
-        }
+        //if(projectiles != null){
+        //    for(int i = 0; i < projectile.size(); i++){
+        //    }
+        //}
 
         handlePlayerAnimation();
 
