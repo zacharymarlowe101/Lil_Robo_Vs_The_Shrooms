@@ -9,7 +9,7 @@ public class MyMap extends Map {
 
     public MyMap() {
         super("MyMap.txt", new CommonTileset());
-        this.playerStartPosition = new Point(100, 100);
+        this.playerStartPosition = new Point(500, 500);
     }
 }
 
