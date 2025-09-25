@@ -81,7 +81,8 @@ public abstract class Player extends GameObject {
             projectiles.add(new NPC(0, x, y,new Frame(ImageUtils.createSolidImage(new Color(255, 0, 0), 20, 20), ImageEffect.NONE, 1, null)));
             didProjectileSpawn = true;
             map.addNPC(projectiles.get(projectiles.size()-1));
-            directions.add(facingDirection);
+            directions.add(lastMovementDirection);
+            System.out.println(lastMovementDirection);
             //map.addNPC(projectile);
             //map.addProjectile(projectile);
             //projectile.mapEntityStatus = MapEntityStatus.ACTIVE;
@@ -92,8 +93,8 @@ public abstract class Player extends GameObject {
             didProjectileSpawn = false;
         }
         if(projectiles != null){
-            for(NPC projectile : projectiles){
-                projectiles.get(projectiles.size()-1).walk(directions.get(projectiles.size()-1), 5);
+            for(int i = 0; i < projectiles.size(); i++){
+                projectiles.get(i).walk(directions.get(i), 5);
             }
         }
 
@@ -143,6 +144,7 @@ public abstract class Player extends GameObject {
             facingDirection = Direction.LEFT;
             currentWalkingXDirection = Direction.LEFT;
             lastWalkingXDirection = Direction.LEFT;
+            lastMovementDirection = Direction.LEFT;
         }
 
         // if walk right key is pressed, move player to the right
@@ -151,6 +153,7 @@ public abstract class Player extends GameObject {
             facingDirection = Direction.RIGHT;
             currentWalkingXDirection = Direction.RIGHT;
             lastWalkingXDirection = Direction.RIGHT;
+            lastMovementDirection = Direction.RIGHT;
         }
         else {
             currentWalkingXDirection = Direction.NONE;
@@ -160,11 +163,13 @@ public abstract class Player extends GameObject {
             moveAmountY -= walkSpeed;
             currentWalkingYDirection = Direction.UP;
             lastWalkingYDirection = Direction.UP;
+            lastMovementDirection = Direction.UP;
         }
         else if (Keyboard.isKeyDown(MOVE_DOWN_KEY)) {
             moveAmountY += walkSpeed;
             currentWalkingYDirection = Direction.DOWN;
             lastWalkingYDirection = Direction.DOWN;
+            lastMovementDirection = Direction.DOWN;
         }
         else {
             currentWalkingYDirection = Direction.NONE;
