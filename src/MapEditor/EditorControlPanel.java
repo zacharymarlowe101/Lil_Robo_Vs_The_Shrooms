@@ -65,6 +65,8 @@ public class EditorControlPanel extends JPanel {
         tilePickerScroll.setViewportView(tilePicker);
         tilePickerScroll.setLocation(5, 78);
         tilePickerScroll.setSize(190, 394);
+        tilePickerScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);//gets rid of horizontal scroll bar
+        tilePickerScroll.getVerticalScrollBar().setUnitIncrement(20);//inscrease scroll speed
         add(tilePickerScroll, BorderLayout.CENTER);
         tilePicker.setTileset(getSelectedMap(), getSelectedMap().getTileset());
 
