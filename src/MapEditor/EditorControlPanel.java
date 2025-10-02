@@ -25,7 +25,7 @@ public class EditorControlPanel extends JPanel {
         setLayout(new BorderLayout());
         setBackground(Colors.CORNFLOWER_BLUE);
         setLocation(0, 0);
-        setPreferredSize(new Dimension(200, 600));
+        setPreferredSize(new Dimension(120, 600));
 
         mapNames = EditorMaps.getMapNames();
 
@@ -33,7 +33,7 @@ public class EditorControlPanel extends JPanel {
 
         JPanel mapChoosePanel = new JPanel();
         mapChoosePanel.setLayout(null);
-        mapChoosePanel.setPreferredSize(new Dimension(200, 80));
+        mapChoosePanel.setPreferredSize(new Dimension(120, 80));
         mapChoosePanel.setBackground(Colors.CORNFLOWER_BLUE);
 
         JLabel mapLabel = new JLabel();
@@ -43,7 +43,7 @@ public class EditorControlPanel extends JPanel {
         mapChoosePanel.add(mapLabel);
 
         mapNamesComboBox = new JComboBox<String>();
-        mapNamesComboBox.setSize(190, 40);
+        mapNamesComboBox.setSize(100, 40);
         mapNamesComboBox.setLocation(5, 30);
         mapNames.sort(String::compareToIgnoreCase);
         for (String mapName : mapNames) {
@@ -71,13 +71,13 @@ public class EditorControlPanel extends JPanel {
 
         JPanel mapButtonsPanel = new JPanel();
         mapButtonsPanel.setLayout(null);
-        mapButtonsPanel.setPreferredSize(new Dimension(200, 95));
+        mapButtonsPanel.setPreferredSize(new Dimension(120, 95));
         mapButtonsPanel.setBackground(Colors.CORNFLOWER_BLUE);
 
         JButton setMapDimensionsButton = new JButton();
-        setMapDimensionsButton.setSize(190, 40);
+        setMapDimensionsButton.setSize(110, 40);
         setMapDimensionsButton.setLocation(5, 5);
-        setMapDimensionsButton.setText("Set Map Dimensions");
+        setMapDimensionsButton.setText("Set Map Size");
         setMapDimensionsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -88,7 +88,7 @@ public class EditorControlPanel extends JPanel {
         mapButtonsPanel.add(setMapDimensionsButton);
 
         JButton saveMapButton = new JButton();
-        saveMapButton.setSize(190, 40);
+        saveMapButton.setSize(110, 40);
         saveMapButton.setLocation(5, 50);
         saveMapButton.setText("Save Map");
         saveMapButton.addActionListener(new ActionListener() {
