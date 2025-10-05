@@ -16,6 +16,9 @@ import Projectiles.Projectile;
 import Utils.Direction;
 import Utils.ImageUtils;
 
+import java.awt.event.MouseListener; //Mouse events, lets hope they work
+import java.awt.event.MouseEvent;
+
 public abstract class Player extends GameObject {
     // values that affect player movement
     // these should be set in a subclass
@@ -76,27 +79,15 @@ public abstract class Player extends GameObject {
             lastAmountMovedX = super.moveXHandleCollision(moveAmountX);
         }
 
-        if(Keyboard.isKeyDown(Key.E) && didProjectileSpawn == false){
-            //NPC projectile = new NPC(0,x,y,new Frame(ImageUtils.createSolidImage(new Color(255, 0, 0), 20, 20), ImageEffect.NONE, 1, null));
+        if(Keyboard.isKeyDown(Key.E) && didProjectileSpawn == false){ //Spawn projectile
             Projectile projectile = new Projectile(x, y,new Frame(ImageUtils.createSolidImage(new Color(255, 0, 0), 20, 20), ImageEffect.NONE, 1, null), lastMovementDirection);
-            //projectiles.add(new NPC(0, x, y,new Frame(ImageUtils.createSolidImage(new Color(255, 0, 0), 20, 20), ImageEffect.NONE, 1, null)));
             didProjectileSpawn = true;
-            //map.addNPC(projectiles.get(projectiles.size()-1));
-            //directions.add(lastMovementDirection);
-            //System.out.println(lastMovementDirection);
-            //map.addNPC(projectile);
             map.addProjectile(projectile);
-            //projectile.mapEntityStatus = MapEntityStatus.ACTIVE;
             System.out.println("Spawned Projectile");
-            
         }
-        if(Keyboard.isKeyUp(Key.E) && didProjectileSpawn == true){
+        if(Keyboard.isKeyUp(Key.E) && didProjectileSpawn == true){ //Reset projectile spawn
             didProjectileSpawn = false;
         }
-        //if(projectiles != null){
-        //    for(int i = 0; i < projectile.size(); i++){
-        //    }
-        //}
 
         handlePlayerAnimation();
 
