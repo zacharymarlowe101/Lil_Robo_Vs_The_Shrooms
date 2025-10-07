@@ -10,11 +10,14 @@ import Utils.Point;
 
 import java.util.HashMap;
 
-// Mushroom1 Enemy NPC
+// Mushroom1 NPC
 public class Mushroom1 extends NPC {
 
     public Mushroom1(int id, Point location) {
         super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("Mushroom1.png"), 26, 26), "STAND");
+
+        // Set starting health to 3
+        this.setHealth(3);
     }
 
     @Override
@@ -22,7 +25,7 @@ public class Mushroom1 extends NPC {
         return new HashMap<String, Frame[]>() {{
             put("STAND", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0))
-                        .withScale(3)
+                        .withScale(4)
                         .withBounds(0, 0, 12, 12)
                         .build()
             });
