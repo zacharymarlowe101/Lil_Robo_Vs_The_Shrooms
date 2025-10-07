@@ -7,10 +7,13 @@ import Utils.Colors;
 import javax.swing.*;
 import java.awt.*;
 
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
+
 /*
  * This is where the game loop process and render back buffer is setup
  */
-public class GamePanel extends JPanel {
+public class GamePanel extends JPanel implements MouseListener{
 	// loads Screens on to the JPanel
 	// each screen has its own update and draw methods defined to handle a "section" of the game.
 	private ScreenManager screenManager;
@@ -30,6 +33,9 @@ public class GamePanel extends JPanel {
 	private int currentFPS;
 	private boolean doPaint;
 
+	public static boolean theSwitch = false;
+	public static Point lastMousePosition;
+
 	// The JPanel and various important class instances are setup here
 	public GamePanel() {
 		super();
@@ -37,6 +43,7 @@ public class GamePanel extends JPanel {
 
 		// attaches Keyboard class's keyListener to this JPanel
 		this.addKeyListener(Keyboard.getKeyListener());
+		addMouseListener(this);
 
 		graphicsHandler = new GraphicsHandler();
 
@@ -136,5 +143,38 @@ public class GamePanel extends JPanel {
 			graphicsHandler.setGraphics((Graphics2D) g);
 			draw();
 		}
+	}
+
+
+
+	public void mousePressed(MouseEvent e) {
+        System.out.println("Mouse pressed "+ e.getX() + ", " + e.getY() + " (# of clicks: " + e.getClickCount() + ")");
+		lastMousePosition = e.getPoint();
+		theSwitch = !theSwitch;
+    }
+    
+    public void mouseReleased(MouseEvent e) {
+        //System.out.println("Mouse released (# of clicks: " + e.getClickCount() + ")");
+		theSwitch = !theSwitch;
+    }
+    
+    public void mouseEntered(MouseEvent e) {
+        //System.out.println("Mouse entered");
+    }
+    
+    public void mouseExited(MouseEvent e) {
+        //System.out.println("Mouse exited");
+    }
+    
+    public void mouseClicked(MouseEvent e) {
+        //System.out.println("Mouse clicked (# of clicks: " + e.getClickCount() + ")");
+    }
+
+	public static boolean isMouseClicked() {
+		return theSwitch;
+	}
+
+	public static Point getMousePositionPoint() {
+		return lastMousePosition;
 	}
 }

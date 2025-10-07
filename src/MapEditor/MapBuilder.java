@@ -6,7 +6,7 @@ import Utils.Colors;
 import javax.swing.*;
 import java.awt.*;
 
-public class MapBuilder extends JPanel {
+public class MapBuilder extends JPanel{
     private Map map;
     private JScrollPane tileBuilderScroll;
     private TileBuilder tileBuilder;

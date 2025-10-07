@@ -8,7 +8,7 @@ import GameObject.Rectangle;
  * The idea is an external class should be allowed to set its own Screen to this class's currentScreen variable,
  * and then that class can handle coordinating which Screen to show.
  */
-public class ScreenManager {
+public class ScreenManager{
     private Screen currentScreen;
     private static Rectangle screenBounds = new Rectangle(0, 0, 0, 0);
 

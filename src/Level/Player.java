@@ -3,7 +3,8 @@ package Level;
 import java.awt.Color;
 import java.util.ArrayList;
 
-import Engine.GraphicsHandler;
+
+import Engine.GamePanel;
 import Engine.Key;
 import Engine.KeyLocker;
 import Engine.Keyboard;
@@ -16,8 +17,7 @@ import Projectiles.Projectile;
 import Utils.Direction;
 import Utils.ImageUtils;
 
-import java.awt.event.MouseListener; //Mouse events, lets hope they work
-import java.awt.event.MouseEvent;
+
 
 public abstract class Player extends GameObject {
     // values that affect player movement
@@ -79,13 +79,13 @@ public abstract class Player extends GameObject {
             lastAmountMovedX = super.moveXHandleCollision(moveAmountX);
         }
 
-        if(Keyboard.isKeyDown(Key.E) && didProjectileSpawn == false){ //Spawn projectile
+        if(GamePanel.isMouseClicked() && didProjectileSpawn == false){ //Spawn projectile //Keyboard.isKeyDown(Key.E)
             Projectile projectile = new Projectile(x, y,new Frame(ImageUtils.createSolidImage(new Color(255, 0, 0), 20, 20), ImageEffect.NONE, 1, null), lastMovementDirection);
             didProjectileSpawn = true;
             map.addProjectile(projectile);
             System.out.println("Spawned Projectile");
         }
-        if(Keyboard.isKeyUp(Key.E) && didProjectileSpawn == true){ //Reset projectile spawn
+        if(!GamePanel.isMouseClicked() && didProjectileSpawn == true){ //Reset projectile spawn //Keyboard.isKeyUp(Key.E)
             didProjectileSpawn = false;
         }
 
@@ -117,7 +117,7 @@ public abstract class Player extends GameObject {
         }
 
         // if a walk key is pressed, player enters WALKING state
-        if (Keyboard.isKeyDown(MOVE_LEFT_KEY) || Keyboard.isKeyDown(MOVE_RIGHT_KEY) || Keyboard.isKeyDown(MOVE_UP_KEY) || Keyboard.isKeyDown(MOVE_DOWN_KEY)) {
+        if (Keyboard.isKeyDown(MOVE_LEFT_KEY) || Keyboard.isKeyDown(Key.A) || Keyboard.isKeyDown(MOVE_RIGHT_KEY) || Keyboard.isKeyDown(Key.D) || Keyboard.isKeyDown(MOVE_UP_KEY) || Keyboard.isKeyDown(Key.W) || Keyboard.isKeyDown(MOVE_DOWN_KEY) || Keyboard.isKeyDown(Key.S)) {
             playerState = PlayerState.WALKING;
         }
     }
@@ -130,7 +130,7 @@ public abstract class Player extends GameObject {
         }
 
         // if walk left key is pressed, move player to the left
-        if (Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
+        if (Keyboard.isKeyDown(MOVE_LEFT_KEY) || Keyboard.isKeyDown(Key.A)) {
             moveAmountX -= walkSpeed;
             facingDirection = Direction.LEFT;
             currentWalkingXDirection = Direction.LEFT;
@@ -139,7 +139,7 @@ public abstract class Player extends GameObject {
         }
 
         // if walk right key is pressed, move player to the right
-        else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
+        else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY) || Keyboard.isKeyDown(Key.D)) {
             moveAmountX += walkSpeed;
             facingDirection = Direction.RIGHT;
             currentWalkingXDirection = Direction.RIGHT;
@@ -150,13 +150,13 @@ public abstract class Player extends GameObject {
             currentWalkingXDirection = Direction.NONE;
         }
 
-        if (Keyboard.isKeyDown(MOVE_UP_KEY)) {
+        if (Keyboard.isKeyDown(MOVE_UP_KEY) || Keyboard.isKeyDown(Key.W)) {
             moveAmountY -= walkSpeed;
             currentWalkingYDirection = Direction.UP;
             lastWalkingYDirection = Direction.UP;
             lastMovementDirection = Direction.UP;
         }
-        else if (Keyboard.isKeyDown(MOVE_DOWN_KEY)) {
+        else if (Keyboard.isKeyDown(MOVE_DOWN_KEY) || Keyboard.isKeyDown(Key.S)) {
             moveAmountY += walkSpeed;
             currentWalkingYDirection = Direction.DOWN;
             lastWalkingYDirection = Direction.DOWN;
@@ -174,7 +174,7 @@ public abstract class Player extends GameObject {
             lastWalkingXDirection = Direction.NONE;
         }
 
-        if (Keyboard.isKeyUp(MOVE_LEFT_KEY) && Keyboard.isKeyUp(MOVE_RIGHT_KEY) && Keyboard.isKeyUp(MOVE_UP_KEY) && Keyboard.isKeyUp(MOVE_DOWN_KEY)) {
+        if (Keyboard.isKeyDown(MOVE_LEFT_KEY) && Keyboard.isKeyDown(Key.A) && Keyboard.isKeyDown(MOVE_RIGHT_KEY) && Keyboard.isKeyDown(Key.D) && Keyboard.isKeyDown(MOVE_UP_KEY) && Keyboard.isKeyDown(Key.W) && Keyboard.isKeyDown(MOVE_DOWN_KEY) && Keyboard.isKeyDown(Key.S)) {
             playerState = PlayerState.STANDING;
         }
     }
