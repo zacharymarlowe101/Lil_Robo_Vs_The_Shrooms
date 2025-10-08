@@ -148,7 +148,7 @@ public class GamePanel extends JPanel implements MouseListener{
 
 
 	public void mousePressed(MouseEvent e) {
-        System.out.println("Mouse pressed "+ e.getX() + ", " + e.getY() + " (# of clicks: " + e.getClickCount() + ")");
+        //System.out.println("Mouse pressed "+ e.getX() + ", " + e.getY() + " (# of clicks: " + e.getClickCount() + ")");
 		lastMousePosition = e.getPoint();
 		theSwitch = !theSwitch;
     }

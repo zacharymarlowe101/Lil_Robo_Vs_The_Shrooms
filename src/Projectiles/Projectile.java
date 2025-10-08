@@ -1,5 +1,7 @@
 package Projectiles;
 
+import java.awt.Point;
+
 import Engine.GraphicsHandler;
 //import GameObject.Frame;
 //import GameObject.SpriteSheet;
@@ -12,10 +14,23 @@ import Utils.Direction;
 
 public class Projectile extends MapEntity{
     private Direction direction;
+    private double dx, dy;
+    private double length;
+    private double dirX, dirY;
+    private int speed = 5;
+    int velocityX, velocityY;
+    
 
-    public Projectile(float x, float y, Frame frame, Direction direction) {
+    public Projectile(float x, float y, Frame frame, Utils.Point p1, Point p2) { //P1 is start point, P2 is target point
         super(x, y, frame);
-        this.direction = direction;
+        //this.direction = direction;
+        dx = p2.x - p1.x;
+        dy = p2.y - p1.y;
+        length = Math.sqrt(dx*dx + dy*dy);
+        dirX = dx / length;
+        dirY = dy / length;
+        velocityX = (int)(dirX * speed);
+        velocityY = (int)(dirY * speed);
     }
 
     public Projectile(float x, float y) {
@@ -27,8 +42,9 @@ public class Projectile extends MapEntity{
         this.performAction(player);
         //}
         super.update();
-        if(direction != null){
-            if(direction == Direction.UP){
+        //System.out.println(dir);
+        //if(direction != null){
+            /*if(direction == Direction.UP){
                 moveY(-5);
             }
             else if(direction == Direction.DOWN){
@@ -40,8 +56,11 @@ public class Projectile extends MapEntity{
             else if(direction == Direction.RIGHT){
                 moveX(5);
 
-            }
-        }
+            }*/
+            System.out.println("Velocity X: " + velocityX + " Velocity Y: " + velocityY);
+            moveY(velocityY);
+            moveX(velocityX);
+        //}
     }
 
     protected void performAction(Player player) {}
