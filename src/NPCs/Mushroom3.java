@@ -52,54 +52,54 @@ public class Mushroom3 extends NPC {
         return new HashMap<String, Frame[]>() {{
             put("STAND_LEFT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0))
-                    .withScale(2)
+                    .withScale(3)
                     .withBounds(3, 5, 26, 65)
                     .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                     .build()
             });
             put("STAND_RIGHT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0))
-                    .withScale(2)
+                    .withScale(3)
                     .withBounds(3, 5, 26, 65)
                     .build()
             });
             put("WALK_LEFT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 20)
-                    .withScale(2)
+                    .withScale(3)
                     .withBounds(3, 5, 26, 65)
                     .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                     .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 1), 20)
-                    .withScale(2)
+                    .withScale(3)
                     .withBounds(3, 5, 26, 65)
                     .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                     .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 2), 20)
-                    .withScale(2)
+                    .withScale(3)
                     .withBounds(3, 5, 26, 65)
                     .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                     .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 3), 20)
-                    .withScale(2)
+                    .withScale(3)
                     .withBounds(3, 5, 26, 65)
                     .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                     .build()
             });
             put("WALK_RIGHT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 20)
-                    .withScale(2)
+                    .withScale(3)
                     .withBounds(3, 5, 26, 65)
                     .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 1), 20)
-                    .withScale(2)
+                    .withScale(3)
                     .withBounds(3, 5, 26, 65)
                     .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 2), 20)
-                    .withScale(2)
+                    .withScale(3)
                     .withBounds(3, 5, 26, 65)
                     .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 3), 20)
-                    .withScale(2)
+                    .withScale(3)
                     .withBounds(3, 5, 26, 65)
                     .build()
             });
