@@ -18,8 +18,9 @@ public class Projectile extends MapEntity{
     private double length;
     private double dirX, dirY;
     private int speed = 5;
-    int velocityX, velocityY;
-    
+    private float velocityX, velocityY;
+    private double lifetime = 1_000; // milliseconds
+    private double deltaTime = 16.67; // milliseconds, approx 60 FPS
 
     public Projectile(float x, float y, Frame frame, Utils.Point p1, Point p2) { //P1 is start point, P2 is target point
         super(x, y, frame);
@@ -29,8 +30,8 @@ public class Projectile extends MapEntity{
         length = Math.sqrt(dx*dx + dy*dy);
         dirX = dx / length;
         dirY = dy / length;
-        velocityX = (int)(dirX * speed);
-        velocityY = (int)(dirY * speed);
+        velocityX = (float)(dirX * speed);
+        velocityY = (float)(dirY * speed);
     }
 
     public Projectile(float x, float y) {
@@ -38,29 +39,16 @@ public class Projectile extends MapEntity{
     }
 
     public void update(Player player) {
-        //if (!isLocked) {
         this.performAction(player);
-        //}
         super.update();
-        //System.out.println(dir);
-        //if(direction != null){
-            /*if(direction == Direction.UP){
-                moveY(-5);
-            }
-            else if(direction == Direction.DOWN){
-                moveY(5);
-            }
-            else if(direction == Direction.LEFT){
-                moveX(-5);
-            }
-            else if(direction == Direction.RIGHT){
-                moveX(5);
-
-            }*/
-            System.out.println("Velocity X: " + velocityX + " Velocity Y: " + velocityY);
-            moveY(velocityY);
-            moveX(velocityX);
-        //}
+        //System.out.println("Velocity X: " + velocityX + " Velocity Y: " + velocityY);
+        moveY(velocityY);
+        moveX(velocityX);
+        lifetime -= deltaTime;
+        if(isExpired()){
+            //System.out.println("Projectile expired");
+            this.isHidden = true;
+        }
     }
 
     protected void performAction(Player player) {}
@@ -97,5 +85,9 @@ public class Projectile extends MapEntity{
         else if (direction == Direction.RIGHT) {
             moveX(speed);
         }
+    }
+
+    public boolean isExpired() {
+        return lifetime <= 0;
     }
 }
