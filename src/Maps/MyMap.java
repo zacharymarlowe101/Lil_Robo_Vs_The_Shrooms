@@ -1,8 +1,10 @@
 package Maps;
 
 import Level.*;
+import Scripts.TestMap.WarpScript;
 import Tilesets.CommonTileset;
 import Utils.Point;
+import java.util.ArrayList;
 
 // Represents a test map to be used in a level
 public class MyMap extends Map {
@@ -11,7 +13,20 @@ public class MyMap extends Map {
         super("MyMap.txt", new CommonTileset());
         this.playerStartPosition = new Point(500, 500);
     }
+
+    @Override
+    public ArrayList<Trigger> loadTriggers() {
+         ArrayList<Trigger> triggers = new ArrayList<>();
+    //     triggers.add(new Trigger(790, 1030, 100, 10, new LostBallScript(), "hasLostBall"));
+    //     triggers.add(new Trigger(790, 960, 10, 80, new LostBallScript(), "hasLostBall"));
+    //     triggers.add(new Trigger(890, 960, 10, 80, new LostBallScript(), "hasLostBall"));
+        triggers.add(new Trigger(200,200, 100,100, new WarpScript(), "haswarped"));
+        return triggers;
+    }
 }
+
+
+
 
 //     @Override
 //     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
