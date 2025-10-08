@@ -4,10 +4,10 @@ import EnhancedMapTiles.PushableRock;
 import Level.*;
 import NPCs.Bug;
 import NPCs.Dinosaur;
-import NPCs.Walrus;
 import NPCs.Mushroom1;
 import NPCs.Mushroom2;
 import NPCs.Mushroom3;
+import NPCs.Walrus;
 import Scripts.SimpleTextScript;
 import Scripts.TestMap.*;
 import Tilesets.CommonTileset;
@@ -66,8 +66,11 @@ public class TestMap extends Map {
         triggers.add(new Trigger(790, 1030, 100, 10, new LostBallScript(), "hasLostBall"));
         triggers.add(new Trigger(790, 960, 10, 80, new LostBallScript(), "hasLostBall"));
         triggers.add(new Trigger(890, 960, 10, 80, new LostBallScript(), "hasLostBall"));
+        triggers.add(new Trigger(200,200, 10,80, new WarpScript(), "haswarped"));
         return triggers;
     }
+    
+    
 
     @Override
     public void loadScripts() {

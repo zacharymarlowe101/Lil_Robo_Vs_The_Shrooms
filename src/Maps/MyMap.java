@@ -1,13 +1,8 @@
 package Maps;
 
 import Level.*;
-import NPCs.Mushroom1;
-import NPCs.Mushroom2;
-import NPCs.Mushroom3;
 import Tilesets.CommonTileset;
 import Utils.Point;
-
-import java.util.ArrayList;
 
 // Represents a test map to be used in a level
 public class MyMap extends Map {
@@ -15,23 +10,6 @@ public class MyMap extends Map {
     public MyMap() {
         super("MyMap.txt", new CommonTileset());
         this.playerStartPosition = new Point(500, 500);
-    }
-
-    // Spawn Mushrooms
-    @Override
-    public ArrayList<NPC> loadNPCs() {
-        ArrayList<NPC> npcs = new ArrayList<>();
-
-        Mushroom1 mushroom1 = new Mushroom1(101, getMapTile(5, 6).getLocation());
-        npcs.add(mushroom1);
-
-        Mushroom2 mushroom2 = new Mushroom2(102, getMapTile(5, 7).getLocation());
-        npcs.add(mushroom2);
-
-        Mushroom3 mushroom3 = new Mushroom3(103, getMapTile(5, 8).getLocation());
-        npcs.add(mushroom3);
-
-        return npcs;
     }
 }
 

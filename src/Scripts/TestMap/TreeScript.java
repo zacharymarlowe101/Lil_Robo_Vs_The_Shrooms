@@ -1,19 +1,18 @@
 package Scripts.TestMap;
 
-import java.util.ArrayList;
-
 import Level.GameListener;
 import Level.Script;
 import Level.ScriptState;
-import ScriptActions.CustomRequirement;
 import ScriptActions.ChangeFlagScriptAction;
 import ScriptActions.ConditionalScriptAction;
 import ScriptActions.ConditionalScriptActionGroup;
+import ScriptActions.CustomRequirement;
 import ScriptActions.FlagRequirement;
 import ScriptActions.LockPlayerScriptAction;
 import ScriptActions.ScriptAction;
 import ScriptActions.TextboxScriptAction;
 import ScriptActions.UnlockPlayerScriptAction;
+import java.util.ArrayList;
 
 // script for talking to tree with hole in it
 // checkout the documentation website for a detailed guide on how this script works
@@ -58,6 +57,7 @@ public class TreeScript extends Script {
                     public ScriptState execute() {
                         for (GameListener listener: listeners) {
                             listener.onWin();
+                            listener.onClear();
                         }
                         return ScriptState.COMPLETED;
                     }

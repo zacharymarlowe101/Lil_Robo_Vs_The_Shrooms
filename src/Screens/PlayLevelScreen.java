@@ -1,13 +1,17 @@
 package Screens;
-
 import Engine.GraphicsHandler;
 import Engine.Screen;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.*;
 import Maps.MyMap;
+import Maps.TestMap;
 import Players.Cat;
 import Utils.Direction;
+
+
+
+
 
 // This class is for when the RPG game is actually being played
 public class PlayLevelScreen extends Screen implements GameListener {
@@ -29,6 +33,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
         flagManager.addFlag("hasTalkedToWalrus", false);
         flagManager.addFlag("hasTalkedToDinosaur", false);
         flagManager.addFlag("hasFoundBall", false);
+        flagManager.addFlag("haswarped", false);
 
         // define/setup map
         map = new MyMap();
@@ -76,6 +81,8 @@ public class PlayLevelScreen extends Screen implements GameListener {
         // when this method is called within the game, it signals the game has been "won"
         playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
     }
+   
+    
 
     public void draw(GraphicsHandler graphicsHandler) {
         // based on screen state, draw appropriate graphics
@@ -105,4 +112,33 @@ public class PlayLevelScreen extends Screen implements GameListener {
     private enum PlayLevelScreenState {
         RUNNING, LEVEL_COMPLETED
     }
+
+    @Override
+    public void onClear() {
+      // Re-initialize everything with TestMap
+    flagManager = new FlagManager();
+    // Add any flags your game needs
+    flagManager.addFlag("hasLostBall", false);
+    flagManager.addFlag("hasTalkedToWalrus", false);
+    flagManager.addFlag("hasTalkedToDinosaur", false);
+    flagManager.addFlag("hasFoundBall", false);
+    flagManager.addFlag("haswarped", false);
+
+    map = new TestMap();
+    map.setFlagManager(flagManager);
+
+    player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+    player.setMap(map);
+    playLevelScreenState = PlayLevelScreenState.RUNNING;
+    player.setFacingDirection(Direction.LEFT);
+
+    map.setPlayer(player);
+    map.getTextbox().setInteractKey(player.getInteractKey());
+    map.addListener(this);
+    map.preloadScripts();
+
+    winScreen = new WinScreen(this);
+    }
+
+    
 }

@@ -4,10 +4,8 @@ import Builders.FrameBuilder;
 import Builders.MapTileBuilder;
 import Engine.ImageLoader;
 import GameObject.Frame;
-import GameObject.ImageEffect;
 import Level.TileType;
 import Level.Tileset;
-
 import java.util.ArrayList;
 
 // This class represents a "common" tileset of standard tiles defined in the CommonTileset.png file
@@ -187,10 +185,11 @@ public class CommonTileset extends Tileset {
         //sludge
         Frame sludgeFrame = new FrameBuilder(getSubImage(7, 4))
                 .withScale(tileScale)
+                
                 .build();
 
-        MapTileBuilder sludgeTile = new MapTileBuilder(sludgeFrame);
-
+        MapTileBuilder sludgeTile = new MapTileBuilder(sludgeFrame)
+                         .withTileType(TileType.NOT_PASSABLE);
         mapTiles.add(sludgeTile);
 
 
@@ -210,8 +209,8 @@ public class CommonTileset extends Tileset {
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder grassCliffUpperTile = new MapTileBuilder(grassCliffUpperFrame);
-
+        MapTileBuilder grassCliffUpperTile = new MapTileBuilder(grassCliffUpperFrame)
+                                .withTileType(TileType.NOT_PASSABLE);
         mapTiles.add(grassCliffUpperTile);
 
        // grass lower
@@ -219,8 +218,8 @@ public class CommonTileset extends Tileset {
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder grassCliffLowerTile = new MapTileBuilder(grassCliffLowerFrame);
-
+        MapTileBuilder grassCliffLowerTile = new MapTileBuilder(grassCliffLowerFrame)
+                .withTileType(TileType.NOT_PASSABLE);
         mapTiles.add(grassCliffLowerTile);
 
          // grass left
@@ -228,8 +227,8 @@ public class CommonTileset extends Tileset {
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder grassCliffLeftTile = new MapTileBuilder(grassCliffLeftFrame);
-
+        MapTileBuilder grassCliffLeftTile = new MapTileBuilder(grassCliffLeftFrame)
+                        .withTileType(TileType.NOT_PASSABLE);
         mapTiles.add(grassCliffLeftTile);
 
        // grass right
@@ -237,8 +236,8 @@ public class CommonTileset extends Tileset {
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder grassCliffRightTile = new MapTileBuilder(grassCliffRightFrame);
-
+        MapTileBuilder grassCliffRightTile = new MapTileBuilder(grassCliffRightFrame)
+                        .withTileType(TileType.NOT_PASSABLE);
         mapTiles.add(grassCliffRightTile);
 
 
@@ -250,8 +249,8 @@ public class CommonTileset extends Tileset {
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder mudCliffUpperTile = new MapTileBuilder(mudCliffUpperFrame);
-
+        MapTileBuilder mudCliffUpperTile = new MapTileBuilder(mudCliffUpperFrame)
+                .withTileType(TileType.NOT_PASSABLE);
         mapTiles.add(mudCliffUpperTile);
 
        // mud lower
@@ -259,8 +258,8 @@ public class CommonTileset extends Tileset {
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder mudCliffLowerTile = new MapTileBuilder(mudCliffLowerFrame);
-
+        MapTileBuilder mudCliffLowerTile = new MapTileBuilder(mudCliffLowerFrame)
+                        .withTileType(TileType.NOT_PASSABLE);
         mapTiles.add(mudCliffLowerTile);
 
          // mud left
@@ -268,8 +267,8 @@ public class CommonTileset extends Tileset {
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder mudCliffLeftTile = new MapTileBuilder(mudCliffLeftFrame);
-
+        MapTileBuilder mudCliffLeftTile = new MapTileBuilder(mudCliffLeftFrame)
+                                .withTileType(TileType.NOT_PASSABLE);
         mapTiles.add(mudCliffLeftTile);
 
        // mud right
@@ -277,8 +276,8 @@ public class CommonTileset extends Tileset {
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder mudCliffRightTile = new MapTileBuilder(mudCliffRightFrame);
-
+        MapTileBuilder mudCliffRightTile = new MapTileBuilder(mudCliffRightFrame)
+                        .withTileType(TileType.NOT_PASSABLE);
         mapTiles.add(mudCliffRightTile);
 
 
@@ -290,8 +289,8 @@ public class CommonTileset extends Tileset {
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder grassCliffUpperLeftTile = new MapTileBuilder(grassCliffUpperLeftFrame);
-
+        MapTileBuilder grassCliffUpperLeftTile = new MapTileBuilder(grassCliffUpperLeftFrame)
+                        .withTileType(TileType.NOT_PASSABLE); // sludge is not passable
         mapTiles.add(grassCliffUpperLeftTile);
 
        // grass upper right
@@ -299,7 +298,8 @@ public class CommonTileset extends Tileset {
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder grassCliffUpperRightTile = new MapTileBuilder(grassCliffUpperRightFrame);
+        MapTileBuilder grassCliffUpperRightTile = new MapTileBuilder(grassCliffUpperRightFrame)
+                         .withTileType(TileType.NOT_PASSABLE); 
 
         mapTiles.add(grassCliffUpperRightTile);
 
@@ -308,8 +308,8 @@ public class CommonTileset extends Tileset {
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder grassCliffLowerLeftTile = new MapTileBuilder(grassCliffLowerLeftFrame);
-
+        MapTileBuilder grassCliffLowerLeftTile = new MapTileBuilder(grassCliffLowerLeftFrame)
+                                 .withTileType(TileType.NOT_PASSABLE);
         mapTiles.add(grassCliffLowerLeftTile);
 
        // grass lower right
@@ -317,8 +317,8 @@ public class CommonTileset extends Tileset {
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder grassCliffLowerRightTile = new MapTileBuilder(grassCliffLowerRightFrame);
-
+        MapTileBuilder grassCliffLowerRightTile = new MapTileBuilder(grassCliffLowerRightFrame)
+                         .withTileType(TileType.NOT_PASSABLE);
         mapTiles.add(grassCliffLowerRightTile);
 
 
@@ -331,17 +331,17 @@ public class CommonTileset extends Tileset {
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder mudCliffUpperLeftTile = new MapTileBuilder(mudCliffUpperLeftFrame);
-
+        MapTileBuilder mudCliffUpperLeftTile = new MapTileBuilder(mudCliffUpperLeftFrame)
+                        .withTileType(TileType.NOT_PASSABLE);
         mapTiles.add(mudCliffUpperLeftTile);
 
        // mud upper right
         Frame mudCliffUpperRightFrame = new FrameBuilder(getSubImage(4, 2))
                 .withScale(tileScale)
                 .build();
-
-        MapTileBuilder mudCliffUpperRightTile = new MapTileBuilder(mudCliffUpperRightFrame);
-
+               
+        MapTileBuilder mudCliffUpperRightTile = new MapTileBuilder(mudCliffUpperRightFrame)
+                        .withTileType(TileType.NOT_PASSABLE);
         mapTiles.add(mudCliffUpperRightTile);
 
          // mud lower left
@@ -349,7 +349,8 @@ public class CommonTileset extends Tileset {
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder mudCliffLowerLeftTile = new MapTileBuilder(mudCliffLowerLeftFrame);
+        MapTileBuilder mudCliffLowerLeftTile = new MapTileBuilder(mudCliffLowerLeftFrame)
+                .withTileType(TileType.NOT_PASSABLE);
 
         mapTiles.add(mudCliffLowerLeftTile);
 
@@ -358,8 +359,9 @@ public class CommonTileset extends Tileset {
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder mudCliffLowerRightTile = new MapTileBuilder(mudCliffLowerRightFrame);
-
+        MapTileBuilder mudCliffLowerRightTile = new MapTileBuilder(mudCliffLowerRightFrame)
+                .withTileType(TileType.NOT_PASSABLE);
+                
         mapTiles.add(mudCliffLowerRightTile);
 
 
@@ -371,15 +373,15 @@ public class CommonTileset extends Tileset {
         /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
          // sign
-        // Frame signFrame = new FrameBuilder(getSubImage(3, 0))
-        //         .withScale(tileScale)
-        //         .withBounds(1, 2, 14, 14)
-        //         .build();
+        Frame signFrame = new FrameBuilder(getSubImage(3, 0))
+                .withScale(tileScale)
+                .withBounds(1, 2, 14, 14)
+                .build();
 
-        // MapTileBuilder signTile = new MapTileBuilder(signFrame)
-        //         .withTileType(TileType.NOT_PASSABLE);
+        MapTileBuilder signTile = new MapTileBuilder(signFrame)
+                .withTileType(TileType.NOT_PASSABLE);
 
-        // mapTiles.add(signTile);
+        mapTiles.add(signTile);
 
 
         /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
