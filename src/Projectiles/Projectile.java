@@ -7,10 +7,13 @@ import Engine.GraphicsHandler;
 //import GameObject.SpriteSheet;
 //import Utils.Direction;
 import GameObject.Frame;
+import GameObject.GameObject;
 //import java.util.HashMap;
 import Level.MapEntity;
 import Level.Player;
 import Utils.Direction;
+import Level.MapCollisionCheckResult;
+import Level.MapCollisionHandler;
 
 public class Projectile extends MapEntity{
     private Direction direction;
@@ -21,6 +24,8 @@ public class Projectile extends MapEntity{
     private float velocityX, velocityY;
     private double lifetime = 1_000; // milliseconds
     private double deltaTime = 16.67; // milliseconds, approx 60 FPS
+    private boolean isExpired = false;
+    MapCollisionCheckResult collisionCheckResult = MapCollisionHandler.getAdjustedPositionAfterCollisionCheckY(this, map, direction);
 
     public Projectile(float x, float y, Frame frame, Utils.Point p1, Point p2) { //P1 is start point, P2 is target point
         super(x, y, frame);
@@ -41,13 +46,20 @@ public class Projectile extends MapEntity{
     public void update(Player player) {
         this.performAction(player);
         super.update();
-        //System.out.println("Velocity X: " + velocityX + " Velocity Y: " + velocityY);
         moveY(velocityY);
         moveX(velocityX);
         lifetime -= deltaTime;
-        if(isExpired()){
-            //System.out.println("Projectile expired");
+        if(isExpired()){ //if its been a second it despawns
             this.isHidden = true;
+            isExpired = true;
+        }
+        if(MapCollisionHandler.hasCollidedWithMapEntity(this, player, direction)){ //if it hits a wall it despawns
+            //this.isHidden = true;
+            isExpired = true;
+        }
+        if(MapCollisionHandler.hasCollidedWithMapEntity(this, player, direction)){ //if it hits an enemy it despawns
+            //this.isHidden = true;
+            isExpired = true;
         }
     }
 
@@ -89,5 +101,15 @@ public class Projectile extends MapEntity{
 
     public boolean isExpired() {
         return lifetime <= 0;
+    }
+
+    private GameObject owner;
+
+    public void setOwner(GameObject owner) {
+        this.owner = owner;
+    }
+
+    public Object getOwner() {
+        return owner;
     }
 }

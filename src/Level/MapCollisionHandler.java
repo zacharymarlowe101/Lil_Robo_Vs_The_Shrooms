@@ -201,7 +201,7 @@ public class MapCollisionHandler {
     }
 
     // based on tile type, perform logic to determine if a collision did occur with an intersecting tile or not
-    private static boolean hasCollidedWithMapEntity(GameObject gameObject, GameObject otherEntity, Direction direction) {
+    public static boolean hasCollidedWithMapEntity(GameObject gameObject, GameObject otherEntity, Direction direction) {
         // if entity that is being checked for collision against is a map tile
         // collision is determined based on tile type
         if (otherEntity instanceof MapTile) {
