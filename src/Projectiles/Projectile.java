@@ -12,11 +12,9 @@ import GameObject.GameObject;
 import Level.MapEntity;
 import Level.Player;
 import Utils.Direction;
-import Level.MapCollisionCheckResult;
-import Level.MapCollisionHandler;
 
 public class Projectile extends MapEntity{
-    private Direction direction;
+    //private Direction direction;
     private double dx, dy;
     private double length;
     private double dirX, dirY;
@@ -25,7 +23,6 @@ public class Projectile extends MapEntity{
     private double lifetime = 1_000; // milliseconds
     private double deltaTime = 16.67; // milliseconds, approx 60 FPS
     private boolean isExpired = false;
-    MapCollisionCheckResult collisionCheckResult = MapCollisionHandler.getAdjustedPositionAfterCollisionCheckY(this, map, direction);
 
     public Projectile(float x, float y, Frame frame, Utils.Point p1, Point p2) { //P1 is start point, P2 is target point
         super(x, y, frame);
@@ -51,14 +48,6 @@ public class Projectile extends MapEntity{
         lifetime -= deltaTime;
         if(isExpired()){ //if its been a second it despawns
             this.isHidden = true;
-            isExpired = true;
-        }
-        if(MapCollisionHandler.hasCollidedWithMapEntity(this, player, direction)){ //if it hits a wall it despawns
-            //this.isHidden = true;
-            isExpired = true;
-        }
-        if(MapCollisionHandler.hasCollidedWithMapEntity(this, player, direction)){ //if it hits an enemy it despawns
-            //this.isHidden = true;
             isExpired = true;
         }
     }

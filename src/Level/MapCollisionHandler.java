@@ -201,7 +201,7 @@ public class MapCollisionHandler {
     }
 
     // based on tile type, perform logic to determine if a collision did occur with an intersecting tile or not
-    public static boolean hasCollidedWithMapEntity(GameObject gameObject, GameObject otherEntity, Direction direction) {
+    private static boolean hasCollidedWithMapEntity(GameObject gameObject, GameObject otherEntity, Direction direction) {
         // if entity that is being checked for collision against is a map tile
         // collision is determined based on tile type
         if (otherEntity instanceof MapTile) {
@@ -220,5 +220,50 @@ public class MapCollisionHandler {
         else {
             return otherEntity.intersects(gameObject);
         }
+    }
+
+    public static boolean isCollidingWithMapEntity(GameObject gameObject, Map map, Direction direction){
+        int numberOfTilesToCheckY = Math.max(gameObject.getBounds().getWidth() / map.getTileset().getScaledSpriteWidth(), 1);
+        float edgeBoundY = direction == Direction.UP ? gameObject.getBounds().getY() : gameObject.getBounds().getY2();
+        Point tileIndexY = map.getTileIndexByPosition(gameObject.getBounds().getX1(), edgeBoundY);
+        //GameObject entityCollidedWith = null;
+        for (int i = -1; i <= numberOfTilesToCheckY + 1; i++) {
+            MapTile mapTile = map.getMapTile(Math.round(tileIndexY.x) + i, Math.round(tileIndexY.y));
+            if (mapTile != null && hasCollidedWithMapEntity(gameObject, mapTile, direction)) {
+                /*entityCollidedWith = mapTile;
+                float adjustedPositionY = gameObject.getY();
+                if (direction == Direction.DOWN) {
+                    float boundsDifference = gameObject.getY2() - gameObject.getBounds().getY2();
+                    adjustedPositionY = mapTile.getBounds().getY1() - gameObject.getHeight() + boundsDifference;
+                } else if (direction == Direction.UP) {
+                    float boundsDifference = gameObject.getBounds().getY1() - gameObject.getY();
+                    adjustedPositionY = (mapTile.getBounds().getY2() + 1) - boundsDifference;
+                }*/
+                return true;
+            }
+        }
+
+        int numberOfTilesToCheckX = Math.max(gameObject.getBounds().getHeight() / map.getTileset().getScaledSpriteHeight(), 1);
+        float edgeBoundX = direction == Direction.LEFT ? gameObject.getBounds().getX1() : gameObject.getBounds().getX2();
+        Point tileIndexX = map.getTileIndexByPosition(edgeBoundX, gameObject.getBounds().getY1());
+        //GameObject entityCollidedWith = null;
+        for (int i = -1; i <= numberOfTilesToCheckX + 1; i++) {
+            MapTile mapTile = map.getMapTile(Math.round(tileIndexX.x), Math.round(tileIndexX.y + i));
+            if (mapTile != null && hasCollidedWithMapEntity(gameObject, mapTile, direction)) {
+                /*entityCollidedWith = mapTile;
+                float adjustedPositionX = gameObject.getX();
+                if (direction == Direction.RIGHT) {
+                    float boundsDifference = gameObject.getX2() - gameObject.getBounds().getX2();
+                    adjustedPositionX = mapTile.getBounds().getX1() - gameObject.getWidth() + boundsDifference;
+                } else if (direction == Direction.LEFT) {
+                    float boundsDifference = gameObject.getBounds().getX1() - gameObject.getX();
+                    adjustedPositionX = (mapTile.getBounds().getX2() + 1) - boundsDifference;
+                }*/
+                return true;
+            }
+        }
+
+        return false;
+
     }
 }
