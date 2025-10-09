@@ -5,7 +5,7 @@ import Engine.GraphicsHandler;
 import Engine.ScreenManager;
 import GameObject.Rectangle;
 import Projectiles.Projectile;
-import Projectiles.Projectile;
+//import Projectiles.Projectile;
 import Utils.Direction;
 import Utils.Point;
 

@@ -117,6 +117,8 @@ public class NPC extends MapEntity {
 
         updateEnemyAttack(player);
 
+        
+
         if (map != null && map.getProjectiles() != null) {
             for (Projectile p : map.getProjectiles()) {
                 System.out.println("Checking if Exists");
