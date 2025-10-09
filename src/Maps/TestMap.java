@@ -48,13 +48,13 @@ public class TestMap extends Map {
         bug.setInteractScript(new BugScript());
         npcs.add(bug);
 
-        Mushroom1 mushroom1 = new Mushroom1(101, getMapTile(17, 21).getLocation());
+        Mushroom1 mushroom1 = new Mushroom1(101, getMapTile(18, 21).getLocation());
         npcs.add(mushroom1);
 
-        Mushroom2 mushroom2 = new Mushroom2(102, getMapTile(18, 21).getLocation());
+        Mushroom2 mushroom2 = new Mushroom2(102, getMapTile(18, 22).getLocation());
         npcs.add(mushroom2);
 
-        Mushroom3 mushroom3 = new Mushroom3(103, getMapTile(19, 21).getLocation());
+        Mushroom3 mushroom3 = new Mushroom3(103, getMapTile(18, 23).getLocation());
         npcs.add(mushroom3);
 
         return npcs;
