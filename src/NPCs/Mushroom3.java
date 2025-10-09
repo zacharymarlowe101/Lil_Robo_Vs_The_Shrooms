@@ -10,10 +10,11 @@ import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.NPC;
 import Level.Player;
+import Projectiles.LaserAttack; // ✅ Import the laser attack
 import Utils.Direction;
 import Utils.Point;
 
-// Mushroom3 NPC
+// Mushroom3 NPC - walks left and right, periodically fires dual laser beams
 public class Mushroom3 extends NPC {
     private int totalAmountMoved = 0;
     private Direction direction = Direction.RIGHT;
@@ -22,6 +23,9 @@ public class Mushroom3 extends NPC {
     public Mushroom3(int id, Point location) {
         super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("Mushroom3.png"), 32, 65), "WALK_RIGHT");
         this.setHealth(3);
+
+        // ✅ Assign the laser beam attack
+        this.attack = new LaserAttack();
     }
 
     // Makes the mushroom walk left and right

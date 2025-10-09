@@ -3,26 +3,24 @@ package Level;
 import Engine.GraphicsHandler;
 import GameObject.Frame;
 import GameObject.SpriteSheet;
+import Projectiles.EnemyAttack;
 import Projectiles.Projectile;
 import Utils.Direction;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-// Base class for all NPCs in the game
 public class NPC extends MapEntity {
     protected int id = 0;
     protected boolean isLocked = false;
-
-    // Health field — all NPCs start with 3 health by default
     protected int health = 3;
-
-    // Death/despawn logic
     protected boolean isDead = false;
-    protected int deathTimer = 60; // frames (approx. 1 second at 60 FPS)
-
-    // Track which projectiles have already hit this NPC
+    protected int deathTimer = 60;
     protected ArrayList<Projectile> projectilesHit = new ArrayList<>();
+
+    // Attack system
+    protected EnemyAttack attack;
+    protected int attackCooldown = 0;
 
     // Constructors
     public NPC(int id, float x, float y, SpriteSheet spriteSheet, String startingAnimation) {
@@ -50,7 +48,6 @@ public class NPC extends MapEntity {
         this.id = id;
     }
 
-    // Health management
     public void setHealth(int health) {
         this.health = health;
     }
@@ -59,9 +56,8 @@ public class NPC extends MapEntity {
         return this.health;
     }
 
-    // Handle taking damage and death
     public void takeDamage(int amount) {
-        if (isDead) return; // Ignore if already dead
+        if (isDead) return;
 
         health -= amount;
 
@@ -74,7 +70,6 @@ public class NPC extends MapEntity {
         }
     }
 
-    // Makes the NPC face the player
     public void facePlayer(Player player) {
         float centerPoint = getBounds().getX() + (getBounds().getWidth() / 2);
         float playerCenterPoint = player.getBounds().getX() + (player.getBounds().getWidth() / 2);
@@ -94,38 +89,37 @@ public class NPC extends MapEntity {
     }
 
     public void walk(Direction direction, float speed) {
-        if (direction == Direction.UP) {
-            moveY(-speed);
-        } else if (direction == Direction.DOWN) {
-            moveY(speed);
-        } else if (direction == Direction.LEFT) {
-            moveX(-speed);
-        } else if (direction == Direction.RIGHT) {
-            moveX(speed);
+        if (direction == Direction.UP) moveY(-speed);
+        else if (direction == Direction.DOWN) moveY(speed);
+        else if (direction == Direction.LEFT) moveX(-speed);
+        else if (direction == Direction.RIGHT) moveX(speed);
+    }
+
+    public void updateEnemyAttack(Player player) {
+        if (isDead || isHidden) return;
+
+        if (attackCooldown > 0) {
+            attackCooldown--;
+        } else if (attack != null && attack.isInRange(this, player)) {
+            attack.perform(this, player);
+            attackCooldown = attack.getCooldown();
         }
     }
 
-    // Update NPC and detect projectile collisions
     public void update(Player player) {
-        // Handle death timer and despawn
         if (isDead) {
             deathTimer--;
-            if (deathTimer <= 0) {
-                this.isHidden = true;
-            }
+            if (deathTimer <= 0) this.isHidden = true;
             return;
         }
 
-        if (!isLocked) {
-            performAction(player);
-        }
+        if (!isLocked) performAction(player);
 
-        // Check for projectile hits
+        updateEnemyAttack(player);
+
         if (map != null && map.getProjectiles() != null) {
             for (Projectile p : map.getProjectiles()) {
                 if (p == null || p.isHidden()) continue;
-
-                // Only count hits once per projectile
                 if (!projectilesHit.contains(p) && this.getBounds().intersects(p.getBounds())) {
                     if (health > 0) {
                         takeDamage(1);
@@ -155,5 +149,19 @@ public class NPC extends MapEntity {
 
     public int getId() {
         return id;
+    }
+
+    public Map getMap() {
+        return this.map;
+    }
+
+    public float distanceTo(Player player) {
+        float dx = player.getX() - this.getX();
+        float dy = player.getY() - this.getY();
+        return (float) Math.sqrt(dx * dx + dy * dy);
+    }
+
+    public void setAttack(EnemyAttack attack) {
+        this.attack = attack;
     }
 }
