@@ -10,10 +10,11 @@ import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.NPC;
 import Level.Player;
+import Projectiles.AOEAttack; // ✅ Import AOE attack
 import Utils.Direction;
 import Utils.Point;
 
-// Mushroom2 NPC - stands still and looks around
+// Mushroom2 NPC - stands still, looks around, and periodically fires an AOE attack
 public class Mushroom2 extends NPC {
     private int directionTimer = 0; // Timer for flipping direction
     private Direction direction = Direction.RIGHT;
@@ -21,12 +22,15 @@ public class Mushroom2 extends NPC {
     public Mushroom2(int id, Point location) {
         super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("Mushroom2.png"), 32, 32), "STAND_RIGHT");
         this.setHealth(3);
+
+        // ✅ Assign an AOE attack to this mushroom
+        this.attack = new AOEAttack();
     }
 
     // Makes the mushroom turn in place periodically
     @Override
     public void performAction(Player player) {
-        // Flip direction every 120 frames (~2 seconds at 60 FPS)
+        // Flip direction every 150 frames (~2.5 seconds at 60 FPS)
         directionTimer++;
 
         if (directionTimer >= 150) {

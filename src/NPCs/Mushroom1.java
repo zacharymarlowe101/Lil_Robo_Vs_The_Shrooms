@@ -10,21 +10,23 @@ import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.NPC;
 import Level.Player;
+import Projectiles.ProjectileAttack;
 import Utils.Direction;
 import Utils.Point;
 
-// Mushroom1 NPC
 public class Mushroom1 extends NPC {
     private int totalAmountMoved = 0;
     private Direction direction = Direction.RIGHT;
-    private float speed = 1.0f; // Adjust speed here
+    private float speed = 1.0f;
 
     public Mushroom1(int id, Point location) {
         super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("Mushroom1.png"), 32, 32), "WALK_RIGHT");
         this.setHealth(3);
+
+        // assign projectile attack
+        this.attack = new ProjectileAttack();
     }
 
-    // Makes the mushroom walk left and right
     @Override
     public void performAction(Player player) {
         float amountMoved = moveXHandleCollision(speed * direction.getVelocity());
@@ -40,11 +42,9 @@ public class Mushroom1 extends NPC {
             }
         }
 
-        if (direction == Direction.RIGHT) {
-            currentAnimationName = "WALK_RIGHT";
-        } else {
-            currentAnimationName = "WALK_LEFT";
-        }
+        currentAnimationName = (direction == Direction.RIGHT) ? "WALK_RIGHT" : "WALK_LEFT";
+
+        updateEnemyAttack(player);
     }
 
     @Override

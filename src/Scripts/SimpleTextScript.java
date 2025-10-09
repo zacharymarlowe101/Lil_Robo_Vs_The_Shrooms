@@ -1,8 +1,8 @@
 package Scripts;
 
-import java.util.ArrayList;
 import Level.Script;
 import ScriptActions.*;
+import java.util.ArrayList;
 
 
 // simple reusable script that just shows text in textbox
@@ -27,4 +27,5 @@ public class SimpleTextScript extends Script {
         scriptActions.add(new UnlockPlayerScriptAction());
         return scriptActions;
     }
+    
 }
