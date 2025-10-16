@@ -1,18 +1,18 @@
 package Maps;
 
 import Level.*;
+import NPCs.Mushroom1;
 import Scripts.WarpScript;
 import Tilesets.CommonTileset;
 import Utils.Point;
 import java.util.ArrayList;
-import NPCs.Mushroom1;
 
 // Represents a test map to be used in a level
 public class MyMap extends Map {
 
     public MyMap() {
         super("MyMap.txt", new CommonTileset());
-        this.playerStartPosition = new Point(500, 500);
+        this.playerStartPosition = new Point(500, 1000);
     }
     @Override
     public ArrayList<Trigger> loadTriggers() {
