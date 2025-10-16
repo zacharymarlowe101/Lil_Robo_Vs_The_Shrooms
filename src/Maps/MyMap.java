@@ -1,11 +1,11 @@
 package Maps;
 
 import Level.*;
-import Scripts.TestMap.LostBallScript;
 import Scripts.TestMap.WarpScript;
 import Tilesets.CommonTileset;
 import Utils.Point;
 import java.util.ArrayList;
+import NPCs.Mushroom1;
 
 // Represents a test map to be used in a level
 public class MyMap extends Map {
@@ -17,12 +17,23 @@ public class MyMap extends Map {
     @Override
     public ArrayList<Trigger> loadTriggers() {
         ArrayList<Trigger> triggers = new ArrayList<>();
-        triggers.add(new Trigger(790, 1030, 100, 10, new LostBallScript(), "hasLostBall"));
-        triggers.add(new Trigger(790, 960, 10, 80, new LostBallScript(), "hasLostBall"));
-        triggers.add(new Trigger(890, 960, 10, 80, new LostBallScript(), "hasLostBall"));
+        
         triggers.add(new Trigger(250,200, 100,800, new WarpScript(), "haswarped"));
         return triggers;
     }
+
+    @Override
+    public ArrayList<NPC> loadNPCs() {
+        ArrayList<NPC> npcs = new ArrayList<>();
+
+        Mushroom1 mushroom1 = new Mushroom1(101, getMapTile(5, 5).getLocation());
+        npcs.add(mushroom1);
+
+        
+
+        return npcs;
+    }
+    
     
 }
 

@@ -1,14 +1,9 @@
 package Maps;
 
-import EnhancedMapTiles.PushableRock;
 import Level.*;
-import NPCs.Bug;
-import NPCs.Dinosaur;
 import NPCs.Mushroom1;
 import NPCs.Mushroom2;
 import NPCs.Mushroom3;
-import NPCs.Walrus;
-import Scripts.SimpleTextScript;
 import Scripts.TestMap.*;
 import Tilesets.CommonTileset;
 import java.util.ArrayList;
@@ -21,32 +16,32 @@ public class TestMap extends Map {
         this.playerStartPosition = getMapTile(17, 20).getLocation();
     }
 
-    @Override
-    public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
-        ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
+    // @Override
+    // public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
+    //     ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
 
-        PushableRock pushableRock = new PushableRock(getMapTile(2, 7).getLocation());
-        enhancedMapTiles.add(pushableRock);
+    //     PushableRock pushableRock = new PushableRock(getMapTile(2, 7).getLocation());
+    //     enhancedMapTiles.add(pushableRock);
 
-        return enhancedMapTiles;
-    }
+    //     return enhancedMapTiles;
+    // }
 
     @Override
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
-        Walrus walrus = new Walrus(1, getMapTile(4, 28).getLocation().subtractY(40));
-        walrus.setInteractScript(new WalrusScript());
-        npcs.add(walrus);
+        // Walrus walrus = new Walrus(1, getMapTile(4, 28).getLocation().subtractY(40));
+        // walrus.setInteractScript(new WalrusScript());
+        // npcs.add(walrus);
 
-        Dinosaur dinosaur = new Dinosaur(2, getMapTile(13, 4).getLocation());
-        dinosaur.setExistenceFlag("hasTalkedToDinosaur");
-        dinosaur.setInteractScript(new DinoScript());
-        npcs.add(dinosaur);
+        // Dinosaur dinosaur = new Dinosaur(2, getMapTile(13, 4).getLocation());
+        // dinosaur.setExistenceFlag("hasTalkedToDinosaur");
+        // dinosaur.setInteractScript(new DinoScript());
+        // npcs.add(dinosaur);
         
-        Bug bug = new Bug(3, getMapTile(7, 12).getLocation().subtractX(20));
-        bug.setInteractScript(new BugScript());
-        npcs.add(bug);
+        // Bug bug = new Bug(3, getMapTile(7, 12).getLocation().subtractX(20));
+        // bug.setInteractScript(new BugScript());
+        // npcs.add(bug);
 
         Mushroom1 mushroom1 = new Mushroom1(101, getMapTile(17, 20).getLocation());
         npcs.add(mushroom1);
@@ -63,24 +58,22 @@ public class TestMap extends Map {
     @Override
     public ArrayList<Trigger> loadTriggers() {
         ArrayList<Trigger> triggers = new ArrayList<>();
-        triggers.add(new Trigger(790, 1030, 100, 10, new LostBallScript(), "hasLostBall"));
-        triggers.add(new Trigger(790, 960, 10, 80, new LostBallScript(), "hasLostBall"));
-        triggers.add(new Trigger(890, 960, 10, 80, new LostBallScript(), "hasLostBall"));
-        triggers.add(new Trigger(200,200, 10,80, new WarpScript(), "haswarped"));
+       
+        triggers.add(new Trigger(250,200, 100,800, new WarpScript(), "haswarped"));
         return triggers;
     }
     
     
 
-    @Override
-    public void loadScripts() {
-        getMapTile(21, 19).setInteractScript(new SimpleTextScript("Cat's house"));
+    // @Override
+    // public void loadScripts() {
+    //     getMapTile(21, 19).setInteractScript(new SimpleTextScript("Cat's house"));
 
-        getMapTile(7, 26).setInteractScript(new SimpleTextScript("Walrus's house"));
+    //     getMapTile(7, 26).setInteractScript(new SimpleTextScript("Walrus's house"));
 
-        getMapTile(20, 4).setInteractScript(new SimpleTextScript("Dino's house"));
+    //     getMapTile(20, 4).setInteractScript(new SimpleTextScript("Dino's house"));
 
-        getMapTile(2, 6).setInteractScript(new TreeScript());
-    }
+    //     getMapTile(2, 6).setInteractScript(new TreeScript());
+    // }
 }
 
