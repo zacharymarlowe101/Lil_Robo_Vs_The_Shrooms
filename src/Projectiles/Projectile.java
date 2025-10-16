@@ -66,11 +66,11 @@ public class Projectile extends MapEntity{
                         npcs.takeDamage(1);
                         projectilesHit.add(this);
                         this.isHidden = true; // Hide the projectile upon hitting the NPC
-                        for(Projectile p : map.getProjectiles()){
+                        /*for(Projectile p : map.getProjectiles()){
                             if(p == this){
                                 map.getProjectiles().remove(this);
                             }
-                        }
+                        }*/
                     }
                 }
                 //System.out.println("Checking projectile collisions for Wall " + MapCollisionHandler.isCollidingWithMapEntity(p, map, null));
@@ -79,11 +79,11 @@ public class Projectile extends MapEntity{
                 System.out.println("Projectile hit wall");
                 projectilesHit.add(this);
                 this.isHidden = true;
-                for(Projectile p : map.getProjectiles()){
+                /*for(Projectile p : map.getProjectiles()){
                     if(p == this){
                         map.getProjectiles().remove(this);
                     }
-                }
+                }*/
             }
             
         }
