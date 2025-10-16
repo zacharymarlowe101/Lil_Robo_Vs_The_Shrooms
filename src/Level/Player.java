@@ -87,6 +87,7 @@ public abstract class Player extends GameObject {
             didProjectileSpawn = true;
             map.addProjectile(projectile);
             projectile.setOwner(this);
+            
             //System.out.println("Spawned Projectile");
         }
         if(!GamePanel.isMouseClicked() && didProjectileSpawn == true){ //Reset projectile spawn //Keyboard.isKeyUp(Key.E)

@@ -1,18 +1,18 @@
 package Maps;
 
 import Level.*;
+import NPCs.Mushroom1;
 import Scripts.WarpScript;
 import Tilesets.CommonTileset;
 import Utils.Point;
 import java.util.ArrayList;
-import NPCs.Mushroom1;
 
 // Represents a test map to be used in a level
 public class MyMap extends Map {
 
     public MyMap() {
         super("MyMap.txt", new CommonTileset());
-        this.playerStartPosition = new Point(500, 500);
+        this.playerStartPosition = new Point(500, 1000);
     }
     @Override
     public ArrayList<Trigger> loadTriggers() {
@@ -47,25 +47,14 @@ public class MyMap extends Map {
 //         return enhancedMapTiles;
 //     }
 //
-//     @Override
-//     public ArrayList<NPC> loadNPCs() {
-//         ArrayList<NPC> npcs = new ArrayList<>();
-//
-//         Walrus walrus = new Walrus(1, getMapTile(4, 28).getLocation().subtractY(40));
-//         walrus.setInteractScript(new WalrusScript());
-//         npcs.add(walrus);
-//
-//         Dinosaur dinosaur = new Dinosaur(2, getMapTile(13, 4).getLocation());
-//         dinosaur.setExistenceFlag("hasTalkedToDinosaur");
-//         dinosaur.setInteractScript(new DinoScript());
-//         npcs.add(dinosaur);
-//
-//         Bug bug = new Bug(3, getMapTile(7, 12).getLocation().subtractX(20));
-//         bug.setInteractScript(new BugScript());
-//         npcs.add(bug);
-//
-//         return npcs;
-//     }
+    // @Override
+    // public ArrayList<NPC> loadNPCs() {
+    //     ArrayList<NPC> npcs = new ArrayList<>();
+
+        
+
+    //     return npcs;
+    // }
 //
 //     @Override
 //     public ArrayList<Trigger> loadTriggers() {
