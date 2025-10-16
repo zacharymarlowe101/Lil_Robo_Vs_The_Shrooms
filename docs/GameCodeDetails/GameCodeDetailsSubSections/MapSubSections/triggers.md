@@ -43,7 +43,7 @@ There is no real need to subclass them, as the trigger script is what essentiall
 ## Adding a trigger to a map
 
 In a map subclass's `loadTriggers` method, triggers can be defined and added to the map's trigger list. 
-For example, in `TestMap`, a couple of triggers are added:
+For example, in `EnemyMap1`, a couple of triggers are added:
 
 ```java
 @Override
@@ -61,7 +61,7 @@ The next argument is the specified `triggerScript`. Finally, the last argument (
 
 ## Triggers currently in game
 
-Currently, the `TestMap` defines three triggers, which all have the same script attached and have the same purpose.
+Currently, the `EnemyMap1` defines three triggers, which all have the same script attached and have the same purpose.
 They are placed around the player's house in a "horseshoe" like pattern to force the player to step on one
 regardless of which direction they start walking in when the game starts up. 
 Since all of them have the same `triggerScript` and `existenceFlag`,
@@ -77,7 +77,7 @@ Note: You need to go to "Options" on the menu bar of the map editor and hit "Sho
 
 From the above image, you can see the "horseshoe" shape I was referring to. 
 Since each trigger is a rectangle, I had to create three in order to make that shape. 
-When the player walks over the trigger (which happens at the beginning of the game), it executes the "lost ball script" (`LostBallScript` class which is in the `Scripts.TestMap` package).
+When the player walks over the trigger (which happens at the beginning of the game), it executes the "lost ball script" (`LostBallScript` class which is in the `Scripts.EnemyMap1` package).
 
 In the below demonstration, the player walks over the "left" trigger, which causes it to execute its `triggerScript`.
 

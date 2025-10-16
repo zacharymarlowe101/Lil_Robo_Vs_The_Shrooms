@@ -51,16 +51,16 @@ The `draw` method tells the `Camera` class to `draw` what area of the map should
 ## Map Subclasses
 
 Game maps are defined by subclassing the `Map` class. These are found in the `Maps` package.
-Currently, `TestMap` is the only map in the game that plays out a level. 
+Currently, `EnemyMap1` is the only map in the game that plays out a level. 
 There is also `TitleScreenMap` which just acts as the background to the title screen.
 
 Each `Map` subclass must satisfy the super class and specify the map file name and tileset. 
 It is also a good idea to set the `playerStartLocation` in the map subclass's constructor.
 
-`TestMap` defines a map file of `test_map.txt`, and the `CommonTileset` class as its tileset choice (more on tilesets [here](./map-tiles-and-tilesets.md)),
+`EnemyMap1` defines a map file of `test_map.txt`, and the `CommonTileset` class as its tileset choice (more on tilesets [here](./map-tiles-and-tilesets.md)),
 
 ```java
-public TestMap() {
+public EnemyMap1() {
     super("test_map.txt", new CommonTileset());
     this.playerStartPosition = getMapTile(17, 20).getLocation();
 }
@@ -71,7 +71,7 @@ It also sets the `playerStartLocation` variable to a specific location, which is
 Each map subclass can also override the `loadNPCs`, `loadEnhancedMapTiles`, `loadTriggers`, and `loadScripts` methods in order to define
 [NPCs](./npcs.md), [enhanced map tiles](./enhanced-map-tiles.md), [triggers](./triggers.md) and [scripts](./script-details.md) for a map.
 
-For example, in `TestMap`, the `loadNPCs` override method looks like this:
+For example, in `EnemyMap1`, the `loadNPCs` override method looks like this:
 
 ```java
 @Override

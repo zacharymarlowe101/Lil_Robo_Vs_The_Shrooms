@@ -1,4 +1,4 @@
-package Scripts.TestMap;
+package Scripts.EnemyMap1;
 
 import Level.GameListener;
 import Level.Script;

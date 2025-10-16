@@ -50,7 +50,7 @@ The available tile types are included in the `TileType` enum in the `Level` pack
 A tileset is a collection of map tiles. Easy enough.
 
 Graphic wise, a tileset defines each tile in one image. 
-Below is the `CommonTileset.png` which is used by `TestMap` to construct its tile map. 
+Below is the `CommonTileset.png` which is used by `EnemyMap1` to construct its tile map. 
 You will notice that the common tileset image is one big image with each individual map tile defined. 
 Each map tile in a tileset must be the SAME width and height.
 

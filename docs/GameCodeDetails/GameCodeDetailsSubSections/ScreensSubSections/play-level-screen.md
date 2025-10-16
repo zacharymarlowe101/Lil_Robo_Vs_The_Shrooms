@@ -58,7 +58,7 @@ map.draw(player, graphicsHandler);
 
 Basically, the `Map` and `Player` classes are updated and drawn each cycle, and they handle the rest of the work.
 The specific `Map` and `Player` class instance used for the level is defined in the screen's `initialize` method.
-Currently, this game currently only has one playable map (`TestMap.java` file in the `Map` package) and one player type (`Cat.java` file in the `Players` package).
+Currently, this game currently only has one playable map (`EnemyMap1.java` file in the `Map` package) and one player type (`Cat.java` file in the `Players` package).
 From there, the `PlayLevelScreen` just continually calls their `update` and `draw` methods to carry out the game. 
 The documentation for the `Map` class is located [here](../map.md), and for the `Player` class is located [here](../player.md).
 

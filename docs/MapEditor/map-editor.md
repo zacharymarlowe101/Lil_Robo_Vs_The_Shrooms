@@ -49,7 +49,7 @@ This Map Editor allows you to do the following:
 It should be pretty self-explanatory how to use the map editor after playing around with it for a few minutes. 
 
 The left-hand sidebar contain the tiles that can be used for the map. 
-Each `Map` subclass (such as `TestMap`) defines its own `Tileset` (such as `CommonTileset`) which is where these tile options come from.
+Each `Map` subclass (such as `EnemyMap1`) defines its own `Tileset` (such as `CommonTileset`) which is where these tile options come from.
 You can read more about the `Map` class [here](/GameDetails/Map) and about map tiles and tilesets [here](/GameDetails/Map/MapTilesAndTilesets). 
 
 Any tile on the left-hand sidebar can be clicked to "select" it. 
@@ -76,12 +76,12 @@ You should ALWAYS just append tiles on to the end of the `defineTiles` method, e
 
 Adding a new map to the map editor (and essentially creating a new map entirely) is a relatively easy process.
 
-First start by creating a new class in the `Maps` package that extends the `Map` class. You can look at `TestMap` as a reference for how to do this.
+First start by creating a new class in the `Maps` package that extends the `Map` class. You can look at `EnemyMap1` as a reference for how to do this.
 Then for now, all that's needed is a constructor to define the map file name, tileset, and player starting position. An example is below:
 
 ```java
-public class MyMap extends Map {
-    public MyMap() {
+public class TutorialMap extends Map {
+    public TutorialMap() {
         super("my_map.txt", new CommonTileset());
         this.playerStartPosition = new Point(1, 11);
     }
@@ -94,32 +94,32 @@ Make sure that two maps do not share the same map file name, or one will overwri
 
 Now, in the `MapEditor` package, go to the `EditorMaps.java` file. In here, you will need to add your new map to some of the class's methods.
 
-In the `getMapNames` method, add an entry to the list for the name you would want the map to be recognized by -- for this example, I will be using "MyMap".
+In the `getMapNames` method, add an entry to the list for the name you would want the map to be recognized by -- for this example, I will be using "TutorialMap".
 
 {% raw %}
 ```java
 public static ArrayList<String> getMapNames() {
     return new ArrayList<String>() {{
-        add("TestMap");
+        add("EnemyMap1");
         add("TitleScreen");
-        add("MyMap");
+        add("TutorialMap");
     }};
 }
 ```
 {% endraw %}
 
 Then, in the `getMapByName` method, add another switch case for your new map name and return an instance of your new Map class.
-For this example, I am adding a switch case for "MyMap" and it is returning `new MyMap()`:
+For this example, I am adding a switch case for "TutorialMap" and it is returning `new TutorialMap()`:
 
 ```java
 public static Map getMapByName(String mapName) {
     switch(mapName) {
-        case "TestMap":
-            return new TestMap();
+        case "EnemyMap1":
+            return new EnemyMap1();
         case "TitleScreen":
             return new TitleScreenMap();
-        case "MyMap":
-            return new MyMap();
+        case "TutorialMap":
+            return new TutorialMap();
         default:
             throw new RuntimeException("Unrecognized map name");
     }

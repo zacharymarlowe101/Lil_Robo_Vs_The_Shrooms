@@ -35,7 +35,7 @@ An NPC can be made to do any desired behavior, and is not just limited to intera
 ## NPC Subclass
 
 In the `NPCs` package, there are currently only two subclasses of the `NPC` class -- `Walrus` and `Dinosaur`.
-Both NPCs can be seen in the `TestMap` map.
+Both NPCs can be seen in the `EnemyMap1` map.
 
 ## Adding a new NPC to the game
 
@@ -45,7 +45,7 @@ I recommend copying an existing NPC class as a "template" of sorts to help set u
 ## Adding an NPC to a map
 
 In a map subclass's `loadNPCs` method, NPCs can be defined and added to the map's NPC list. 
-For example, in `TestMap`, a `Walrus` class instance is created added to the NPC list:
+For example, in `EnemyMap1`, a `Walrus` class instance is created added to the NPC list:
 
 ```java
 @Override
@@ -69,7 +69,7 @@ public ArrayList<NPC> loadNPCs() {
 This NPC is defined by the `Walrus` class. 
 In addition to being the best made piece of art you have ever laid your eyes on,
 the walrus is able to be interacted with. 
-Its `interactScript` is defined in the `WalrusScript` class (located in the `Scripts.TestMap` package).
+Its `interactScript` is defined in the `WalrusScript` class (located in the `Scripts.EnemyMap1` package).
 Read more about scripts [here](./script-details.md).
 
 The walrus doesn't do much except wait around to be talked to.
@@ -82,7 +82,7 @@ The image file for the walrus is `Walrus.png`.
 
 This NPC is defined by the `Dinosaur` class. 
 The dinosaur is able to be interacted with.
-Its `interactScript` is defined in the `DinoScript` class (located in the `Scripts.TestMap` package).
+Its `interactScript` is defined in the `DinoScript` class (located in the `Scripts.EnemyMap1` package).
 The `DinoScript` is the most complex script in the game. 
 Understanding it is the key to mastering the scripting system and being able to create anything you want in this type of game. 
 Read more about scripts [here](./script-details.md).
@@ -97,7 +97,7 @@ The dinosaur also has a walking animation, which is used during its `DinoScript`
 
 This NPC is defined by the `Bug` class. 
 The bug is able to be interacted with.
-Its `interactScript` is defined in the `BugScript` class (located in the `Scripts.TestMap` package).
+Its `interactScript` is defined in the `BugScript` class (located in the `Scripts.EnemyMap1` package).
 The `BugScript` class shows an example of how to create user selectable options through the textbox (such as selecting "yes" or "no" to a question asked by an NPC).
 Read more about scripts [here](./script-details.md).
 
@@ -112,7 +112,7 @@ Unlike the walrus and dinosaur NPCs, the bug NPC walks back and forth until it i
 The constructor for an `NPC` class instance requires an `id` value. 
 This should be a unique number for each NPC in as map.
 This allows NPCs to be identifiable, which is useful in situations where you would want to move an NPC on the map in a script, even if you aren't interacting with them. 
-`TestMap` simply uses an id value of 0 for the walrus and 1 for the dinosaur, and if more NPCs were to be added, it would just increment from there.
+`EnemyMap1` simply uses an id value of 0 for the walrus and 1 for the dinosaur, and if more NPCs were to be added, it would just increment from there.
 
 ## NPC Methods
 

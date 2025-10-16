@@ -53,8 +53,8 @@ As long as a script eventually returns a `COMPLETED` response, the game will han
 ## How to create a script
 
 The `Script` class is abstract, meaning it must be subclassed. 
-Currently, the game has several `Script` subclasses located in the `Scripts.TestMap` package. The reason all scripts aren't just thrown into the generic `Scripts` package is that scripts tend to be separated out by map, and while there is only one map `TestMap` in this game currently, I wanted to make it easier for
-other developers to organize their scripts for the future. As a result, all scripts that are used in the `TestMap` map belong in the `Scripts.TestMap` package.
+Currently, the game has several `Script` subclasses located in the `Scripts.EnemyMap1` package. The reason all scripts aren't just thrown into the generic `Scripts` package is that scripts tend to be separated out by map, and while there is only one map `EnemyMap1` in this game currently, I wanted to make it easier for
+other developers to organize their scripts for the future. As a result, all scripts that are used in the `EnemyMap1` map belong in the `Scripts.EnemyMap1` package.
 
 There is one `Script` subclass, however, that IS inside the generic `Scripts` package: `SimpleTextScript`.
 This script's only instructions are to loads up a textbox, show text, and then close the textbox.
@@ -83,8 +83,8 @@ public ArrayList<ScriptAction> loadScriptActions() {
 Scripts can be attached to any [NPC](./npcs.md), [MapTile](./map-tiles-and-tilesets.md), or [EnhancedMapTile](./enhanced-map-tiles.md) class instance as an "interact script".
 This means the script will become active and execute when the player interacts with the entity.
 A map subclass handles attaching scripts to its entities. 
-For example, in the `TestMap` map subclass in its `loadNPCs` method, it creates the `Walrus` NPC and then calls its `setInteractScript` method to assign it an interact script.
-The interact script it assigns to this NPC is the `WalrusScript` class, which is a script subclass found in the `Scripts.TestMap` package.
+For example, in the `EnemyMap1` map subclass in its `loadNPCs` method, it creates the `Walrus` NPC and then calls its `setInteractScript` method to assign it an interact script.
+The interact script it assigns to this NPC is the `WalrusScript` class, which is a script subclass found in the `Scripts.EnemyMap1` package.
 
 ```java
 Walrus walrus = new Walrus(1, getMapTile(4, 28).getLocation().subtractY(40));
@@ -159,7 +159,7 @@ flagManager.addFlag("hasFoundBall", false);
 As you can see, each flag is given a descriptive enough name in order to figure out what it represents.
 For example, the `hasTalkedToWalrus` flag represents whether the player has already talked to the walrus NPC or not.
 
-An example of utilizing flags in a Script can be seen in the `WalrusScript` class, which is in the `Scripts.TestMap` package.
+An example of utilizing flags in a Script can be seen in the `WalrusScript` class, which is in the `Scripts.EnemyMap1` package.
 Using a flag in this script correctly allows for the walrus NPC to say different messages to the player based on whether is is the first time the player has spoken to the walrus or not.
 More on how the `WalrusScript` class works and how it uses this flag for conditionally script behavior can be found [here](./script-details.md#walrus-script)
 

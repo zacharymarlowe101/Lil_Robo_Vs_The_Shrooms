@@ -1,9 +1,8 @@
-package Scripts.TestMap;
-
-import java.util.ArrayList;
+package Scripts.EnemyMap1;
 
 import Level.Script;
 import ScriptActions.*;
+import java.util.ArrayList;
 
 // script for talking to bug npc
 // checkout the documentation website for a detailed guide on how this script works

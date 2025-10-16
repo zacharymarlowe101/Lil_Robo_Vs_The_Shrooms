@@ -63,7 +63,7 @@ If the entity's `existenceFlag` becomes unset, it will "exist" again, and the ga
 This feature is useful for telling certain entities like NPCs and Triggers to disappear after a certain event occurs.
 An entity with no `existenceFlag` set is always considered to "exist".
 
-In the game currently, the `TestMap` sets the dinosaur NPC's `existenceFlag` to `"hasTalkedToDinosaur"`.
+In the game currently, the `EnemyMap1` sets the dinosaur NPC's `existenceFlag` to `"hasTalkedToDinosaur"`.
 Once that flag is set (which happens after talking to the dinosaur during a specific part of the game),
 the dinosaur no longer "exists" and is no longer shown on the map.
 
@@ -87,8 +87,8 @@ The player interacts with an entity by walking up to it in a close enough proxim
 Read more about scripts [here](./script-details.md). 
 This game is built around interact and trigger scripts, and is one of the most important pieces of the game to understand.
 
-In the game currently, `TestMap` adds interact scripts to the walrus NPC, dinosaur NPC, all three sign tiles, and the bottom tree trunk tile (where the player finds their ball at the end of the game).
-The below code in `TestMap` shows an example of setting an interact script on specific map tiles (like the sign tiles):
+In the game currently, `EnemyMap1` adds interact scripts to the walrus NPC, dinosaur NPC, all three sign tiles, and the bottom tree trunk tile (where the player finds their ball at the end of the game).
+The below code in `EnemyMap1` shows an example of setting an interact script on specific map tiles (like the sign tiles):
 
 ```java
 @Override

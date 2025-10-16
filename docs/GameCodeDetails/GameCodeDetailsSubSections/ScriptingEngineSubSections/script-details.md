@@ -66,7 +66,7 @@ Then, it gives the `TextboxScriptAction` the array of text items to show to the 
 Finally, it unlocks the player so they can move again and continue playing the game using the `UnlockPlayerScriptAction`.
 
 This script is attached to several map tiles in the game (all of the signs outside of the houses).
-You can see how this is done in the `TestMap` class in the `Maps` package:
+You can see how this is done in the `EnemyMap1` class in the `Maps` package:
 
 ```java
 @Override
@@ -127,7 +127,7 @@ This ensures the trigger scripts don't get activated again when the player walks
 Since all three triggers share the same existence flag, setting the `hasLostBall` flag removes all three.
 
 This script is attached to all three trigger instances that surround the starting area by the player's house.
-You can see how this is done in the `TestMap` class in the `Maps` package (the script is passed into each Trigger's constructor):
+You can see how this is done in the `EnemyMap1` class in the `Maps` package (the script is passed into each Trigger's constructor):
 
 ```java
 @Override
@@ -202,7 +202,7 @@ The second `ConditionalScriptActionGroup` executes when speaking with the walrus
 
 And as usual, the script ends off by unlocking the player using the `UnlockPlayerScriptAction`.
 
-This script is attached to the walrus NPC as an interact script in the `TestMap` class with the following code:
+This script is attached to the walrus NPC as an interact script in the `EnemyMap1` class with the following code:
 
 ```java
 @Override
@@ -435,7 +435,7 @@ The dinosaur NPC's existence flag is `hasTalkedToDinosaur`, so once this is set 
 addScriptAction(new ChangeFlagScriptAction("hasTalkedToDinosaur", true));
 ```
 
-This script is attached to the dinosaur NPC as an interact script in the `TestMap` class with the following code:
+This script is attached to the dinosaur NPC as an interact script in the `EnemyMap1` class with the following code:
 
 ```java
 @Override
@@ -590,7 +590,7 @@ addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
 ```
 {% endraw %}
 
-This script is attached to the bug NPC as an interact script in the `TestMap` class with the following code:
+This script is attached to the bug NPC as an interact script in the `EnemyMap1` class with the following code:
 
 ```java
 @Override
@@ -675,7 +675,7 @@ Isn't it interesting how much thought has to go into the code for such a simple 
 Once the requirements of the conditional have been met, the script simply uses a `TextboxScriptAction` to show some text that the ball was found, and then uses a `ChangeFlagScriptAction` to set the flag `hasFoundBall`.
 The game then detects that the flag `hasFoundBall` is set and pulls up the win screen (but this is done in a different spot all the way in the `PlayLevelScreen` class -- it is not the responsibility of the script to end the game, it's just the script's job to tell the game what state it is in).
 
-This script is attached to the map tile at location x: 2, Y: 6 (which is the base of the tree in the top left corner) in the `TestMap` class with the following code:
+This script is attached to the map tile at location x: 2, Y: 6 (which is the base of the tree in the top left corner) in the `EnemyMap1` class with the following code:
 
 ```java
 @Override

@@ -29,7 +29,7 @@ And yes, I know the name "enhanced map tile" is dumb, I couldn't think of a bett
 ## Enhanced Map Tile Subclass
 
 In the `EnhancedMapTiles` package, there is currently one subclass of the `EnhancedMapTile` class -- `PushableRock`.
-The `PushableRock` class defines an enhanced map tile in the game, which can be seen in the `TestMap` map.
+The `PushableRock` class defines an enhanced map tile in the game, which can be seen in the `EnemyMap1` map.
 
 ## Adding a new enhanced map tile to the game
 
@@ -39,7 +39,7 @@ I recommend copying an existing enhanced map tile class as a "template" of sorts
 ## Adding an enhanced map tile to a map
 
 In a map subclass's `loadEnhancedMapTiles` method, enhanced map tiles can be defined and added to the map's enhanced map tile list. 
-For example, in `TestMap`, a `PushableRock` is created and added to the enhanced map tile list:
+For example, in `EnemyMap1`, a `PushableRock` is created and added to the enhanced map tile list:
 
 ```java
 @Override

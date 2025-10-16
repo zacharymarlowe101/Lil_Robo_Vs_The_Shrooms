@@ -4,8 +4,8 @@ import Engine.Screen;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.*;
-import Maps.MyMap;
-import Maps.TestMap;
+import Maps.TutorialMap;
+import Maps.EnemyMap1;
 import Players.Cat;
 import Utils.Direction;
 
@@ -36,7 +36,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
         flagManager.addFlag("haswarped", false);
 
         // define/setup map
-        map = new MyMap();
+        map = new TutorialMap();
         map.setFlagManager(flagManager);
 
         // setup player
@@ -115,7 +115,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
 
     @Override
     public void onClear() {
-      // Re-initialize everything with TestMap
+      // Re-initialize everything with EnemyMap1
     flagManager = new FlagManager();
     // Add any flags your game needs
     flagManager.addFlag("hasLostBall", false);
@@ -124,7 +124,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
     flagManager.addFlag("hasFoundBall", false);
     flagManager.addFlag("haswarped", false);
 
-    map = new TestMap();
+    map = new EnemyMap1();
     map.setFlagManager(flagManager);
 
     player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
