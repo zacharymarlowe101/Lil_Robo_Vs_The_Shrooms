@@ -364,24 +364,102 @@ public class CommonTileset extends Tileset {
                 
         mapTiles.add(mudCliffLowerRightTile);
 
+         /*___________________Mud Cliff Inverted Corners_______________________*/
 
+        // mud upper left
+        Frame mudCliffInvertedUpperLeftFrame = new FrameBuilder(getSubImage(9, 3))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder mudCliffInvertedUpperLeftTile = new MapTileBuilder(mudCliffInvertedUpperLeftFrame)
+                        .withTileType(TileType.NOT_PASSABLE);
+        mapTiles.add(mudCliffInvertedUpperLeftTile);
+
+       // mud upper right
+        Frame mudCliffInvertedUpperRightFrame = new FrameBuilder(getSubImage(9, 0))
+                .withScale(tileScale)
+                .build();
+               
+        MapTileBuilder mudCliffInvertedUpperRightTile = new MapTileBuilder(mudCliffInvertedUpperRightFrame)
+                        .withTileType(TileType.NOT_PASSABLE);
+        mapTiles.add(mudCliffInvertedUpperRightTile);
+
+         // mud lower left
+        Frame mudCliffInvertedLowerLeftFrame = new FrameBuilder(getSubImage(9, 2))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder mudCliffInvertedLowerLeftTile = new MapTileBuilder(mudCliffInvertedLowerLeftFrame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(mudCliffInvertedLowerLeftTile);
+
+       // mud lower right
+        Frame mudCliffInvertedLowerRightFrame = new FrameBuilder(getSubImage(9, 1))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder mudCliffInvertedLowerRightTile = new MapTileBuilder(mudCliffInvertedLowerRightFrame)
+                .withTileType(TileType.NOT_PASSABLE);
+                
+        mapTiles.add(mudCliffInvertedLowerRightTile);
         
+
+        /*___________________Grass Cliff Inverted Corners_______________________*/
+
+        // grass upper left
+        Frame grassCliffInvertedUpperLeftFrame = new FrameBuilder(getSubImage(8, 3))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder grassCliffInvertedUpperLeftTile = new MapTileBuilder(grassCliffInvertedUpperLeftFrame)
+                        .withTileType(TileType.NOT_PASSABLE);
+        mapTiles.add(grassCliffInvertedUpperLeftTile);
+
+        // grass upper right
+        Frame grassCliffInvertedUpperRightFrame = new FrameBuilder(getSubImage(8, 0))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder grassCliffInvertedUpperRightTile = new MapTileBuilder(grassCliffInvertedUpperRightFrame)
+                        .withTileType(TileType.NOT_PASSABLE);
+        mapTiles.add(grassCliffInvertedUpperRightTile);
+
+        // grass lower left
+        Frame grassCliffInvertedLowerLeftFrame = new FrameBuilder(getSubImage(8, 2))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder grassCliffInvertedLowerLeftTile = new MapTileBuilder(grassCliffInvertedLowerLeftFrame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(grassCliffInvertedLowerLeftTile);
+
+        // grass lower right
+        Frame grassCliffInvertedLowerRightFrame = new FrameBuilder(getSubImage(8, 1))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder grassCliffInvertedLowerRightTile = new MapTileBuilder(grassCliffInvertedLowerRightFrame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(grassCliffInvertedLowerRightTile);
 
 
         /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
         /*Leaving this in to show how to make scaled objects*/
         /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-         // sign
-        Frame signFrame = new FrameBuilder(getSubImage(3, 0))
-                .withScale(tileScale)
-                .withBounds(1, 2, 14, 14)
-                .build();
+        //  // sign
+        // Frame signFrame = new FrameBuilder(getSubImage(3, 0))
+        //         .withScale(tileScale)
+        //         .withBounds(1, 2, 14, 14)
+        //         .build();
 
-        MapTileBuilder signTile = new MapTileBuilder(signFrame)
-                .withTileType(TileType.NOT_PASSABLE);
+        // MapTileBuilder signTile = new MapTileBuilder(signFrame)
+        //         .withTileType(TileType.NOT_PASSABLE);
 
-        mapTiles.add(signTile);
+        // mapTiles.add(signTile);
 
 
         /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
