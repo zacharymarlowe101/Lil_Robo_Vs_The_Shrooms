@@ -1,8 +1,8 @@
 package Maps;
 
 import Level.*;
-import Scripts.TestMap.LostBallScript;
-import Scripts.TestMap.WarpScript;
+import NPCs.Mushroom1;
+import Scripts.WarpScript;
 import Tilesets.CommonTileset;
 import Utils.Point;
 import java.util.ArrayList;
@@ -12,17 +12,28 @@ public class MyMap extends Map {
 
     public MyMap() {
         super("MyMap.txt", new CommonTileset());
-        this.playerStartPosition = new Point(500, 500);
+        this.playerStartPosition = new Point(500, 1000);
     }
     @Override
     public ArrayList<Trigger> loadTriggers() {
         ArrayList<Trigger> triggers = new ArrayList<>();
-        triggers.add(new Trigger(790, 1030, 100, 10, new LostBallScript(), "hasLostBall"));
-        triggers.add(new Trigger(790, 960, 10, 80, new LostBallScript(), "hasLostBall"));
-        triggers.add(new Trigger(890, 960, 10, 80, new LostBallScript(), "hasLostBall"));
+        
         triggers.add(new Trigger(250,200, 100,800, new WarpScript(), "haswarped"));
         return triggers;
     }
+
+    @Override
+    public ArrayList<NPC> loadNPCs() {
+        ArrayList<NPC> npcs = new ArrayList<>();
+
+        Mushroom1 mushroom1 = new Mushroom1(101, getMapTile(5, 5).getLocation());
+        npcs.add(mushroom1);
+
+        
+
+        return npcs;
+    }
+    
     
 }
 

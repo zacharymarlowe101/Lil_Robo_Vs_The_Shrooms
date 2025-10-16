@@ -1,4 +1,4 @@
-package Scripts.TestMap;
+package Scripts;
 
 import Level.GameListener;
 import Level.Script;
@@ -14,11 +14,11 @@ public class WarpScript extends Script {
     @Override
     public ArrayList<ScriptAction> loadScriptActions() {
         ArrayList<ScriptAction> scriptActions = new ArrayList<>();
-        scriptActions.add(new LockPlayerScriptAction());
-        scriptActions.add(new TextboxScriptAction() {{
-            addText("You are totally warping");
+        //scriptActions.add(new LockPlayerScriptAction());
+        // scriptActions.add(new TextboxScriptAction() {{
+        //     addText("You are totally warping");
 
-          }});
+        //   }});
 
         scriptActions.add(new ScriptAction() {
                     @Override
@@ -30,7 +30,6 @@ public class WarpScript extends Script {
                         return ScriptState.COMPLETED;
                     }
                 });
-        //scriptActions.add(new )
         
         
 
