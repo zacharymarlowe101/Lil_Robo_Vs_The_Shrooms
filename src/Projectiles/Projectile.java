@@ -1,6 +1,7 @@
 package Projectiles;
 
 import java.awt.Point;
+import java.util.ArrayList;
 
 import Engine.GraphicsHandler;
 //import GameObject.Frame;
@@ -8,8 +9,10 @@ import Engine.GraphicsHandler;
 //import Utils.Direction;
 import GameObject.Frame;
 import GameObject.GameObject;
+import Level.MapCollisionHandler;
 //import java.util.HashMap;
 import Level.MapEntity;
+import Level.NPC;
 import Level.Player;
 import Utils.Direction;
 
@@ -23,6 +26,9 @@ public class Projectile extends MapEntity{
     private double lifetime = 1_000; // milliseconds
     private double deltaTime = 16.67; // milliseconds, approx 60 FPS
     private boolean expired = false;
+
+    protected ArrayList<Projectile> projectilesHit = new ArrayList<>();
+
 
     public Projectile(float x, float y, Frame frame, Utils.Point p1, Point p2) { //P1 is start point, P2 is target point
         super(x, y, frame);
@@ -50,6 +56,29 @@ public class Projectile extends MapEntity{
             this.isHidden = true;
             expired = true;
         }
+
+        if (map != null && map.getProjectiles() != null) {
+            for (NPC npcs : map.getActiveNPCs()) {
+                //System.out.println("Checking if Exists");
+                if (this == null || this.isHidden()) continue;
+                if (!projectilesHit.contains(this) && this.getBounds().intersects(npcs.getBounds()/*<<<Should be list of all NPCs*/)) {
+                    if (npcs.getHealth() > 0) {
+                        npcs.takeDamage(1);
+                        projectilesHit.add(this);
+                        this.isHidden = true; // Hide the projectile upon hitting the NPC
+                        map.getProjectiles().remove(this);
+                    }
+                }
+                //System.out.println("Checking projectile collisions for Wall " + MapCollisionHandler.isCollidingWithMapEntity(p, map, null));
+            }
+            if(!projectilesHit.contains(this) && MapCollisionHandler.isCollidingWithMapEntity(this, map, null)){ //checks if projectile hits wall
+                System.out.println("Projectile hit wall");
+                projectilesHit.add(this);
+                this.isHidden = true;
+                map.getProjectiles().remove(this);
+            }
+            
+        }
     }
 
     protected void performAction(Player player) {}
@@ -60,20 +89,6 @@ public class Projectile extends MapEntity{
     }
 
     public void walk(Direction direction, float speed) {
-        /*if (direction == Direction.RIGHT) {
-            this.currentAnimationName = "WALK_RIGHT";
-        }
-        else if (direction == Direction.LEFT) {
-            this.currentAnimationName = "WALK_LEFT";
-        }
-        else {
-            if (this.currentAnimationName.contains("RIGHT")) {
-                this.currentAnimationName = "WALK_RIGHT";
-            }
-            else {
-                this.currentAnimationName = "WALK_LEFT";
-            }
-        }*/
         if (direction == Direction.UP) {
             moveY(-speed);
         }
@@ -101,4 +116,6 @@ public class Projectile extends MapEntity{
     public Object getOwner() {
         return owner;
     }
+
+
 }
