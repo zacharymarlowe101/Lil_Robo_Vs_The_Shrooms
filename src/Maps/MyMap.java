@@ -1,7 +1,7 @@
 package Maps;
 
 import Level.*;
-import Scripts.TestMap.WarpScript;
+import Scripts.WarpScript;
 import Tilesets.CommonTileset;
 import Utils.Point;
 import java.util.ArrayList;

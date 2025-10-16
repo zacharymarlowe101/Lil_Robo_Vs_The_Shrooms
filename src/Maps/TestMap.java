@@ -4,7 +4,7 @@ import Level.*;
 import NPCs.Mushroom1;
 import NPCs.Mushroom2;
 import NPCs.Mushroom3;
-import Scripts.TestMap.*;
+import Scripts.WarpScript;
 import Tilesets.CommonTileset;
 import java.util.ArrayList;
 
