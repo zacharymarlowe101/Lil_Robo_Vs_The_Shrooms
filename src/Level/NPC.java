@@ -119,7 +119,7 @@ public class NPC extends MapEntity {
 
         
 
-        if (map != null && map.getProjectiles() != null) {
+        /*if (map != null && map.getProjectiles() != null) {
             for (Projectile p : map.getProjectiles()) {
                 System.out.println("Checking if Exists");
                 if (p == null || p.isHidden()) continue;
@@ -137,7 +137,7 @@ public class NPC extends MapEntity {
                     p.isHidden = true;
                 }
             }
-        }
+        }*/
 
         super.update();
     }
