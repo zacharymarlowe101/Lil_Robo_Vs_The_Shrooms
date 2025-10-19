@@ -32,14 +32,14 @@ public class Robot extends Player {
         return new HashMap<String, Frame[]>() {{
             put("STAND_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(1, 0))
-                            .withScale(5)
+                            .withScale(3)
                             .withBounds(4, 0, 22 , 32)
                             .build()
             });
 
             put("STAND_LEFT", new Frame[] {
                      new FrameBuilder(spriteSheet.getSprite(1, 0))
-                            .withScale(5)
+                            .withScale(3)
                             .withBounds(4, 0, 22 , 32)
                             .build()
             });
