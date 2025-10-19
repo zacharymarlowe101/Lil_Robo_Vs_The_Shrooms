@@ -24,7 +24,7 @@ public class ImageUtils {
 					g.setColor(new Color(rgb, true));
 					g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
 				}
-				g.drawRect(i, j, 1, 1);
+				g.fillRect(i, j, 1, 1);
 			}
 		}
 		g.dispose();
@@ -36,7 +36,7 @@ public class ImageUtils {
 	public static BufferedImage resizeImage(BufferedImage image, int newWidth, int newHeight) {
 		BufferedImage resized = new BufferedImage(newWidth, newHeight, image.getType());
 		Graphics2D g = resized.createGraphics();
-		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
 		g.drawImage(image, 0, 0, newWidth, newHeight, 0, 0, image.getWidth(), image.getHeight(), null);
 		g.dispose();
 		return resized;
