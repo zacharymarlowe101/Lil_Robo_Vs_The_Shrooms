@@ -15,7 +15,7 @@ import java.awt.Color;
  */
 public class AOEAttack implements EnemyAttack {
 
-    private int projectileCount = 16;   // number of projectiles in the ring
+    private int projectileCount = 28;   // number of projectiles in the ring
     private int range = 200;            // how far projectiles travel outward
     private int cooldown = 180;         // 3 seconds at 60 fps
 
@@ -35,7 +35,7 @@ public class AOEAttack implements EnemyAttack {
 
         // Effective spawn distance: just outside hitbox + 30px
         float npcRadius = (float) (Math.max(npc.getBounds().getWidth(), npc.getBounds().getHeight()) / 2f);
-        float spawnDistance = npcRadius + 30;
+        float spawnDistance = npcRadius + 45;
 
         // Create projectiles in a ring
         for (int i = 0; i < projectileCount; i++) {

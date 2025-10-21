@@ -52,55 +52,55 @@ public class Mushroom1 extends NPC {
         return new HashMap<String, Frame[]>() {{
             put("STAND_LEFT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0))
-                    .withScale(3)
-                    .withBounds(3, 5, 26, 32)
+                    .withScale(2)
+                    .withBounds(3, 5, 32, 32)
                     .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                     .build()
             });
             put("STAND_RIGHT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0))
-                    .withScale(3)
-                    .withBounds(3, 5, 26, 32)
+                    .withScale(2)
+                    .withBounds(3, 5, 32, 32)
                     .build()
             });
             put("WALK_LEFT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 25)
-                    .withScale(3)
-                    .withBounds(3, 5, 26, 32)
-                    .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                    .build(),
-                new FrameBuilder(spriteSheet.getSprite(0, 1), 25)
-                    .withScale(3)
-                    .withBounds(3, 5, 26, 32)
+                    .withScale(2)
+                    .withBounds(3, 5, 32, 32)
                     .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                     .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 2), 25)
-                    .withScale(3)
-                    .withBounds(3, 5, 26, 32)
+                    .withScale(2)
+                    .withBounds(3, 5, 32, 32)
+                    .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                    .build(),
+                new FrameBuilder(spriteSheet.getSprite(0, 2), 25)
+                    .withScale(2)
+                    .withBounds(3, 5, 32, 32)
                     .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                     .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 3), 25)
-                    .withScale(3)
-                    .withBounds(3, 5, 26, 32)
+                    .withScale(2)
+                    .withBounds(3, 5, 32, 32)
                     .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                     .build()
             });
             put("WALK_RIGHT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 25)
-                    .withScale(3)
-                    .withBounds(3, 5, 26, 32)
-                    .build(),
-                new FrameBuilder(spriteSheet.getSprite(0, 1), 25)
-                    .withScale(3)
-                    .withBounds(3, 5, 26, 32)
+                    .withScale(2)
+                    .withBounds(3, 5, 32, 32)
                     .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 2), 25)
-                    .withScale(3)
-                    .withBounds(3, 5, 26, 32)
+                    .withScale(2)
+                    .withBounds(3, 5, 32, 32)
+                    .build(),
+                new FrameBuilder(spriteSheet.getSprite(0, 2), 25)
+                    .withScale(2)
+                    .withBounds(3, 5, 32, 32)
                     .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 3), 25)
-                    .withScale(3)
-                    .withBounds(3, 5, 26, 32)
+                    .withScale(2)
+                    .withBounds(3, 5, 32, 32)
                     .build()
             });
         }};

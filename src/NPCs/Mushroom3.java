@@ -10,7 +10,7 @@ import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.NPC;
 import Level.Player;
-import Projectiles.LaserAttack; // ✅ Import the laser attack
+import Projectiles.LaserAttack;
 import Utils.Direction;
 import Utils.Point;
 
@@ -24,7 +24,6 @@ public class Mushroom3 extends NPC {
         super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("Mushroom3.png"), 32, 65), "WALK_RIGHT");
         this.setHealth(3);
 
-        // ✅ Assign the laser beam attack
         this.attack = new LaserAttack();
     }
 
