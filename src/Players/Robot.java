@@ -16,11 +16,7 @@ public class Robot extends Player {
 
     public Robot(float x, float y) {
         super(new SpriteSheet(ImageLoader.load("Robot.png"), 32, 32), x, y, "STAND_RIGHT");
-<<<<<<< HEAD
         walkSpeed = 5.0f;
-=======
-        walkSpeed = 2.0f;//this is the walk speed
->>>>>>> 5ccde18439056d29fd19d4fa30f093fb638b8e33
     }
 
     public void update() {
