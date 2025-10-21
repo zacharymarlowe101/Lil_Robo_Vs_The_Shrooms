@@ -2,8 +2,9 @@ package Level;
 
 import Engine.GraphicsHandler;
 import GameObject.Rectangle;
+import Utils.Point;
+import java.awt.Color;
 
-import java.awt.*;
 
 // This class represents a trigger script that can be placed on a map
 // upon the player colliding with the trigger, it will play out the attached script
@@ -16,6 +17,15 @@ public class Trigger extends MapEntity {
         this.setWidth(width);
         this.setHeight(height);
         this.setBounds(new Rectangle(0, 0, width, height));
+    }
+
+    public Trigger(Point location, int width, int height, Script triggerScript, String existenceFlag) {
+        super(location.x, location.y);
+        this.triggerScript = triggerScript;
+        this.setWidth(width);
+        this.setHeight(height);
+        this.setBounds(new Rectangle(0, 0, width, height));
+        this.existenceFlag = existenceFlag;
     }
 
     public Trigger(float x, float y, int width, int height, Script triggerScript, String existenceFlag) {

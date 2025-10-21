@@ -8,6 +8,8 @@ import Maps.EnemyMap1;
 import Maps.TutorialMap;
 import Players.Robot;
 import Utils.Direction;
+import Maps.TutorialMap;
+import Maps.EnemyMap2;
 
 
 
@@ -128,6 +130,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
     @Override
     public void onClear() {
       // Re-initialize everything with EnemyMap1
+      
     flagManager = new FlagManager();
     // Add any flags your game needs
     flagManager.addFlag("hasLostBall", false);
@@ -136,7 +139,17 @@ public class PlayLevelScreen extends Screen implements GameListener {
     flagManager.addFlag("hasFoundBall", false);
     flagManager.addFlag("haswarped", false);
 
-    map = new EnemyMap1();
+    int Rmap = 0;
+    Rmap = (int)(Math.random() * 2) + 1; // Randomly choose between 1 and 2
+    System.out.println(Rmap);
+        if (Rmap == 1) {
+            map = new EnemyMap1();
+        } else if (Rmap == 2) {
+            map = new EnemyMap2();
+        }
+    
+
+    
     map.setFlagManager(flagManager);
 
     player = new Robot(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
