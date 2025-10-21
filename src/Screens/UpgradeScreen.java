@@ -26,8 +26,8 @@ public class UpgradeScreen extends Screen {
     @Override
     public void initialize() {
         option1 = new SpriteFont("Increase Speed", 350, 239, "Arial", 30, Color.white);
-        option2 = new SpriteFont("Increase Health", 350, 239, "Arial", 30, Color.white);
-        option3 = new SpriteFont("Increase Bullet Damage", 350, 239, "Arial", 30, Color.white);
+        option2 = new SpriteFont("Increase Health", 450, 239, "Arial", 30, Color.white);
+        option3 = new SpriteFont("Increase Bullet Damage", 550, 239, "Arial", 30, Color.white);
 
 
         instructions = new SpriteFont("Choose an upgrade to continue (press 1 2 or 3)", 120, 279,"Arial", 20, Color.white);
