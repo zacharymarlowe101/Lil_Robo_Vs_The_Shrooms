@@ -5,13 +5,10 @@ import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.*;
 import Maps.EnemyMap1;
-<<<<<<< HEAD
-import Maps.TutorialMap;
-import Players.Cat;
-=======
 import Players.Robot;
->>>>>>> fd38f62feb21c00c6f1507963d1c6edbed779711
 import Utils.Direction;
+import Maps.TutorialMap;
+import Maps.EnemyMap2;
 
 
 
@@ -130,7 +127,17 @@ public class PlayLevelScreen extends Screen implements GameListener {
     flagManager.addFlag("hasFoundBall", false);
     flagManager.addFlag("haswarped", false);
 
-    map = new EnemyMap1();
+    int Rmap = 0;
+    Rmap = (int)(Math.random() * 2) + 1; // Randomly choose between 1 and 2
+    System.out.println(Rmap);
+        if (Rmap == 1) {
+            map = new EnemyMap1();
+        } else if (Rmap == 2) {
+            map = new EnemyMap2();
+        }
+    
+
+    
     map.setFlagManager(flagManager);
 
     player = new Robot(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
