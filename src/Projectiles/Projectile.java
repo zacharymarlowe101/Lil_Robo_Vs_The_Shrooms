@@ -30,7 +30,9 @@ public class Projectile extends MapEntity{
 
     protected ArrayList<Projectile> projectilesHit = new ArrayList<>();
 
-    private int damage = 1;
+    //Damage
+    public int enemyDamage = 1;
+    public int playerDamage = 1;
 
 
     public Projectile(float x, float y, Frame frame, Utils.Point p1, Point p2) { //P1 is start point, P2 is target point
@@ -61,18 +63,26 @@ public class Projectile extends MapEntity{
         }
 
         if (map != null && map.getProjectiles() != null) {
-            for (NPC npcs : map.getActiveNPCs()) {
+            for (NPC npcs : map.getActiveNPCs()) { //checks if projectile hits npc
                 //System.out.println("Checking if Exists");
                 if (this == null || this.isHidden()) continue;
                 if (!projectilesHit.contains(this) && this.getBounds().intersects(npcs.getBounds()/*<<<Should be list of all NPCs*/)) {
                     if (npcs.getHealth() > 0) {
-                        npcs.takeDamage(1);
+                        npcs.takeDamage(playerDamage);
                         projectilesHit.add(this);
                         this.isHidden = true; // Hide the projectile upon hitting the NPC
                         map.getProjectiles().remove(this);
                     }
                 }
                 //System.out.println("Checking projectile collisions for Wall " + MapCollisionHandler.isCollidingWithMapEntity(p, map, null));
+            }
+            if(!projectilesHit.contains(this) && this.getBounds().intersects(player.getBounds())){ //checks if projectile hits player
+                if (player.getHealth() > 0) {
+                        player.takeDamage(enemyDamage);
+                        projectilesHit.add(this);
+                        this.isHidden = true; // Hide the projectile upon hitting the NPC
+                        map.getProjectiles().remove(this);
+                    }
             }
             if(!projectilesHit.contains(this) && MapCollisionHandler.isCollidingWithMapEntity(this, map, null)){ //checks if projectile hits wall
                 System.out.println("Projectile hit wall");
