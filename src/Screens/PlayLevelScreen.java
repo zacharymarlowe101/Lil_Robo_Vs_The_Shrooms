@@ -5,8 +5,12 @@ import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.*;
 import Maps.EnemyMap1;
+<<<<<<< HEAD
 import Maps.TutorialMap;
 import Players.Cat;
+=======
+import Players.Robot;
+>>>>>>> fd38f62feb21c00c6f1507963d1c6edbed779711
 import Utils.Direction;
 
 
@@ -42,7 +46,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
         map.setFlagManager(flagManager);
 
         // setup player
-        player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+        player = new Robot(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
         player.setMap(map);
         playLevelScreenState = PlayLevelScreenState.RUNNING;
         player.setFacingDirection(Direction.LEFT);
@@ -129,7 +133,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
     map = new EnemyMap1();
     map.setFlagManager(flagManager);
 
-    player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+    player = new Robot(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
     player.setMap(map);
     playLevelScreenState = PlayLevelScreenState.RUNNING;
     player.setFacingDirection(Direction.LEFT);
