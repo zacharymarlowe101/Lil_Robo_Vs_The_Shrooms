@@ -1,10 +1,11 @@
 package MapEditor;
 
 import Level.Map;
-import Maps.TutorialMap;
 import Maps.EnemyMap1;
 import Maps.TitleScreenMap;
+import Maps.TutorialMap;
 import java.util.ArrayList;
+import Maps.EnemyMap2;
 
 public class EditorMaps {
     public static ArrayList<String> getMapNames() {
@@ -12,6 +13,7 @@ public class EditorMaps {
             add("TutorialMap");
             add("EnemyMap1");
             add("TitleScreen");
+            add("EnemyMap2");
         }};
     }
 
@@ -21,6 +23,8 @@ public class EditorMaps {
                 return new TutorialMap();
             case "EnemyMap1":
                 return new EnemyMap1();
+            case "EnemyMap2":
+                return new EnemyMap2();
             case "TitleScreen":
                 return new TitleScreenMap();
             default:
