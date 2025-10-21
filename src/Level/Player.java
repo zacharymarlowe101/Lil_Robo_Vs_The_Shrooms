@@ -23,7 +23,7 @@ import Utils.Point;
 public abstract class Player extends GameObject {
     // values that affect player movement
     // these should be set in a subclass
-    protected float walkSpeed = 100;
+    protected float walkSpeed = 0;
     protected int interactionRange = 1;
     protected Direction currentWalkingXDirection;
     protected Direction currentWalkingYDirection;

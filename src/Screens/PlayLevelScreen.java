@@ -63,6 +63,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
 
         winScreen = new WinScreen(this);
         upgradeScreen = new UpgradeScreen(this);
+        upgradeScreen.setRobot(player);
     }
 
     public void update() {
@@ -74,7 +75,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
                 map.update(player);
                 break;
             case UPGRADE_SCREEN:
-                upgradeScreen.setRobot(player);
+                upgradeScreen.update();
                 break;
             // if level has been completed, bring up level cleared screen
             case LEVEL_COMPLETED:
@@ -99,6 +100,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
                 break;
             case UPGRADE_SCREEN:
                 map.draw(player, graphicsHandler);
+                upgradeScreen.draw(graphicsHandler);
                 break;
             case LEVEL_COMPLETED:
                 winScreen.draw(graphicsHandler);
@@ -148,6 +150,8 @@ public class PlayLevelScreen extends Screen implements GameListener {
     map.preloadScripts();
 
     winScreen = new WinScreen(this);
+    upgradeScreen = new UpgradeScreen(this);
+    upgradeScreen.setRobot(player);
     }
 
     
