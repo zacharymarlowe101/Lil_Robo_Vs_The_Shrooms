@@ -10,7 +10,7 @@ import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.NPC;
 import Level.Player;
-import Projectiles.AOEAttack; // ✅ Import AOE attack
+import Projectiles.AOEAttack;
 import Utils.Direction;
 import Utils.Point;
 
@@ -23,7 +23,6 @@ public class Mushroom2 extends NPC {
         super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("Mushroom2.png"), 32, 32), "STAND_RIGHT");
         this.setHealth(3);
 
-        // ✅ Assign an AOE attack to this mushroom
         this.attack = new AOEAttack();
     }
 

@@ -21,7 +21,7 @@ public class NPC extends MapEntity {
     // Attack system
     protected EnemyAttack attack;
     protected int attackCooldown = 0;
-    protected int NPCDamage = 1;
+    //protected int NPCDamage = 1;
 
     // Constructors
     public NPC(int id, float x, float y, SpriteSheet spriteSheet, String startingAnimation) {
@@ -176,7 +176,7 @@ public class NPC extends MapEntity {
         this.attack = attack;
     }
 
-    public int getDamage(){
-        return NPCDamage;
-    }
+    //public int getDamage(){
+    //    return NPCDamage;
+    //}
 }
