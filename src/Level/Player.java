@@ -187,7 +187,7 @@ public abstract class Player extends GameObject {
             lastWalkingXDirection = Direction.NONE;
         }
 
-        if (Keyboard.isKeyDown(MOVE_LEFT_KEY) && Keyboard.isKeyDown(Key.A) && Keyboard.isKeyDown(MOVE_RIGHT_KEY) && Keyboard.isKeyDown(Key.D) && Keyboard.isKeyDown(MOVE_UP_KEY) && Keyboard.isKeyDown(Key.W) && Keyboard.isKeyDown(MOVE_DOWN_KEY) && Keyboard.isKeyDown(Key.S)) {
+        if (!Keyboard.isKeyDown(MOVE_LEFT_KEY) && !Keyboard.isKeyDown(Key.A) && !Keyboard.isKeyDown(MOVE_RIGHT_KEY) && !Keyboard.isKeyDown(Key.D) && !Keyboard.isKeyDown(MOVE_UP_KEY) && !Keyboard.isKeyDown(Key.W) && !Keyboard.isKeyDown(MOVE_DOWN_KEY) && !Keyboard.isKeyDown(Key.S)) {
             playerState = PlayerState.STANDING;
         }
     }

@@ -5,6 +5,7 @@ import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.*;
 import Maps.EnemyMap1;
+import Maps.TutorialMap;
 import Players.Robot;
 import Utils.Direction;
 import Maps.TutorialMap;
@@ -23,6 +24,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
     protected Player player;
     protected PlayLevelScreenState playLevelScreenState;
     protected WinScreen winScreen;
+    protected UpgradeScreen upgradeScreen;
     protected FlagManager flagManager;
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
@@ -62,6 +64,8 @@ public class PlayLevelScreen extends Screen implements GameListener {
         map.preloadScripts();
 
         winScreen = new WinScreen(this);
+        upgradeScreen = new UpgradeScreen(this);
+        upgradeScreen.setRobot(player);
     }
 
     public void update() {
@@ -71,6 +75,9 @@ public class PlayLevelScreen extends Screen implements GameListener {
             case RUNNING:
                 player.update();
                 map.update(player);
+                break;
+            case UPGRADE_SCREEN:
+                upgradeScreen.update();
                 break;
             // if level has been completed, bring up level cleared screen
             case LEVEL_COMPLETED:
@@ -93,6 +100,10 @@ public class PlayLevelScreen extends Screen implements GameListener {
             case RUNNING:
                 map.draw(player, graphicsHandler);
                 break;
+            case UPGRADE_SCREEN:
+                map.draw(player, graphicsHandler);
+                upgradeScreen.draw(graphicsHandler);
+                break;
             case LEVEL_COMPLETED:
                 winScreen.draw(graphicsHandler);
                 break;
@@ -113,12 +124,13 @@ public class PlayLevelScreen extends Screen implements GameListener {
 
     // This enum represents the different states this screen can be in
     private enum PlayLevelScreenState {
-        RUNNING, LEVEL_COMPLETED
+        RUNNING, LEVEL_COMPLETED, UPGRADE_SCREEN
     }
 
     @Override
     public void onClear() {
       // Re-initialize everything with EnemyMap1
+      
     flagManager = new FlagManager();
     // Add any flags your game needs
     flagManager.addFlag("hasLostBall", false);
@@ -151,6 +163,8 @@ public class PlayLevelScreen extends Screen implements GameListener {
     map.preloadScripts();
 
     winScreen = new WinScreen(this);
+    upgradeScreen = new UpgradeScreen(this);
+    upgradeScreen.setRobot(player);
     }
 
     
