@@ -59,7 +59,7 @@ public class EnemyMap2 extends Map {
     public ArrayList<Trigger> loadTriggers() {
         ArrayList<Trigger> triggers = new ArrayList<>();
        
-        triggers.add(new Trigger(250,200, 100,800, new WarpScript(), "haswarped"));
+        triggers.add(new Trigger(getMapTile(6, 20).getLocation(), 100,800, new WarpScript(), "haswarped"));
         return triggers;
     }
     
