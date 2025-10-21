@@ -60,6 +60,9 @@ public abstract class Player extends GameObject {
     protected int health = 10;
     protected boolean isDead = false;
 
+    //Damage
+    public int playerDamage = 1;
+
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
         super(spriteSheet, x, y, startingAnimationName);
         facingDirection = Direction.RIGHT;
@@ -302,7 +305,11 @@ public abstract class Player extends GameObject {
             isDead = true;
             System.out.println("Player died.");
         } else {
-            System.out.println("NPC took " + amount + " damage. Remaining health: " + this.health);
+            System.out.println("Player took " + amount + " damage. Remaining health: " + this.health);
         }
+    }
+
+    public int getDamage(){
+        return playerDamage;
     }
 }
