@@ -19,13 +19,23 @@ public class WarpScript extends Script {
         //     addText("You are totally warping");
 
         //   }});
+        scriptActions.add(new ScriptAction() {
+                    @Override
+                    public ScriptState execute() {
+                        for (GameListener listener: listeners) {
+                            listener.onUpdate();
+                           
+                        }
+                        return ScriptState.COMPLETED;
+                    }
+                });
 
         scriptActions.add(new ScriptAction() {
                     @Override
                     public ScriptState execute() {
                         for (GameListener listener: listeners) {
-                        
                             listener.onClear();
+                           
                         }
                         return ScriptState.COMPLETED;
                     }

@@ -92,6 +92,10 @@ public class PlayLevelScreen extends Screen implements GameListener {
         playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
     }
    
+   @Override
+    public void onUpdate(){
+        playLevelScreenState = PlayLevelScreenState.UPGRADE_SCREEN;
+    }
     
 
     public void draw(GraphicsHandler graphicsHandler) {

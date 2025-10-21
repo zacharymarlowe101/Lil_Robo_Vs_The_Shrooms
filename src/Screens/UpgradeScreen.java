@@ -8,7 +8,7 @@ import java.awt.*;
 
 // This class is for the win level screen
 public class UpgradeScreen extends Screen {
-    protected SpriteFont option1;
+    protected SpriteFont winMessage;
     protected SpriteFont option2;
     protected SpriteFont option3;
 
@@ -17,20 +17,17 @@ public class UpgradeScreen extends Screen {
     protected SpriteFont instructions;
     protected KeyLocker keyLocker = new KeyLocker();
     protected UpgradeScreen upgradeScreen;
+     protected PlayLevelScreen playLevelScreen;
 
     public UpgradeScreen(PlayLevelScreen playLevelScreen) {
-        this.upgradeScreen = upgradeScreen;
+        this.playLevelScreen = playLevelScreen;
         initialize();
     }
 
     @Override
     public void initialize() {
-        option1 = new SpriteFont("Increase Speed", 350, 239, "Arial", 30, Color.white);
-        option2 = new SpriteFont("Increase Health", 450, 239, "Arial", 30, Color.white);
-        option3 = new SpriteFont("Increase Bullet Damage", 550, 239, "Arial", 30, Color.white);
-
-
-        instructions = new SpriteFont("Choose an upgrade to continue (press 1 2 or 3)", 120, 279,"Arial", 20, Color.white);
+        winMessage = new SpriteFont("You win!", 350, 239, "Arial", 30, Color.white);
+        instructions = new SpriteFont("Press Space to play again or Escape to go back to the main menu", 120, 279,"Arial", 20, Color.white);
         keyLocker.lockKey(Key.SPACE);
         keyLocker.lockKey(Key.ESC);
     }
@@ -49,7 +46,10 @@ public class UpgradeScreen extends Screen {
 
         // if space is pressed, reset level. if escape is pressed, go back to main menu
         if (Keyboard.isKeyDown(Key.ONE) && !keyLocker.isKeyLocked(Key.ONE)) {
+             playLevelScreen.onClear();
             //increase speed
+
+            
         } else if (Keyboard.isKeyDown(Key.TWO) && !keyLocker.isKeyLocked(Key.TWO)) {
             //increase health
         } else if (Keyboard.isKeyDown(Key.THREE) && !keyLocker.isKeyLocked(Key.THREE)) {
@@ -59,9 +59,9 @@ public class UpgradeScreen extends Screen {
 
     public void draw(GraphicsHandler graphicsHandler) {
         graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), Color.black);
-        option1.draw(graphicsHandler);
-        option2.draw(graphicsHandler);
-        option3.draw(graphicsHandler);
+        winMessage.draw(graphicsHandler);
+        // option2.draw(graphicsHandler);
+        // option3.draw(graphicsHandler);
 
         instructions.draw(graphicsHandler);
     }
