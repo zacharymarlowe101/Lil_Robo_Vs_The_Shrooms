@@ -49,11 +49,16 @@ public abstract class Player extends GameObject {
     protected Key INTERACT_KEY = Key.SPACE;
 
     protected boolean isLocked = false;
-
+    
+    //projectile spawning control
     public boolean didProjectileSpawn = false;
     protected ArrayList<NPC> projectiles = new ArrayList<NPC>();
     protected ArrayList<Projectile> projectile = new ArrayList<Projectile>();
     protected ArrayList<Direction> directions = new ArrayList<Direction>();
+
+    //Health
+    protected int health = 10;
+    protected boolean isDead = false;
 
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
         super(spriteSheet, x, y, startingAnimationName);
@@ -287,11 +292,17 @@ public abstract class Player extends GameObject {
         }
     }
 
-    // Uncomment this to have game draw player's bounds to make it easier to visualize
-    /*
-    public void draw(GraphicsHandler graphicsHandler) {
-        super.draw(graphicsHandler);
-        drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
+    public void takeDamage(int amount) {
+        if (isDead) return;
+
+        health -= amount;
+
+        if (health <= 0) {
+            health = 0;
+            isDead = true;
+            System.out.println("Player died.");
+        } else {
+            System.out.println("NPC took " + amount + " damage. Remaining health: " + this.health);
+        }
     }
-    */
 }
