@@ -25,9 +25,13 @@ public class Mushroom1 extends NPC {
     @Override
     public void performAction(Player player) {
         if (player.getX() > this.getX()) {
-            currentAnimationName = "WALK_RIGHT";
+            if (!currentAnimationName.equals("WALK_RIGHT")) {
+                currentAnimationName = "WALK_RIGHT";
+            }
         } else {
-            currentAnimationName = "WALK_LEFT";
+            if (!currentAnimationName.equals("WALK_LEFT")) {
+                currentAnimationName = "WALK_LEFT";
+            }
         }
 
         updateEnemyAttack(player);
@@ -50,41 +54,41 @@ public class Mushroom1 extends NPC {
                     .build()
             });
             put("WALK_LEFT", new Frame[] {
-                new FrameBuilder(spriteSheet.getSprite(0, 0), 25)
+                new FrameBuilder(spriteSheet.getSprite(0, 0), 35)
                     .withScale(2)
                     .withBounds(3, 5, 16, 16)
                     .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                     .build(),
-                new FrameBuilder(spriteSheet.getSprite(0, 2), 25)
+                new FrameBuilder(spriteSheet.getSprite(0, 2), 35)
                     .withScale(2)
                     .withBounds(3, 5, 16, 16)
                     .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                     .build(),
-                new FrameBuilder(spriteSheet.getSprite(0, 2), 25)
+                new FrameBuilder(spriteSheet.getSprite(0, 2), 35)
                     .withScale(2)
                     .withBounds(3, 5, 16, 16)
                     .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                     .build(),
-                new FrameBuilder(spriteSheet.getSprite(0, 3), 25)
+                new FrameBuilder(spriteSheet.getSprite(0, 3), 35)
                     .withScale(2)
                     .withBounds(3, 5, 16, 16)
                     .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                     .build()
             });
             put("WALK_RIGHT", new Frame[] {
-                new FrameBuilder(spriteSheet.getSprite(0, 0), 25)
+                new FrameBuilder(spriteSheet.getSprite(0, 0), 35)
                     .withScale(2)
                     .withBounds(3, 5, 16, 16)
                     .build(),
-                new FrameBuilder(spriteSheet.getSprite(0, 2), 25)
+                new FrameBuilder(spriteSheet.getSprite(0, 2), 35)
                     .withScale(2)
                     .withBounds(3, 5, 16, 16)
                     .build(),
-                new FrameBuilder(spriteSheet.getSprite(0, 2), 25)
+                new FrameBuilder(spriteSheet.getSprite(0, 2), 35)
                     .withScale(2)
                     .withBounds(3, 5, 16, 16)
                     .build(),
-                new FrameBuilder(spriteSheet.getSprite(0, 3), 25)
+                new FrameBuilder(spriteSheet.getSprite(0, 3), 35)
                     .withScale(2)
                     .withBounds(3, 5, 16, 16)
                     .build()

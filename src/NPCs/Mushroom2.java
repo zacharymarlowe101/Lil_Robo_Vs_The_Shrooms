@@ -24,9 +24,13 @@ public class Mushroom2 extends NPC {
     @Override
     public void performAction(Player player) {
         if (player.getX() < this.getX()) {
-            currentAnimationName = "STAND_LEFT";
+            if (!currentAnimationName.equals("STAND_LEFT")) {
+                currentAnimationName = "STAND_LEFT";
+            }
         } else {
-            currentAnimationName = "STAND_RIGHT";
+            if (!currentAnimationName.equals("STAND_RIGHT")) {
+                currentAnimationName = "STAND_RIGHT";
+            }
         }
     }
 
@@ -34,41 +38,41 @@ public class Mushroom2 extends NPC {
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
             put("STAND_LEFT", new Frame[] {
-                new FrameBuilder(spriteSheet.getSprite(0, 0), 15)
+                new FrameBuilder(spriteSheet.getSprite(0, 0), 40)
                     .withScale(2)
                     .withBounds(3, 5, 26, 32)
                     .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                     .build(),
-                new FrameBuilder(spriteSheet.getSprite(0, 1), 15)
+                new FrameBuilder(spriteSheet.getSprite(0, 1), 40)
                     .withScale(2)
                     .withBounds(3, 5, 26, 32)
                     .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                     .build(),
-                new FrameBuilder(spriteSheet.getSprite(0, 2), 9)
+                new FrameBuilder(spriteSheet.getSprite(0, 2), 24)
                     .withScale(2)
                     .withBounds(3, 5, 26, 32)
                     .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                     .build(),
-                new FrameBuilder(spriteSheet.getSprite(0, 3), 6)
+                new FrameBuilder(spriteSheet.getSprite(0, 3), 16)
                     .withScale(2)
                     .withBounds(3, 5, 26, 32)
                     .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                     .build()
             });
             put("STAND_RIGHT", new Frame[] {
-                new FrameBuilder(spriteSheet.getSprite(0, 0), 15)
+                new FrameBuilder(spriteSheet.getSprite(0, 0), 40)
                     .withScale(2)
                     .withBounds(3, 5, 26, 32)
                     .build(),
-                new FrameBuilder(spriteSheet.getSprite(0, 1), 15)
+                new FrameBuilder(spriteSheet.getSprite(0, 1), 40)
                     .withScale(2)
                     .withBounds(3, 5, 26, 32)
                     .build(),
-                new FrameBuilder(spriteSheet.getSprite(0, 2), 9)
+                new FrameBuilder(spriteSheet.getSprite(0, 2), 24)
                     .withScale(2)
                     .withBounds(3, 5, 26, 32)
                     .build(),
-                new FrameBuilder(spriteSheet.getSprite(0, 3), 6)
+                new FrameBuilder(spriteSheet.getSprite(0, 3), 16)
                     .withScale(2)
                     .withBounds(3, 5, 26, 32)
                     .build()
