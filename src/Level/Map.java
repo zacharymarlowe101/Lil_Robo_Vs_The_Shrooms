@@ -112,6 +112,7 @@ public abstract class Map {
 }
 
 public int getEnemiesRemaining() {
+    if()
     return npcs.size();
 }
 
