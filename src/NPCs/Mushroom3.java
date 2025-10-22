@@ -8,16 +8,24 @@ import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
-import Level.NPC;
+import Level.EnemyNPC;
 import Level.Player;
 import Projectiles.LaserAttack;
 import Utils.Point;
 
-public class Mushroom3 extends NPC {
+public class Mushroom3 extends EnemyNPC {
 
-    public Mushroom3(int id, Point location) {
-        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("Mushroom3.png"), 32, 65), "WALK_RIGHT");
-        this.setHealth(3);
+    public Mushroom3(int id, Point location, int level) {
+        super(
+            id,
+            location.x,
+            location.y,
+            new SpriteSheet(ImageLoader.load("Mushroom3.png"), 32, 65),
+            "WALK_RIGHT",
+            3,
+            1,
+            level
+        );
         this.attack = new LaserAttack();
     }
 

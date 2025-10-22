@@ -26,7 +26,7 @@ public class TutorialMap extends Map {
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
-        Mushroom1 mushroom1 = new Mushroom1(101, getMapTile(5, 5).getLocation());
+        Mushroom1 mushroom1 = new Mushroom1(101, getMapTile(5, 5).getLocation(), 1);
         npcs.add(mushroom1);
 
         
