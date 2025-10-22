@@ -32,7 +32,7 @@ public class Projectile extends MapEntity{
 
     //Damage
     public int enemyDamage = 1;
-    public int playerDamage = 1;
+    public static int playerDamage = 1;
 
 
     public Projectile(float x, float y, Frame frame, Utils.Point p1, Point p2) { //P1 is start point, P2 is target point
@@ -126,6 +126,14 @@ public class Projectile extends MapEntity{
 
     public Object getOwner() {
         return owner;
+    }
+
+    public static int getPlayerDamage(){
+        return playerDamage;
+    }
+
+    public static void setPlayerDamage(int damage){
+        playerDamage = damage;
     }
 
 

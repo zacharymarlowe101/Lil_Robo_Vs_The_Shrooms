@@ -18,7 +18,7 @@ public class TutorialMap extends Map {
     public ArrayList<Trigger> loadTriggers() {
         ArrayList<Trigger> triggers = new ArrayList<>();
         
-        triggers.add(new Trigger(500,310, 32,32, new WarpScript(), "haswarped"));
+        triggers.add(new Trigger(getMapTile(5, 4).getLocation(), 32,32, new WarpScript(), "haswarped"));
         return triggers;
     }
 

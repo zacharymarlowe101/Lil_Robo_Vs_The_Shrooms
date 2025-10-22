@@ -4,6 +4,7 @@ import Engine.*;
 import SpriteFont.SpriteFont;
 import Level.Player;
 import Players.Robot;
+import Projectiles.Projectile;
 
 import java.awt.*;
 
@@ -60,7 +61,7 @@ public class UpgradeScreen extends Screen {
             playLevelScreen.onClear();
 
         } else if (Keyboard.isKeyDown(Key.THREE) && !keyLocker.isKeyLocked(Key.THREE)) {
-            //increase bullet damage
+            Projectile.setPlayerDamage(Projectile.getPlayerDamage() + 1);
             playLevelScreen.onClear();
         }
     }
