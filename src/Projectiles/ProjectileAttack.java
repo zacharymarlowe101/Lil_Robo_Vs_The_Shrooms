@@ -45,6 +45,6 @@ public class ProjectileAttack implements EnemyAttack {
 
     @Override
     public int getCooldown() {
-        return 90;
+        return 150;
     }
 }
