@@ -321,4 +321,8 @@ public abstract class Player extends GameObject {
     
     public abstract float getWalkSpeed();
 
+    public abstract void setAnimationDelay(int animationDelay);
+
+    public abstract int getAnimationDelay();
+
 }

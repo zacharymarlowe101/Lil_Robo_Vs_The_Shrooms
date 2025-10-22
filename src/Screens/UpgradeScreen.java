@@ -51,6 +51,7 @@ public class UpgradeScreen extends Screen {
         // if space is pressed, reset level. if escape is pressed, go back to main menu
         if (Keyboard.isKeyDown(Key.ONE) && !keyLocker.isKeyLocked(Key.ONE)) {
             robot.setWalkSpeed(robot.getWalkSpeed() + 0.5f);
+            if(robot.getWalkSpeed()%5 == 0) robot.setAnimationDelay(robot.getAnimationDelay() - 1);
             playLevelScreen.onClear();
             
             

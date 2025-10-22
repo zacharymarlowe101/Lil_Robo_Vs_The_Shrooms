@@ -32,6 +32,10 @@ public class Frame extends Sprite {
 		return delay;
 	}
 
+	public void setDelay(int delay){
+		this.delay = delay;
+	}
+
 	public Frame copy() {
 		return new Frame(image, imageEffect, scale, getBoundsDimensions(), delay);
 	}

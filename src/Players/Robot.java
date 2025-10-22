@@ -12,15 +12,19 @@ import java.util.HashMap;
 // This is the class for the Cat player character
 // basically just sets some values for physics and then defines animations
 public class Robot extends Player {
+        private int animationDelay;
+
 
     public Robot(float x, float y) {
         super(new SpriteSheet(ImageLoader.load("Robot.png"), 32, 32), x, y, "STAND_RIGHT");
         walkSpeed = 2.0f;
+        animationDelay = 8;
     }
 
     @Override
     public void update() {
         super.update();
+        setAnimationSpeed(animationDelay);
     }
 
     @Override
@@ -84,7 +88,18 @@ public class Robot extends Player {
             });
         }};
     }
-        
+
+        //public setter for the animation delay
+        @Override
+        public void setAnimationDelay(int animationDelay){
+                this.animationDelay = animationDelay;
+        }
+
+        @Override
+        public int getAnimationDelay(){
+                return animationDelay;
+        }
+
 
     @Override
     public void setWalkSpeed(float walkSpeed){
@@ -96,5 +111,12 @@ public class Robot extends Player {
         return this.walkSpeed;
     }
 
+//private method to change the animation speed in the super class
+private void setAnimationSpeed(int delay){
+        Frame[] frames = getAnimations().get(getCurrentAnimationName());
+        for (Frame frame : frames) {
+	        frame.setDelay(delay);
+        }
+    }
   
 }
