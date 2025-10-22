@@ -18,7 +18,7 @@ import Utils.Point;
 public class Mushroom3 extends NPC {
     private int totalAmountMoved = 0;
     private Direction direction = Direction.RIGHT;
-    private float speed = 2.0f; // Adjust speed here
+    private int speed = 0; // Adjust speed here
 
     public Mushroom3(int id, Point location) {
         super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("Mushroom3.png"), 32, 65), "WALK_RIGHT");

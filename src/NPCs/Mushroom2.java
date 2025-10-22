@@ -18,6 +18,8 @@ import Utils.Point;
 public class Mushroom2 extends NPC {
     private int directionTimer = 0; // Timer for flipping direction
     private Direction direction = Direction.RIGHT;
+    private int speed = 0; // Adjust speed here
+
 
     public Mushroom2(int id, Point location) {
         super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("Mushroom2.png"), 32, 32), "STAND_RIGHT");
