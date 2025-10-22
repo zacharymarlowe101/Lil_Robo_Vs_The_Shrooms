@@ -20,25 +20,20 @@ public class ProjectileAttack implements EnemyAttack {
             null
         );
 
-        float spawnX = npc.getX() + npc.getBounds().getWidth() / 2f;
-        float spawnY = npc.getY() + npc.getBounds().getHeight() / 2f;
+        float npcCenterX = npc.getX() + npc.getBounds().getWidth() / 2f;
+        float npcCenterY = npc.getY() + npc.getBounds().getHeight() / 2f;
 
-        boolean facingRight = npc.getCurrentAnimationName().toUpperCase().contains("RIGHT");
-
-        float offset = npc.getBounds().getWidth() * 1.0f + 20;
-
-        if (facingRight) {
-            spawnX += offset;
-        } else {
-            spawnX -= offset;
-        }
+        float offset = 20f;
+        float spawnX = npcCenterX + (player.getX() > npcCenterX ? offset : -offset);
+        float spawnY = npcCenterY;
 
         Point start = new Point(spawnX, spawnY);
-        java.awt.Point target = facingRight
-            ? new java.awt.Point((int) (spawnX + 100), (int) spawnY)
-            : new java.awt.Point((int) (spawnX - 100), (int) spawnY);
+        Point target = new Point(
+            player.getCalibratedXLocation(),
+            player.getCalibratedYLocation()
+        );
 
-        Projectile projectile = new Projectile(spawnX, spawnY, projectileFrame, start, target);
+        EnemyProjectile projectile = new EnemyProjectile(spawnX, spawnY, projectileFrame, start, target, npc);
         npc.getMap().addProjectile(projectile);
     }
 

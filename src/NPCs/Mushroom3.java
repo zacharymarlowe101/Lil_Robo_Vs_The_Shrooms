@@ -14,39 +14,20 @@ import Projectiles.LaserAttack;
 import Utils.Direction;
 import Utils.Point;
 
-// Mushroom3 NPC - walks left and right, periodically fires dual laser beams
 public class Mushroom3 extends NPC {
-    private int totalAmountMoved = 0;
-    private Direction direction = Direction.RIGHT;
-    private int speed = 0; // Adjust speed here
 
     public Mushroom3(int id, Point location) {
-        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("Mushroom3.png"), 32, 65), "WALK_RIGHT");
+        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("Mushroom3.png"), 32, 65), "STAND_RIGHT");
         this.setHealth(3);
-
         this.attack = new LaserAttack();
     }
 
-    // Makes the mushroom walk left and right
     @Override
     public void performAction(Player player) {
-        float amountMoved = moveXHandleCollision(speed * direction.getVelocity());
-
-        if (amountMoved == 0) {
-            direction = (direction == Direction.LEFT) ? Direction.RIGHT : Direction.LEFT;
-            totalAmountMoved = 0;
+        if (player.getX() < this.getX()) {
+            currentAnimationName = "STAND_LEFT";
         } else {
-            totalAmountMoved += Math.abs(amountMoved);
-            if (totalAmountMoved >= 75) {
-                totalAmountMoved = 0;
-                direction = (direction == Direction.LEFT) ? Direction.RIGHT : Direction.LEFT;
-            }
-        }
-
-        if (direction == Direction.RIGHT) {
-            currentAnimationName = "WALK_RIGHT";
-        } else {
-            currentAnimationName = "WALK_LEFT";
+            currentAnimationName = "STAND_RIGHT";
         }
     }
 

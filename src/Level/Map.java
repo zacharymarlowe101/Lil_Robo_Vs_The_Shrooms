@@ -15,6 +15,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Iterator;
 
 /*
     This class is for defining a map that is used for a specific level
@@ -94,6 +95,25 @@ public abstract class Map {
         this.yMidPoint = (ScreenManager.getScreenHeight() / 2);
         this.playerStartPosition = new Point(0, 0);
     }
+
+    // Enemy Counter
+    public void updateNPCs(Player player) {
+    Iterator<NPC> iterator = npcs.iterator();
+
+    while (iterator.hasNext()) {
+        NPC npc = iterator.next();
+        npc.update(player);
+
+        if (npc.isDead && npc.isHidden) {
+            iterator.remove();
+            System.out.println("Removed NPC " + npc.getId() + " from map.");
+        }
+    }
+}
+
+public int getEnemiesRemaining() {
+    return npcs.size();
+}
 
     // sets up map by reading in the map file to create the tile map
     // loads in enemies, enhanced map tiles, and npcs
@@ -546,6 +566,11 @@ public abstract class Map {
             adjustMovementX(player);
         }
         camera.update(player);
+        updateNPCs(player);
+
+       // Prints out enemies left in console
+       // System.out.println("Enemies left: " + getEnemiesRemaining());
+
         if (textbox.isActive()) {
             textbox.update();
         }
