@@ -11,7 +11,6 @@ import GameObject.SpriteSheet;
 import Level.EnemyNPC;
 import Level.Player;
 import Projectiles.ProjectileAttack;
-import Utils.Direction;
 import Utils.Point;
 
 public class Mushroom1 extends EnemyNPC {
@@ -27,7 +26,13 @@ public class Mushroom1 extends EnemyNPC {
             1,
             level
         );
-        this.attack = new ProjectileAttack();
+
+        this.attack = new ProjectileAttack() {
+            @Override
+            public int getCooldown() {
+                return 90;
+            }
+        };
     }
 
     @Override
@@ -42,8 +47,7 @@ public class Mushroom1 extends EnemyNPC {
             }
         }
 
-        updateEnemyAttack(player);
-    }
+   }
 
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {

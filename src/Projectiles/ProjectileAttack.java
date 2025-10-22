@@ -28,10 +28,11 @@ public class ProjectileAttack implements EnemyAttack {
         float spawnY = npcCenterY;
 
         Point start = new Point(spawnX, spawnY);
-        Point target = new Point(
-            player.getCalibratedXLocation(),
-            player.getCalibratedYLocation()
-        );
+
+        float targetX = player.getX() + player.getBounds().getWidth() / 2f;
+        float targetY = player.getY() + player.getBounds().getHeight() / 2f;
+        Point target = new Point(targetX, targetY);
+
 
         EnemyProjectile projectile = new EnemyProjectile(spawnX, spawnY, projectileFrame, start, target, npc);
         npc.getMap().addProjectile(projectile);
