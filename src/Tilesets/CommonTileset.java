@@ -19,7 +19,7 @@ public class CommonTileset extends Tileset {
     public ArrayList<MapTileBuilder> defineTiles() {
         ArrayList<MapTileBuilder> mapTiles = new ArrayList<>();
 
-
+       
         /*___________________Grass_______________________*/
 
         // grass 1
@@ -444,6 +444,22 @@ public class CommonTileset extends Tileset {
                 .withTileType(TileType.NOT_PASSABLE);
 
         mapTiles.add(grassCliffInvertedLowerRightTile);
+
+
+
+
+         /*___________________Teleport Tile_______________________*/
+
+        // Teleport
+        Frame teleportFrame = new FrameBuilder(getSubImage(2, 4))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder teleportTile = new MapTileBuilder(teleportFrame);
+
+        mapTiles.add(teleportTile);
+
+
 
 
         /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
