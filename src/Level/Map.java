@@ -83,6 +83,10 @@ public abstract class Map {
     // other external classes can use this to listen for events
     protected ArrayList<GameListener> listeners = new ArrayList<>();
 
+    // map's cleared flag
+    protected boolean isCleared = false;
+
+
     public Map(String mapFileName, Tileset tileset) {
         this.mapFileName = mapFileName;
         this.tileset = tileset;
@@ -97,19 +101,37 @@ public abstract class Map {
     }
 
     // Enemy Counter
+
+    public boolean isCleared() {
+    return isCleared;
+}
+
+    // Called when all enemies are defeated and the map is cleared
+    protected void onMapCleared() {
+        System.out.println("Map cleared: " + mapFileName);
+    // Optional: trigger flags, sounds, events, etc.
+    }
+
     public void updateNPCs(Player player) {
-    Iterator<NPC> iterator = npcs.iterator();
+        Iterator<NPC> iterator = npcs.iterator();
 
-    while (iterator.hasNext()) {
-        NPC npc = iterator.next();
-        npc.update(player);
+        while (iterator.hasNext()) {
+            NPC npc = iterator.next();
+            npc.update(player);
 
-        if (npc.isDead && npc.isHidden) {
-            iterator.remove();
-            System.out.println("Removed NPC " + npc.getId() + " from map.");
+            if (npc.isDead && npc.isHidden) {
+                iterator.remove();
+                System.out.println("Removed NPC " + npc.getId() + " from map.");
+
+                // Check if map is cleared after removing this NPC
+                if (npcs.isEmpty()) {
+                    isCleared = true;
+                    onMapCleared();
+            }
         }
     }
 }
+
 
 public int getEnemiesRemaining() {
     if()
