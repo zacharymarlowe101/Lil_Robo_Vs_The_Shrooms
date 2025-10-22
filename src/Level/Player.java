@@ -312,4 +312,13 @@ public abstract class Player extends GameObject {
     public int getHealth(){
         return health;
     }
+
+    public void setHealth(int newHealth){
+        this.health = newHealth;
+    }
+
+    public abstract void setWalkSpeed(float walkSpeed);
+    
+    public abstract float getWalkSpeed();
+
 }

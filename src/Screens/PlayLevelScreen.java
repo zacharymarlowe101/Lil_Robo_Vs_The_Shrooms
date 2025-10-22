@@ -156,10 +156,19 @@ public class PlayLevelScreen extends Screen implements GameListener {
     
     map.setFlagManager(flagManager);
 
+    //hold the player values
+    int tempPlayerHealth = player.getHealth();
+    float tempPlayerSpeed = player.getWalkSpeed();
+
+    //reset the player
     player = new Robot(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
     player.setMap(map);
     playLevelScreenState = PlayLevelScreenState.RUNNING;
     player.setFacingDirection(Direction.LEFT);
+
+    //add the lost values to player
+    player.setHealth(tempPlayerHealth);
+    player.setWalkSpeed(tempPlayerSpeed);
 
     map.setPlayer(player);
     map.getTextbox().setInteractKey(player.getInteractKey());

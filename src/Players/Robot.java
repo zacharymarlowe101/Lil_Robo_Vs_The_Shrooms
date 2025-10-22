@@ -4,7 +4,6 @@ import Builders.FrameBuilder;
 import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import GameObject.Frame;
-import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.Player;
 
@@ -16,13 +15,15 @@ public class Robot extends Player {
 
     public Robot(float x, float y) {
         super(new SpriteSheet(ImageLoader.load("Robot.png"), 32, 32), x, y, "STAND_RIGHT");
-        walkSpeed = 5.0f;
+        walkSpeed = 2.0f;
     }
 
+    @Override
     public void update() {
         super.update();
     }
 
+    @Override
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
     }
@@ -83,4 +84,17 @@ public class Robot extends Player {
             });
         }};
     }
+        
+
+    @Override
+    public void setWalkSpeed(float walkSpeed){
+        super.walkSpeed = walkSpeed;
+    }
+
+    @Override
+    public float getWalkSpeed(){
+        return this.walkSpeed;
+    }
+
+  
 }
