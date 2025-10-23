@@ -31,7 +31,7 @@ public class UpgradeScreen extends Screen {
         instructions = new SpriteFont("Choose an Upgrade!", 250, 239, "Arial", 30, Color.white);
         option1 = new SpriteFont("Increase speed [press 1]", 270, 279,"Arial", 20, Color.white);
         option2 = new SpriteFont("Increase Health [press 2]", 270, 319,"Arial", 20, Color.white);
-        option3 = new SpriteFont("Increase Bullet Damage [Coming Soon]", 270, 359,"Arial", 20, Color.white);
+        option3 = new SpriteFont("Increase Bullet Damage [Press 3]", 270, 359,"Arial", 20, Color.white);
 
         keyLocker.lockKey(Key.SPACE);
         keyLocker.lockKey(Key.ESC);
