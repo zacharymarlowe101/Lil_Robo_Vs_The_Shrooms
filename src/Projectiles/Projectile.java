@@ -66,7 +66,7 @@ public class Projectile extends MapEntity{
             for (NPC npcs : map.getActiveNPCs()) { //checks if projectile hits npc
                 //System.out.println("Checking if Exists");
                 if (this == null || this.isHidden()) continue;
-                if (!projectilesHit.contains(this) && this.getBounds().intersects(npcs.getBounds()/*<<<Should be list of all NPCs*/)) {
+                if (!projectilesHit.contains(this) && this.getBounds().intersects(npcs.getBounds()/*<<<Should be list of all NPCs*/) && this.getOwner() != npcs) {
                     if (npcs.getHealth() > 0) {
                         npcs.takeDamage(playerDamage);
                         projectilesHit.add(this);
@@ -76,7 +76,7 @@ public class Projectile extends MapEntity{
                 }
                 //System.out.println("Checking projectile collisions for Wall " + MapCollisionHandler.isCollidingWithMapEntity(p, map, null));
             }
-            if(!projectilesHit.contains(this) && this.getBounds().intersects(player.getBounds())){ //checks if projectile hits player
+            if(!projectilesHit.contains(this) && this.getBounds().intersects(player.getBounds()) && this.getOwner() != player){ //checks if projectile hits player
                 if (player.getHealth() > 0) {
                         player.takeDamage(enemyDamage);
                         projectilesHit.add(this);
@@ -85,7 +85,7 @@ public class Projectile extends MapEntity{
                     }
             }
             if(!projectilesHit.contains(this) && MapCollisionHandler.isCollidingWithMapEntity(this, map, null)){ //checks if projectile hits wall
-                System.out.println("Projectile hit wall");
+               // System.out.println("Projectile hit wall");
                 projectilesHit.add(this);
                 this.isHidden = true;
                 map.getProjectiles().remove(this);

@@ -90,8 +90,7 @@ public abstract class Player extends GameObject {
 
         if(GamePanel.isMouseClicked() && didProjectileSpawn == false){ //Spawn projectile //Keyboard.isKeyDown(Key.E)
             Projectile projectile = new Projectile(x + this.getBounds().getWidth() / 2f, y,new Frame(ImageUtils.createSolidImage(new Color(255, 0, 0), 20, 20), ImageEffect.NONE, 1, null), new Point(this.getCalibratedXLocation(),this.getCalibratedYLocation()),GamePanel.getMousePositionPoint());
-            //System.out.println("Player Position: " + new Point(this.getCalibratedXLocation(),this.getCalibratedYLocation()));
-            //System.out.println("Click Position: " + GamePanel.getMousePositionPoint());
+            projectile.setOwner(this);
             didProjectileSpawn = true;
             map.addProjectile(projectile);
             projectile.setOwner(this);
@@ -324,5 +323,9 @@ public abstract class Player extends GameObject {
     public abstract void setAnimationDelay(int animationDelay);
 
     public abstract int getAnimationDelay();
+
+    public boolean isDead(){
+        return isDead;
+    }
 
 }

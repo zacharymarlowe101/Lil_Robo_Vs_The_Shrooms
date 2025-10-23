@@ -4,8 +4,11 @@ import Level.*;
 import NPCs.Mushroom1;
 import NPCs.Mushroom2;
 import NPCs.Mushroom3;
+import Scripts.UpdateTileOnClearScript;
 import Scripts.WarpScript;
 import Tilesets.CommonTileset;
+import Utils.Point;
+
 import java.util.ArrayList;
 
 // Represents a test map to be used in a level
@@ -62,6 +65,12 @@ public class EnemyMap2 extends Map {
         triggers.add(new Trigger(getMapTile(19, 21).getLocation(), 32,32, new WarpScript(), "haswarped"));
         return triggers;
     }
+    protected ArrayList<Script> loadUpdateScripts() {
+        return new ArrayList<Script>() {{
+            add(new UpdateTileOnClearScript(new Point(19,21), new Point(2,4)));
+        }};
+    }
+    
     
     
 
