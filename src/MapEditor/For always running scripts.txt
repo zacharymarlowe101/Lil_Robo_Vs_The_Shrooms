@@ -1,0 +1,6 @@
+For always running scripts
+
+in Map.java create a new method called loadActiveScripts that returns an arraylist of scripts
+    sub classes should override this to set items
+    the result of this should be set as a variable
+    all scripts should be executed in update
