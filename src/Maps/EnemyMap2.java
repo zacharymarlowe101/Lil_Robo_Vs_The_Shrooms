@@ -46,13 +46,13 @@ public class EnemyMap2 extends Map {
         // bug.setInteractScript(new BugScript());
         // npcs.add(bug);
 
-        Mushroom1 mushroom1 = new Mushroom1(101, getMapTile(17, 20).getLocation(),3);
+        Mushroom1 mushroom1 = new Mushroom1(101, getMapTile(16, 20).getLocation(),3);
         npcs.add(mushroom1);
 
-        Mushroom2 mushroom2 = new Mushroom2(102, getMapTile(18, 22).getLocation(),3);
+        Mushroom2 mushroom2 = new Mushroom2(102, getMapTile(13, 22).getLocation(),3);
         npcs.add(mushroom2);
 
-        Mushroom3 mushroom3 = new Mushroom3(103, getMapTile(15, 24).getLocation(),3);
+        Mushroom3 mushroom3 = new Mushroom3(103, getMapTile(13, 25).getLocation(),3);
         npcs.add(mushroom3);
 
         return npcs;
