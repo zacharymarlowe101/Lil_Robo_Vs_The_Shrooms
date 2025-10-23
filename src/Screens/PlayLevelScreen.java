@@ -22,6 +22,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
     protected WinScreen winScreen;
     protected UpgradeScreen upgradeScreen;
     protected LoseScreen loseScreen;
+    protected HUD HUDScreen;
     protected FlagManager flagManager;
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
@@ -64,6 +65,9 @@ public class PlayLevelScreen extends Screen implements GameListener {
         upgradeScreen = new UpgradeScreen(this);
         loseScreen = new LoseScreen(this);
         upgradeScreen.setRobot(player);
+        HUDScreen = new HUD(this);
+        HUDScreen.setRobot(player);
+        HUDScreen.initialize();
     }
 
     public void update() {
@@ -73,6 +77,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
             case RUNNING:
                 player.update();
                 map.update(player);
+                //HUDScreen.update();
                 break;
             case UPGRADE_SCREEN:
                 upgradeScreen.update();
@@ -112,6 +117,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
         switch (playLevelScreenState) {
             case RUNNING:
                 map.draw(player, graphicsHandler);
+                HUDScreen.draw(graphicsHandler);
                 break;
             case UPGRADE_SCREEN:
                 map.draw(player, graphicsHandler);
@@ -196,6 +202,9 @@ public class PlayLevelScreen extends Screen implements GameListener {
     upgradeScreen = new UpgradeScreen(this);
     upgradeScreen.setRobot(player);
     loseScreen = new LoseScreen(this);
+    HUDScreen = new HUD(this);
+    HUDScreen.setRobot(player);
+    HUDScreen.initialize();
     }
 
     

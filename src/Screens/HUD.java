@@ -1,56 +1,90 @@
 package Screens;
 
 import Engine.*;
-import Game.GameState;
-import Game.ScreenCoordinator;
-import Level.Map;
-import Maps.TitleScreenMap;
 import SpriteFont.SpriteFont;
+import Level.Player;
+import Players.Robot;
+import Projectiles.Projectile;
 
 import java.awt.*;
 
-// This class is for the credits screen
+// This class is for the win level screen
 public class HUD extends Screen {
-    protected ScreenCoordinator screenCoordinator;
-    protected Map background;
-    protected KeyLocker keyLocker = new KeyLocker();
-    protected SpriteFont creditsLabel;
-    protected SpriteFont createdByLabel;
-    protected SpriteFont returnInstructionsLabel;
+    protected SpriteFont option1;
+    protected SpriteFont option2;
+    protected SpriteFont option3;
 
-    public HUD(ScreenCoordinator screenCoordinator) {
-        this.screenCoordinator = screenCoordinator;
+    private Player robot;
+
+    protected SpriteFont instructions;
+    protected KeyLocker keyLocker = new KeyLocker();
+    protected UpgradeScreen upgradeScreen;
+    protected PlayLevelScreen playLevelScreen;
+
+    public HUD(PlayLevelScreen playLevelScreen) {
+        this.playLevelScreen = playLevelScreen;
+        initialize();
     }
 
     @Override
     public void initialize() {
-        // setup graphics on screen (background map, spritefont text)
-        background = new TitleScreenMap();
-        background.setAdjustCamera(false);
-        creditsLabel = new SpriteFont("Health: ", 15, 7, "Times New Roman", 30, Color.white);
-        createdByLabel = new SpriteFont("Created by Alex Thimineur", 130, 121, "Times New Roman", 20, Color.white);
-        returnInstructionsLabel = new SpriteFont("Press Space to return to the menu", 20, 532, "Times New Roman", 30, Color.white);
-        keyLocker.lockKey(Key.SPACE);
+        if(robot != null){
+            //System.out.println("Initializing HUD Health: " + robot.getHealth());
+            instructions = new SpriteFont("HEALTH: " + robot.getHealth(), 15, 7, "Arial", 30, Color.white);
+        }
+        //option3 = new SpriteFont("Increase Bullet Damage [Press 3]", 270, 359,"Arial", 20, Color.white);
+        //keyLocker.lockKey(Key.SPACE);
+        //keyLocker.lockKey(Key.ESC);
     }
 
     @Override
     public void update() {
-        background.update(null);
-
-        if (Keyboard.isKeyUp(Key.SPACE)) {
-            keyLocker.unlockKey(Key.SPACE);
+        /*if (Keyboard.isKeyUp(Key.ONE)) {
+            keyLocker.unlockKey(Key.ONE);
+        }
+        if (Keyboard.isKeyUp(Key.TWO)) {
+            keyLocker.unlockKey(Key.TWO);
+        }
+        if (Keyboard.isKeyUp(Key.THREE)) {
+            keyLocker.unlockKey(Key.THREE);
         }
 
-        // if space is pressed, go back to main menu
-        if (!keyLocker.isKeyLocked(Key.SPACE) && Keyboard.isKeyDown(Key.SPACE)) {
-            screenCoordinator.setGameState(GameState.MENU);
-        }
+        // if space is pressed, reset level. if escape is pressed, go back to main menu
+        if (Keyboard.isKeyDown(Key.ONE) && !keyLocker.isKeyLocked(Key.ONE)) {
+            robot.setWalkSpeed(robot.getWalkSpeed() + 0.5f);
+            if(robot.getWalkSpeed()%5 == 0) robot.setAnimationDelay(robot.getAnimationDelay() - 1);
+            playLevelScreen.onClear();
+            
+            
+        } else if (Keyboard.isKeyDown(Key.TWO) && !keyLocker.isKeyLocked(Key.TWO)) {
+            robot.setHealth(robot.getHealth() + 1);
+            playLevelScreen.onClear();
+
+        } else if (Keyboard.isKeyDown(Key.THREE) && !keyLocker.isKeyLocked(Key.THREE)) {
+            Projectile.setPlayerDamage(Projectile.getPlayerDamage() + 1);
+            playLevelScreen.onClear();
+        }*/
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
-        background.draw(graphicsHandler);
-        creditsLabel.draw(graphicsHandler);
-        createdByLabel.draw(graphicsHandler);
-        returnInstructionsLabel.draw(graphicsHandler);
+        //graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), Color.black);
+        //option1.draw(graphicsHandler);
+        //option2.draw(graphicsHandler);
+        //option3.draw(graphicsHandler);
+        if(instructions != null){
+            //System.out.println("Drawing HUD Health: " + robot.getHealth());
+            instructions = new SpriteFont("HEALTH: " + robot.getHealth(), 15, 7, "Arial", 30, Color.white);
+            instructions.draw(graphicsHandler);
+        }
+        
     }
+
+    public void setRobot(Player robot){
+        this.robot = robot;
+    }
+
+    public Player getRobot(){
+        return this.robot;
+    }
+    
 }

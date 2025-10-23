@@ -19,7 +19,7 @@ public class UpgradeScreen extends Screen {
     protected SpriteFont instructions;
     protected KeyLocker keyLocker = new KeyLocker();
     protected UpgradeScreen upgradeScreen;
-     protected PlayLevelScreen playLevelScreen;
+    protected PlayLevelScreen playLevelScreen;
 
     public UpgradeScreen(PlayLevelScreen playLevelScreen) {
         this.playLevelScreen = playLevelScreen;
