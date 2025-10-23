@@ -5,6 +5,7 @@ import Engine.GraphicsHandler;
 import Engine.ScreenManager;
 import GameObject.Rectangle;
 import Projectiles.Projectile;
+import ScriptActions.ChangeFlagScriptAction;
 //import Projectiles.Projectile;
 import Utils.Direction;
 import Utils.Point;
@@ -60,6 +61,7 @@ public abstract class Map {
     protected ArrayList<EnhancedMapTile> enhancedMapTiles;
     protected ArrayList<NPC> npcs;
     protected ArrayList<Trigger> triggers;
+    protected ArrayList<Script> updateScripts;
     protected ArrayList<Projectile> projectiles;
 
     // current script that is being executed (if any)
@@ -108,6 +110,7 @@ public abstract class Map {
 
     // Called when all enemies are defeated and the map is cleared
     protected void onMapCleared() {
+        
         System.out.println("Map cleared: " + mapFileName);
     // Optional: trigger flags, sounds, events, etc.
     }
@@ -134,7 +137,7 @@ public abstract class Map {
 
 
 public int getEnemiesRemaining() {
-    if()
+    
     return npcs.size();
 }
 
@@ -164,6 +167,11 @@ public int getEnemiesRemaining() {
         this.triggers = loadTriggers();
         for (Trigger trigger: this.triggers) {
             trigger.setMap(this);
+        }
+
+        this.updateScripts = loadUpdateScripts();
+        for (Script script: this.updateScripts) {
+            script.setMap(this);
         }
 
         this.loadScripts();
@@ -350,6 +358,10 @@ public int getEnemiesRemaining() {
         return new ArrayList<>();
     }
 
+    protected ArrayList<Script> loadUpdateScripts() {
+        return new ArrayList<>();
+    }
+
     public Camera getCamera() {
         return camera;
     }
@@ -367,6 +379,8 @@ public int getEnemiesRemaining() {
     }
 
     public ArrayList<Trigger> getTriggers() { return triggers; }
+    
+    public ArrayList<Script> getUpdateScripts() { return updateScripts; }
 
     public ArrayList<MapTile> getAnimatedMapTiles() {
         return animatedMapTiles;
@@ -437,6 +451,13 @@ public int getEnemiesRemaining() {
                 trigger.getTriggerScript().setListeners(listeners);
                 trigger.getTriggerScript().initialize();
             }
+        }
+
+        for (Script script : updateScripts) {
+            script.setMap(this);
+            script.setPlayer(player);
+            script.setListeners(listeners);
+            script.initialize();
         }
     }
 
@@ -596,6 +617,15 @@ public int getEnemiesRemaining() {
 
         if (textbox.isActive()) {
             textbox.update();
+        }
+
+        if (this.activeScript == null) {
+            for (Script script : updateScripts) {
+                script.setIsActive(true);
+                while (script.isActive) {
+                    script.update();
+                }
+            }
         }
     }
 

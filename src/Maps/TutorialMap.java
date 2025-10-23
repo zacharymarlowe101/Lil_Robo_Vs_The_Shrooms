@@ -2,6 +2,7 @@ package Maps;
 
 import Level.*;
 import NPCs.Mushroom1;
+import Scripts.UpdateTileOnClearScript;
 import Scripts.WarpScript;
 import Tilesets.CommonTileset;
 import Utils.Point;
@@ -32,6 +33,13 @@ public class TutorialMap extends Map {
         
 
         return npcs;
+    }
+
+    @Override
+    protected ArrayList<Script> loadUpdateScripts() {
+        return new ArrayList<Script>() {{
+            add(new UpdateTileOnClearScript(new Point(5,4), new Point(2,4)));
+        }};
     }
     
     

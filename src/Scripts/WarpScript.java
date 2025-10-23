@@ -35,24 +35,15 @@ public class WarpScript extends Script {
         scriptActions.add(new ConditionalScriptAction() {{
         
             addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
-                addRequirement(new FlagRequirement("enemiesclear", true));
-                
-                scriptActions.add(new ScriptAction() {
-                    
+                addRequirement(new CustomRequirement() {
                     @Override
-                    public ScriptState execute() {
-                        if (map instanceof TutorialMap){
-                            var tileset = this.map.getTileset();
-                            Frame whitewarp = new FrameBuilder(tileset.getSubImage(9, 4)).withScale(tileset.getTileScale()).build();
-                            Point location = map.getMapTile(5, 4).getLocation();
-                            MapTile mapTile = new MapTileBuilder(whitewarp).withTileType(TileType.PASSABLE).build(location.x, location.y);
-                            this.map.setMapTile(5,4, mapTile);
-                        }
-                        return ScriptState.COMPLETED;
+                    public boolean isRequirementMet() {
+                        return map.isCleared();
                     }
                 });
+            
                 
-                scriptActions.add(new ScriptAction() {
+                addScriptAction(new ScriptAction() {
                     @Override
                     public ScriptState execute() {
                         for (GameListener listener: listeners) {
@@ -62,7 +53,7 @@ public class WarpScript extends Script {
                         return ScriptState.COMPLETED;
                     }
                 });
-                scriptActions.add(new ScriptAction() {
+                addScriptAction(new ScriptAction() {
     
                     @Override
                     public ScriptState execute() {
@@ -74,7 +65,7 @@ public class WarpScript extends Script {
                     }
                 });
 
-                scriptActions.add(new ChangeFlagScriptAction("haswarped", true));
+                addScriptAction(new ChangeFlagScriptAction("haswarped", true));
             }});
             scriptActions.add(new UnlockPlayerScriptAction());
          }});
