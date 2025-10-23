@@ -51,6 +51,11 @@ public class Projectile extends MapEntity{
         super(x, y);
     }
 
+    public Projectile(float x, float y, Frame frame) {
+    super(x, y, frame);
+}
+
+
     public void update(Player player) {
         this.performAction(player);
         super.update();
@@ -135,6 +140,11 @@ public class Projectile extends MapEntity{
     public static void setPlayerDamage(int damage){
         playerDamage = damage;
     }
+
+    public void setLifetime(double lifetime) {
+    this.lifetime = lifetime;
+    }
+
 
 
 }

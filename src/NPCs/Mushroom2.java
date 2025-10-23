@@ -48,41 +48,41 @@ public class Mushroom2 extends EnemyNPC {
             put("STAND_LEFT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 40)
                     .withScale(2)
-                    .withBounds(3, 5, 26, 32)
+                    .withBounds(13, 5, 16, 16)  // Mirrored x-offset for flip
                     .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                     .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 1), 40)
                     .withScale(2)
-                    .withBounds(3, 5, 26, 32)
+                    .withBounds(13, 5, 16, 16)
                     .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                     .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 2), 24)
                     .withScale(2)
-                    .withBounds(3, 5, 26, 32)
+                    .withBounds(13, 5, 16, 16)
                     .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                     .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 3), 16)
                     .withScale(2)
-                    .withBounds(3, 5, 26, 32)
+                    .withBounds(13, 5, 16, 16)
                     .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                     .build()
             });
             put("STAND_RIGHT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 40)
                     .withScale(2)
-                    .withBounds(3, 5, 26, 32)
+                    .withBounds(3, 5, 16, 16)  // Original (no change needed)
                     .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 1), 40)
                     .withScale(2)
-                    .withBounds(3, 5, 26, 32)
+                    .withBounds(3, 5, 16, 16)
                     .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 2), 24)
                     .withScale(2)
-                    .withBounds(3, 5, 26, 32)
+                    .withBounds(3, 5, 16, 16)
                     .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 3), 16)
                     .withScale(2)
-                    .withBounds(3, 5, 26, 32)
+                    .withBounds(3, 5, 16, 16)
                     .build()
             });
         }};

@@ -17,7 +17,7 @@ import Projectiles.Projectile;
 import Utils.Direction;
 import Utils.ImageUtils;
 import Utils.Point;
-
+import java.util.LinkedList;
 
 
 public abstract class Player extends GameObject {
@@ -62,6 +62,11 @@ public abstract class Player extends GameObject {
 
     //Damage
     //public int playerDamage = 1;
+
+    // track up to 120 frames of player position history (2 seconds if 60 FPS)
+    private static final int MAX_POSITION_HISTORY = 120;
+    private LinkedList<Point> positionHistory = new LinkedList<>();
+
 
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
         super(spriteSheet, x, y, startingAnimationName);
