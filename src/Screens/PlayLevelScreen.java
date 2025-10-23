@@ -13,10 +13,6 @@ import Maps.EnemyMap2;
 
 
 
-
-
-
-
 // This class is for when the RPG game is actually being played
 public class PlayLevelScreen extends Screen implements GameListener {
     protected ScreenCoordinator screenCoordinator;
@@ -25,6 +21,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
     protected PlayLevelScreenState playLevelScreenState;
     protected WinScreen winScreen;
     protected UpgradeScreen upgradeScreen;
+    protected LoseScreen loseScreen;
     protected FlagManager flagManager;
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
@@ -66,6 +63,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
 
         winScreen = new WinScreen(this);
         upgradeScreen = new UpgradeScreen(this);
+        loseScreen = new LoseScreen(this);
         upgradeScreen.setRobot(player);
     }
 
@@ -80,6 +78,12 @@ public class PlayLevelScreen extends Screen implements GameListener {
             case UPGRADE_SCREEN:
                 upgradeScreen.update();
                 break;
+            case LOSE_SCREEN:
+                loseScreen.update();
+                break;
+            case HUD:
+                //update HUD here later
+                break;
             // if level has been completed, bring up level cleared screen
             case LEVEL_COMPLETED:
                 winScreen.update();
@@ -93,9 +97,14 @@ public class PlayLevelScreen extends Screen implements GameListener {
         playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
     }
    
-   @Override
+     @Override
     public void onUpdate(){
         playLevelScreenState = PlayLevelScreenState.UPGRADE_SCREEN;
+    }
+
+    @Override
+    public void onLose(){
+        playLevelScreenState = PlayLevelScreenState.LOSE_SCREEN;
     }
     
 
@@ -108,6 +117,13 @@ public class PlayLevelScreen extends Screen implements GameListener {
             case UPGRADE_SCREEN:
                 map.draw(player, graphicsHandler);
                 upgradeScreen.draw(graphicsHandler);
+                break;
+            case LOSE_SCREEN:
+                map.draw(player, graphicsHandler);
+                loseScreen.draw(graphicsHandler);
+                break;
+            case HUD:
+                //update HUD here later
                 break;
             case LEVEL_COMPLETED:
                 winScreen.draw(graphicsHandler);
@@ -129,7 +145,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
 
     // This enum represents the different states this screen can be in
     private enum PlayLevelScreenState {
-        RUNNING, LEVEL_COMPLETED, UPGRADE_SCREEN
+        RUNNING, LEVEL_COMPLETED, UPGRADE_SCREEN, LOSE_SCREEN, HUD
     }
 
     @Override
@@ -180,6 +196,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
     winScreen = new WinScreen(this);
     upgradeScreen = new UpgradeScreen(this);
     upgradeScreen.setRobot(player);
+    loseScreen = new LoseScreen(this);
     }
 
     

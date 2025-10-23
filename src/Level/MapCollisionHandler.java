@@ -228,7 +228,7 @@ public class MapCollisionHandler {
         Point tileIndexY = map.getTileIndexByPosition(gameObject.getBounds().getX1(), edgeBoundY);
         for (int i = -1; i <= numberOfTilesToCheckY + 1; i++) {
             MapTile mapTile = map.getMapTile(Math.round(tileIndexY.x) + i, Math.round(tileIndexY.y));
-            System.out.println("Checking if Tile is Passable or Not Passable " + (mapTile != null ? mapTile.getTileType() : "No Tile"));
+            //System.out.println("Checking if Tile is Passable or Not Passable " + (mapTile != null ? mapTile.getTileType() : "No Tile"));
             if (mapTile != null && hasCollidedWithMapEntity(gameObject, mapTile, direction)) {
                 return true;
             }

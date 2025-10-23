@@ -596,6 +596,15 @@ public int getEnemiesRemaining() {
         if (textbox.isActive()) {
             textbox.update();
         }
+
+        if(player != null) {
+            if(player.isDead()) {
+                System.out.println("Player has died.");
+                for (GameListener listener: listeners) {
+                    listener.onLose();
+                }
+            }
+        }
     }
 
     // based on the player's current X position (which in a level can potentially be updated each frame),
