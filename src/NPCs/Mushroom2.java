@@ -48,7 +48,7 @@ public class Mushroom2 extends EnemyNPC {
             put("STAND_LEFT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 40)
                     .withScale(2)
-                    .withBounds(13, 5, 16, 16)  // Mirrored x-offset for flip
+                    .withBounds(13, 5, 16, 16)
                     .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                     .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 1), 40)
