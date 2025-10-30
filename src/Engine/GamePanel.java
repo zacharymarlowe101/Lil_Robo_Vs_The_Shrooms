@@ -8,12 +8,13 @@ import javax.swing.*;
 import java.awt.*;
 
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseEvent;
 
 /*
  * This is where the game loop process and render back buffer is setup
  */
-public class GamePanel extends JPanel implements MouseListener{
+public class GamePanel extends JPanel implements MouseListener, MouseMotionListener{
 	// loads Screens on to the JPanel
 	// each screen has its own update and draw methods defined to handle a "section" of the game.
 	private ScreenManager screenManager;
@@ -122,7 +123,7 @@ public class GamePanel extends JPanel implements MouseListener{
 	public void draw() {			
 		// draw current game state
 		screenManager.draw(graphicsHandler);
-
+		addMouseMotionListener(this); 
 		// if game is paused, draw pause gfx over Screen gfx
 		if (isGamePaused) {
 			pauseLabel.draw(graphicsHandler);
@@ -149,7 +150,9 @@ public class GamePanel extends JPanel implements MouseListener{
 
 	public void mousePressed(MouseEvent e) {
         //System.out.println("Mouse pressed "+ e.getX() + ", " + e.getY() + " (# of clicks: " + e.getClickCount() + ")");
-		lastMousePosition = e.getPoint();
+		int mouseX = e.getX();
+        int mouseY = e.getY();
+		lastMousePosition = new Point(mouseX, mouseY);
 		theSwitch = !theSwitch;
     }
     
@@ -168,6 +171,23 @@ public class GamePanel extends JPanel implements MouseListener{
     
     public void mouseClicked(MouseEvent e) {
         //System.out.println("Mouse clicked (# of clicks: " + e.getClickCount() + ")");
+    }
+
+	@Override
+    public void mouseMoved(MouseEvent e) {
+		int mouseX = e.getX();
+        int mouseY = e.getY();
+		lastMousePosition = new Point(mouseX, mouseY);
+        //positionLabel.setText("Mouse X: " + mouseX + ", Mouse Y: " + mouseY);
+    }
+
+	@Override
+    public void mouseDragged(MouseEvent e) {
+        // This method is called when the mouse is dragged (button pressed and moved)
+		int mouseX = e.getX();
+        int mouseY = e.getY();
+		lastMousePosition = new Point(mouseX, mouseY);
+        // We are interested in mouseMoved for non-clicking position
     }
 
 	public static boolean isMouseClicked() {

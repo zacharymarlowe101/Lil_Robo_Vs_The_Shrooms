@@ -3,7 +3,6 @@ package Level;
 import java.awt.Color;
 import java.util.ArrayList;
 
-
 import Engine.GamePanel;
 import Engine.Key;
 import Engine.KeyLocker;
@@ -19,6 +18,7 @@ import Utils.ImageUtils;
 import Utils.Point;
 import java.util.LinkedList;
 
+import java.awt.event.MouseMotionListener;
 
 public abstract class Player extends GameObject {
     // values that affect player movement
@@ -93,14 +93,12 @@ public abstract class Player extends GameObject {
             lastAmountMovedX = super.moveXHandleCollision(moveAmountX);
         }
 
-        if(GamePanel.isMouseClicked() && didProjectileSpawn == false){ //Spawn projectile //Keyboard.isKeyDown(Key.E)
+        if(GamePanel.isMouseClicked() || Keyboard.isKeyDown(Key.SPACE)){ //Spawn projectile //Keyboard.isKeyDown(Key.E)
             Projectile projectile = new Projectile(x + this.getBounds().getWidth() / 2f, y,new Frame(ImageUtils.createSolidImage(new Color(255, 0, 0), 20, 20), ImageEffect.NONE, 1, null), new Point(this.getCalibratedXLocation(),this.getCalibratedYLocation()),GamePanel.getMousePositionPoint());
             projectile.setOwner(this);
             didProjectileSpawn = true;
             map.addProjectile(projectile);
             projectile.setOwner(this);
-            
-            //System.out.println("Spawned Projectile");
         }
         if(!GamePanel.isMouseClicked() && didProjectileSpawn == true){ //Reset projectile spawn //Keyboard.isKeyUp(Key.E)
             didProjectileSpawn = false;
