@@ -8,22 +8,19 @@ import Utils.Point;
 import Utils.ImageUtils;
 import java.awt.Color;
 
-/**
- * Two thick, stationary laser beams that appear in front of the NPC
- * and last for ~2 seconds.
- */
+
 public class LaserAttack implements EnemyAttack {
 
     private static final int COOLDOWN_FRAMES = 180;   // ~3 seconds between shots
-    private static final int DURATION_FRAMES = 120;   // visible for 2 seconds
-    private static final int BEAM_LENGTH = 550;       // px
-    private static final int BEAM_THICKNESS = 28;     // px
-    private static final int VERTICAL_SPACING = 30;   // distance between beams
-    private static final int FRONT_PADDING = 70;      // how far in front to spawn
+    private static final int DURATION_FRAMES = 60;    // visible for 1 second
+    private static final int BEAM_LENGTH = 245;       // px
+    private static final int BEAM_THICKNESS = 22;     // px
+    private static final int VERTICAL_SPACING = 26;   // distance between beams
+    private static final int FRONT_PADDING = 10;      // how far in front to spawn
+    private static final float LASER_SPEED = 1.6f;    // slow speed
 
     @Override
     public void perform(NPC npc, Player player) {
-        // Create the laser frame (bright red rectangle)
         Frame beamFrame = new Frame(
             ImageUtils.createSolidImage(new Color(255, 50, 50), BEAM_LENGTH, BEAM_THICKNESS),
             ImageEffect.NONE,
@@ -42,25 +39,40 @@ public class LaserAttack implements EnemyAttack {
         float forwardOffset = npc.getBounds().getWidth() / 2f + FRONT_PADDING;
         float spawnX = facingRight ? centerX + forwardOffset : centerX - forwardOffset - BEAM_LENGTH;
 
-        // Targets (used only for construction; no movement)
-        java.awt.Point target = new java.awt.Point((int) spawnX, (int) centerY);
+        // Beam travel direction
+        float targetX = facingRight ? spawnX + 50 : spawnX - 50;
 
-        // Spawn two parallel stationary beams
-        spawnStationaryBeam(npc, spawnX, centerY - VERTICAL_SPACING, beamFrame, target);
-        spawnStationaryBeam(npc, spawnX, centerY + VERTICAL_SPACING, beamFrame, target);
+        // Spawn two parallel slowly moving beams
+        spawnMovingBeam(npc, spawnX, centerY - VERTICAL_SPACING, beamFrame, new java.awt.Point((int) targetX, (int) centerY));
+        spawnMovingBeam(npc, spawnX, centerY + VERTICAL_SPACING, beamFrame, new java.awt.Point((int) targetX, (int) centerY));
     }
 
-    private void spawnStationaryBeam(NPC npc, float spawnX, float spawnY, Frame frame, java.awt.Point target) {
-        Projectile laser = new Projectile(spawnX, spawnY, frame, new Point(spawnX, spawnY), target) {
+    private void spawnMovingBeam(NPC npc, float spawnX, float spawnY, Frame frame, java.awt.Point target) {
+        EnemyProjectile laser = new EnemyProjectile(
+            spawnX,
+            spawnY,
+            frame,
+            new Point(spawnX, spawnY),
+            new Point(target.x, target.y),
+            npc
+        ) {
             private int framesLeft = DURATION_FRAMES;
+
+            {
+                // Set the laser speed lower
+                this.setSpeed(LASER_SPEED);
+            }
 
             @Override
             public void update(Player player) {
-                // No movement, just countdown until hidden
+                // Countdown to hide
                 framesLeft--;
                 if (framesLeft <= 0) {
                     this.isHidden = true;
                 }
+
+                // Keep default update (movement, collision)
+                super.update(player);
             }
         };
 
@@ -69,7 +81,7 @@ public class LaserAttack implements EnemyAttack {
 
     @Override
     public boolean isInRange(NPC npc, Player player) {
-        return npc.distanceTo(player) < 400;
+        return npc.distanceTo(player) < 350;
     }
 
     @Override

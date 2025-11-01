@@ -48,41 +48,41 @@ public class Mushroom3 extends EnemyNPC {
             put("WALK_LEFT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 40)
                     .withScale(2)
-                    .withBounds(3, 5, 26, 65)
+                    .withBounds(3, 5, 16, 48)
                     .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                     .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 1), 40)
                     .withScale(2)
-                    .withBounds(3, 5, 26, 65)
+                    .withBounds(3, 5, 16, 48)
                     .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                     .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 2), 40)
                     .withScale(2)
-                    .withBounds(3, 5, 26, 65)
+                    .withBounds(3, 5, 16, 48)
                     .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                     .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 3), 40)
                     .withScale(2)
-                    .withBounds(3, 5, 26, 65)
+                    .withBounds(3, 5, 16, 48)
                     .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                     .build()
             });
             put("WALK_RIGHT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 40)
                     .withScale(2)
-                    .withBounds(3, 5, 26, 65)
+                    .withBounds(3, 5, 16, 48)
                     .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 1), 40)
                     .withScale(2)
-                    .withBounds(3, 5, 26, 65)
+                    .withBounds(3, 5, 16, 48)
                     .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 2), 40)
                     .withScale(2)
-                    .withBounds(3, 5, 26, 65)
+                    .withBounds(3, 5, 16, 48)
                     .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 3), 40)
                     .withScale(2)
-                    .withBounds(3, 5, 26, 65)
+                    .withBounds(3, 5, 16, 48)
                     .build()
             });
         }};
