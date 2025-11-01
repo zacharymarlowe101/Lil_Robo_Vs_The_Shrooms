@@ -1,25 +1,29 @@
 package Screens;
 
 import Engine.*;
-import SpriteFont.SpriteFont;
 import Level.Player;
 import Players.Robot;
 import Projectiles.Projectile;
-
+import GameObject.SpriteSheet;
+import GameObject.Sprite;
+import Engine.GameWindow;
 import java.awt.*;
 
 // This class is for the win level screen
 public class UpgradeScreen extends Screen {
-    protected SpriteFont option1;
-    protected SpriteFont option2;
-    protected SpriteFont option3;
+    protected Sprite option1;
+    protected Sprite option2;
+    protected Sprite option3;
 
     private Player robot;
 
-    protected SpriteFont instructions;
+    private int timeSinceSelect;//allows card animation to play
+    private int selectionTimeBuffer;//this makes sure that the upgrades can't accidentally be pressed while waiting for it to load
+    private boolean isOptionChosen;//prevents spamming the upgrade
+
     protected KeyLocker keyLocker = new KeyLocker();
     protected UpgradeScreen upgradeScreen;
-    protected PlayLevelScreen playLevelScreen;
+     protected PlayLevelScreen playLevelScreen;
 
     public UpgradeScreen(PlayLevelScreen playLevelScreen) {
         this.playLevelScreen = playLevelScreen;
@@ -28,13 +32,28 @@ public class UpgradeScreen extends Screen {
 
     @Override
     public void initialize() {
-        instructions = new SpriteFont("Choose an Upgrade!", 250, 239, "Arial", 30, Color.white);
-        option1 = new SpriteFont("Increase speed [press 1]", 270, 279,"Arial", 20, Color.white);
-        option2 = new SpriteFont("Increase Health [press 2]", 270, 319,"Arial", 20, Color.white);
-        option3 = new SpriteFont("Increase Bullet Damage [Press 3]", 270, 359,"Arial", 20, Color.white);
+        SpriteSheet sheet = new SpriteSheet(ImageLoader.load("UpgradeCards.png"), 64, 100);
+        
+        //note that the last 2 values are broken and do nothing
+        option2 = new Sprite(sheet.getSubImage(0, 1), 64, 128);
+        option1 = new Sprite(sheet.getSubImage(0, 0), 64, 128);
+        option3 = new Sprite(sheet.getSubImage(0, 2), 64, 128);
+
+        option1.setLocation(100, 100);
+        option2.setLocation(Config.GAME_WINDOW_WIDTH/2 -64, 100);
+        option3.setLocation(Config.GAME_WINDOW_WIDTH - 228, 100);
+
+    
+        option1.setScale(3.0f);
+        option2.setScale(3.0f);
+        option3.setScale(3.0f);
 
         keyLocker.lockKey(Key.SPACE);
         keyLocker.lockKey(Key.ESC);
+
+        timeSinceSelect = 25;
+        selectionTimeBuffer = 20;
+        isOptionChosen = false;
     }
 
     @Override
@@ -49,30 +68,55 @@ public class UpgradeScreen extends Screen {
             keyLocker.unlockKey(Key.THREE);
         }
 
+        //a little time buffer to prevent accidentally choosing an upgrade while the screen is loading
+        if(selectionTimeBuffer > 0){
+            selectionTimeBuffer --;
+            return;
+        }
+
+
         // if space is pressed, reset level. if escape is pressed, go back to main menu
         if (Keyboard.isKeyDown(Key.ONE) && !keyLocker.isKeyLocked(Key.ONE)) {
-            robot.setWalkSpeed(robot.getWalkSpeed() + 0.5f);
-            if(robot.getWalkSpeed()%5 == 0) robot.setAnimationDelay(robot.getAnimationDelay() - 1);
-            playLevelScreen.onClear();
-            
-            
+            option1.setScale(2.5f);
+            increaseSpeed();
+
         } else if (Keyboard.isKeyDown(Key.TWO) && !keyLocker.isKeyLocked(Key.TWO)) {
-            robot.setHealth(robot.getHealth() + 1);
-            playLevelScreen.onClear();
+            option1.setScale(2.5f);
+            increaseHealth();
 
         } else if (Keyboard.isKeyDown(Key.THREE) && !keyLocker.isKeyLocked(Key.THREE)) {
-            Projectile.setPlayerDamage(Projectile.getPlayerDamage() + 1);
-            playLevelScreen.onClear();
+            option1.setScale(2.5f);
+            increaseDamage();
+        } 
+        
+        if(option1.pointInBounds(GamePanel.getMousePositionPoint().x,GamePanel.getMousePositionPoint().y)){
+                option1.setScale(2.5f);
+                increaseSpeed();
+        }
+
+        if(option2.pointInBounds(GamePanel.getMousePositionPoint().x,GamePanel.getMousePositionPoint().y)){
+                option1.setScale(2.5f);
+                increaseHealth();
+        }
+
+        if(option3.pointInBounds(GamePanel.getMousePositionPoint().x,GamePanel.getMousePositionPoint().y)){
+                option1.setScale(2.5f);
+                increaseDamage();
+            }
+
+        //controls the time since the upgrade was chosen
+        if(isOptionChosen){
+            timeSinceSelect --;
+            if(timeSinceSelect <= 0)
+                playLevelScreen.onClear();
         }
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
-        graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), Color.black);
+        //graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), Color.black);
         option1.draw(graphicsHandler);
         option2.draw(graphicsHandler);
         option3.draw(graphicsHandler);
-
-        instructions.draw(graphicsHandler);
     }
 
     public void setRobot(Player robot){
@@ -82,5 +126,30 @@ public class UpgradeScreen extends Screen {
     public Player getRobot(){
         return this.robot;
     }
-    
+
+    private void increaseSpeed(){
+
+        if(!isOptionChosen) {
+            robot.setWalkSpeed(robot.getWalkSpeed() + 0.5f);
+            if(robot.getWalkSpeed()%5 == 0) 
+                robot.setAnimationDelay(robot.getAnimationDelay() - 1);
+            isOptionChosen = true;
+        }
+    }
+
+    private void increaseHealth(){
+        if(!isOptionChosen){
+            robot.setHealth(robot.getHealth() + 1);
+            isOptionChosen = true;
+        }
+
+    }
+
+    private void increaseDamage(){
+        if(!isOptionChosen){
+            Projectile.setPlayerDamage(Projectile.getPlayerDamage() + 1);
+            isOptionChosen = true;
+        }
+    }
+
 }
