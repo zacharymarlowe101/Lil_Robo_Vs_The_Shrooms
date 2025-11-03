@@ -631,13 +631,22 @@ public class CommonTileset extends Tileset {
 
     private void addOverlayTiles(){
         for(int i  = 0; i < tileFrames.size(); i ++){
+
+            //sets a frame identical to the other, but allows us to set the bounds without influencing the entire arraylist
+            Frame pillarFrame1 = tileFrames.get(i).copy();
+            pillarFrame1.setBounds(14, 15, 11, 17);
+            Frame pillarFrame2 = tileFrames.get(i).copy();
+            pillarFrame2.setBounds(5, 15, 20, 17);
+
+
             /*___________________Pillar Bottom 1 Tile_______________________*/
+            //tileFrames.get(i).setBounds(14, 15, 11, 17);
             Frame PillarBottomFrame1 = new FrameBuilder(getSubImage(5, 4))
                     .withScale(tileScale)
-                    .withBounds(13, 5, 30, 32)
                     .build();
 
-            MapTileBuilder pillarBottomTile1 = new MapTileBuilder(tileFrames.get(i))
+
+            MapTileBuilder pillarBottomTile1 = new MapTileBuilder(pillarFrame1)
                     .withTopLayer(PillarBottomFrame1)
                     .withTileType(TileType.NOT_PASSABLE);
 
@@ -645,12 +654,12 @@ public class CommonTileset extends Tileset {
             
             
             /*___________________Pillar Bottom 2 Tile_______________________*/
+            //tileFrames.get(i).setBounds(5, 15, 20, 17);
             Frame PillarBottomFrame2 = new FrameBuilder(getSubImage(5, 5))
                     .withScale(tileScale)
-                    .withBounds(13, 5, 30, 32)
                     .build();
 
-            MapTileBuilder pillarBottomTile2 = new MapTileBuilder(tileFrames.get(i))
+            MapTileBuilder pillarBottomTile2 = new MapTileBuilder(pillarFrame2)
                     .withTopLayer(PillarBottomFrame2)
                     .withTileType(TileType.NOT_PASSABLE);
 
