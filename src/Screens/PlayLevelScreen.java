@@ -170,8 +170,8 @@ public class PlayLevelScreen extends Screen implements GameListener {
     flagManager.addFlag("haswarped", false);
 
     int Rmap = 0;
-   Rmap = (int)(Math.random() * 5) + 1; // Randomly choose between 1 and 2
-  
+    Rmap = (int)(Math.random() * 5) + 1; // Randomly choose between 1 and 2
+    
     System.out.println(Rmap);
         if (Rmap == 1) {
             map = new EnemyMap1();
