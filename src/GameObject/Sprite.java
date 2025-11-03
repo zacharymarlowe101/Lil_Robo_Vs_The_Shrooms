@@ -97,4 +97,11 @@ public class Sprite extends Rectangle {
     public String toString() {
         return String.format("Sprite: x=%s y=%s width=%s height=%s bounds=(%s, %s, %s, %s)", getX(), getY(), getWidth(), getHeight(), getBounds().getX(), getBounds().getY(), getBounds().getWidth(), getBounds().getHeight()); 
     }
+
+    // Checks if a point is within the sprite's "bounds" hitbox (the internal Rectangle)
+    public boolean pointInBounds(float px, float py) {
+        Rectangle b = getBounds(); // already adjusted for scale and offset
+            return (px >= b.getX() && px <= b.getX() + b.getWidth() &&//x bound
+                    py >= b.getY() && py <= b.getY() + b.getHeight());//y bound
+    }
 }
