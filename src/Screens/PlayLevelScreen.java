@@ -10,6 +10,9 @@ import Players.Robot;
 import Utils.Direction;
 import Maps.TutorialMap;
 import Maps.EnemyMap2;
+import Maps.EnemyMap3;
+import Maps.EnemyMap4;  
+import Maps.EnemyMap5;
 
 
 
@@ -167,13 +170,21 @@ public class PlayLevelScreen extends Screen implements GameListener {
     flagManager.addFlag("haswarped", false);
 
     int Rmap = 0;
-    Rmap = (int)(Math.random() * 2) + 1; // Randomly choose between 1 and 2
+   Rmap = (int)(Math.random() * 5) + 1; // Randomly choose between 1 and 2
+  
     System.out.println(Rmap);
         if (Rmap == 1) {
             map = new EnemyMap1();
         } else if (Rmap == 2) {
             map = new EnemyMap2();
+        } else if (Rmap == 3) {
+            map = new EnemyMap3();
+        } else if (Rmap == 4) {
+            map = new EnemyMap4();
+        } else if (Rmap == 5) {
+            map = new EnemyMap5();
         }
+        
     
 
     
