@@ -51,7 +51,7 @@ public abstract class Player extends GameObject {
     protected boolean isLocked = false;
     
     //projectile spawning control
-    public boolean didProjectileSpawn = false;
+    //public boolean didProjectileSpawn = false;
     protected ArrayList<NPC> projectiles = new ArrayList<NPC>();
     protected ArrayList<Projectile> projectile = new ArrayList<Projectile>();
     protected ArrayList<Direction> directions = new ArrayList<Direction>();
@@ -60,8 +60,9 @@ public abstract class Player extends GameObject {
     protected int health = 10;
     protected boolean isDead = false;
 
-    //Damage
-    //public int playerDamage = 1;
+    //Projectile Cooldown
+    public double projectileCooldown = 500; //milliseconds
+    public boolean canShoot = true;
 
     // track up to 120 frames of player position history (2 seconds if 60 FPS)
     private static final int MAX_POSITION_HISTORY = 120;
@@ -93,15 +94,24 @@ public abstract class Player extends GameObject {
             lastAmountMovedX = super.moveXHandleCollision(moveAmountX);
         }
 
-        if(GamePanel.isMouseClicked() || Keyboard.isKeyDown(Key.SPACE)){ //Spawn projectile //Keyboard.isKeyDown(Key.E)
+
+        if((GamePanel.isMouseClicked() || Keyboard.isKeyDown(Key.SPACE)) && canShoot){ //Spawn projectile //Keyboard.isKeyDown(Key.E)
             Projectile projectile = new Projectile(x + this.getBounds().getWidth() / 2f, y,new Frame(ImageUtils.createSolidImage(new Color(255, 0, 0), 20, 20), ImageEffect.NONE, 1, null), new Point(this.getCalibratedXLocation(),this.getCalibratedYLocation()),GamePanel.getMousePositionPoint());
+            projectileCooldown = projectile.getCooldown();
             projectile.setOwner(this);
-            didProjectileSpawn = true;
+            canShoot = false;
+            //didProjectileSpawn = true;
             map.addProjectile(projectile);
             projectile.setOwner(this);
         }
-        if(!GamePanel.isMouseClicked() && didProjectileSpawn == true){ //Reset projectile spawn //Keyboard.isKeyUp(Key.E)
-            didProjectileSpawn = false;
+        // if(!GamePanel.isMouseClicked() && didProjectileSpawn == true){ //Reset projectile spawn //Keyboard.isKeyUp(Key.E)
+        //     didProjectileSpawn = false;
+        // }
+
+        projectileCooldown -= 16.67; //approx 60 FPS
+        if(projectileCooldown <= 0 && canShoot == false){
+            System.out.println("Projectile Cooldown Reset");
+            canShoot = true;
         }
 
         handlePlayerAnimation();

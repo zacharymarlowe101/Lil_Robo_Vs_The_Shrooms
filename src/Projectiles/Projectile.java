@@ -27,6 +27,7 @@ public class Projectile extends MapEntity{
     private double deltaTime = 16.67; // milliseconds, approx 60 FPS
     private boolean expired = false;
     private GameObject owner;
+    private int cooldown = 500; // milliseconds
 
     protected ArrayList<Projectile> projectilesHit = new ArrayList<>();
 
@@ -61,7 +62,8 @@ public class Projectile extends MapEntity{
         super.update();
         moveY(velocityY);
         moveX(velocityX);
-        lifetime -= deltaTime;
+        lifetime -= deltaTime; //decides how long projectile lasts in the scene if they dont hit anything
+        cooldown -= deltaTime; //this is for time between bullets spawned
         if(isExpired()){ //if its been a second it despawns
             this.isHidden = true;
             expired = true;
@@ -145,6 +147,12 @@ public class Projectile extends MapEntity{
     this.lifetime = lifetime;
     }
 
+    public double getCooldown() {
+        return cooldown;
+    }
 
+    public void setCooldown(int cooldown) {
+        this.cooldown = cooldown;
+    }
 
 }
