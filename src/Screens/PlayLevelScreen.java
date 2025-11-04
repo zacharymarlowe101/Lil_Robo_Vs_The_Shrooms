@@ -41,6 +41,10 @@ public class PlayLevelScreen extends Screen implements GameListener {
         flagManager.addFlag("hasFoundBall", false);
         flagManager.addFlag("haswarped", false);
         flagManager.addFlag("wakingup", false);
+        flagManager.addFlag("diagnostics", false);
+        flagManager.addFlag("weaponcheck", false);
+        flagManager.addFlag("eradicate", false);
+
 
         // define/setup map
         map = new TutorialMap();
