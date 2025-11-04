@@ -10,7 +10,7 @@ import java.awt.Color;
 
 public class AOEAttack implements EnemyAttack {
 
-    private int projectileCount = 15;
+    private int projectileCount = 12;
     private int cooldown = 450;
 
     @Override
@@ -39,7 +39,7 @@ public class AOEAttack implements EnemyAttack {
 
             EnemyProjectile projectile = new EnemyProjectile(spawnX, spawnY, projectileFrame, dx, dy, npc);
             projectile.setSpeed(2.5f);
-            projectile.setLifetime(1500);
+            projectile.setLifetime(2250);
             projectile.setDestroyOnWallHit(true);
 
             npc.getMap().addProjectile(projectile);
@@ -48,7 +48,7 @@ public class AOEAttack implements EnemyAttack {
 
     @Override
     public boolean isInRange(NPC npc, Player player) {
-        return npc.distanceTo(player) < 300;
+        return npc.distanceTo(player) < 350;
     }
 
     @Override

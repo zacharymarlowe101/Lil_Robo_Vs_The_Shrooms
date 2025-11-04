@@ -16,7 +16,7 @@ public class EnemyMap4 extends Map {
 
     public EnemyMap4() {
         super("EnemyMap4.txt", new CommonTileset());
-        this.playerStartPosition = getMapTile(3, 20).getLocation();
+        this.playerStartPosition = getMapTile(3, 22).getLocation();
     }
 
     // @Override
@@ -46,14 +46,44 @@ public class EnemyMap4 extends Map {
         // bug.setInteractScript(new BugScript());
         // npcs.add(bug);
 
-        Mushroom1 mushroom1 = new Mushroom1(101, getMapTile(16, 20).getLocation(),3);
+        Mushroom1 mushroom1 = new Mushroom1(101, getMapTile(17, 19).getLocation(),3);
         npcs.add(mushroom1);
 
-        Mushroom2 mushroom2 = new Mushroom2(102, getMapTile(13, 22).getLocation(),3);
-        npcs.add(mushroom2);
+        Mushroom1 mushroom8 = new Mushroom1(101, getMapTile(19, 19).getLocation(),3);
+        npcs.add(mushroom8);
+        
+        Mushroom1 mushroom9 = new Mushroom1(101, getMapTile(17, 17).getLocation(),3);
+        npcs.add(mushroom9);
 
-        Mushroom3 mushroom3 = new Mushroom3(103, getMapTile(13, 25).getLocation(),3);
+        Mushroom1 mushroom10 = new Mushroom1(101, getMapTile(14, 12).getLocation(),3);
+        npcs.add(mushroom10);
+
+        Mushroom1 mushroom11 = new Mushroom1(101, getMapTile(10, 16).getLocation(),3);
+        npcs.add(mushroom11);
+
+        Mushroom1 mushroom12 = new Mushroom1(101, getMapTile(16, 14).getLocation(),3);
+        npcs.add(mushroom12);
+
+        Mushroom1 mushroom13 = new Mushroom1(101, getMapTile(12, 18).getLocation(),3);
+        npcs.add(mushroom13);
+
+        Mushroom2 mushroom2 = new Mushroom2(102, getMapTile(3, 10).getLocation(),3);
+        npcs.add(mushroom2);
+       
+        Mushroom2 mushroom6 = new Mushroom2(102, getMapTile(15, 17).getLocation(),3);
+        npcs.add(mushroom6);
+       
+        Mushroom2 mushroom7 = new Mushroom2(102, getMapTile(12, 14).getLocation(),3);
+        npcs.add(mushroom7);
+       
+        Mushroom3 mushroom3 = new Mushroom3(103, getMapTile(11, 11).getLocation(),3);
         npcs.add(mushroom3);
+        
+        Mushroom3 mushroom4 = new Mushroom3(102, getMapTile(11, 12).getLocation(),3);
+        npcs.add(mushroom4);
+
+         Mushroom3 mushroom5 = new Mushroom3(102, getMapTile(11, 13).getLocation(),3);
+        npcs.add(mushroom5);
 
         return npcs;
     }

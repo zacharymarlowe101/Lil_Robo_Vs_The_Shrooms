@@ -16,7 +16,7 @@ public class EnemyMap5 extends Map {
 
     public EnemyMap5() {
         super("EnemyMap5.txt", new CommonTileset());
-        this.playerStartPosition = getMapTile(3, 20).getLocation();
+        this.playerStartPosition = getMapTile(7, 20).getLocation();
     }
 
     // @Override
@@ -46,13 +46,13 @@ public class EnemyMap5 extends Map {
         // bug.setInteractScript(new BugScript());
         // npcs.add(bug);
 
-        Mushroom1 mushroom1 = new Mushroom1(101, getMapTile(16, 20).getLocation(),3);
+        Mushroom1 mushroom1 = new Mushroom1(101, getMapTile(7, 25).getLocation(),3);
         npcs.add(mushroom1);
 
-        Mushroom2 mushroom2 = new Mushroom2(102, getMapTile(13, 22).getLocation(),3);
+        Mushroom2 mushroom2 = new Mushroom2(102, getMapTile(10, 23).getLocation(),3);
         npcs.add(mushroom2);
 
-        Mushroom3 mushroom3 = new Mushroom3(103, getMapTile(13, 25).getLocation(),3);
+        Mushroom3 mushroom3 = new Mushroom3(103, getMapTile(12, 20).getLocation(),3);
         npcs.add(mushroom3);
 
         return npcs;
@@ -62,12 +62,12 @@ public class EnemyMap5 extends Map {
     public ArrayList<Trigger> loadTriggers() {
         ArrayList<Trigger> triggers = new ArrayList<>();
        
-        triggers.add(new Trigger(getMapTile(19, 21).getLocation(), 32,32, new WarpScript(), "haswarped"));
+        triggers.add(new Trigger(getMapTile(12, 25).getLocation(), 32,32, new WarpScript(), "haswarped"));
         return triggers;
     }
     protected ArrayList<Script> loadUpdateScripts() {
         return new ArrayList<Script>() {{
-            add(new UpdateTileOnClearScript(new Point(19,21), new Point(2,4)));
+            add(new UpdateTileOnClearScript(new Point(12,25), new Point(2,4)));
         }};
     }
     

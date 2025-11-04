@@ -12,7 +12,7 @@ public class EnemyProjectile extends Projectile {
     private float velocityX;
     private float velocityY;
     private float speed = 3.0f;
-    private boolean destroyOnWallHit = false;
+    private boolean destroyOnWallHit = true;
     private long startTime;
     private double lifetime = -1;
 
