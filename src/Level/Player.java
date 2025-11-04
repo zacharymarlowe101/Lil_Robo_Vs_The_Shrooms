@@ -63,6 +63,8 @@ public abstract class Player extends GameObject {
     //Projectile Cooldown
     public double projectileCooldown = 500; //milliseconds
     public boolean canShoot = true;
+    public boolean inDialogue = false;
+
 
     // track up to 120 frames of player position history (2 seconds if 60 FPS)
     private static final int MAX_POSITION_HISTORY = 120;
@@ -95,7 +97,7 @@ public abstract class Player extends GameObject {
         }
 
 
-        if((GamePanel.isMouseClicked() || Keyboard.isKeyDown(Key.SPACE)) && canShoot){ //Spawn projectile //Keyboard.isKeyDown(Key.E)
+        if((GamePanel.isMouseClicked() || Keyboard.isKeyDown(Key.SPACE)) && canShoot && !inDialogue){ //Spawn projectile //Keyboard.isKeyDown(Key.E)
             Projectile projectile = new Projectile(x + this.getBounds().getWidth() / 2f, y,new Frame(ImageUtils.createSolidImage(new Color(255, 0, 0), 20, 20), ImageEffect.NONE, 1, null), new Point(this.getCalibratedXLocation(),this.getCalibratedYLocation()),GamePanel.getMousePositionPoint());
             projectileCooldown = projectile.getCooldown();
             projectile.setOwner(this);
@@ -110,7 +112,7 @@ public abstract class Player extends GameObject {
 
         projectileCooldown -= 16.67; //approx 60 FPS
         if(projectileCooldown <= 0 && canShoot == false){
-            System.out.println("Projectile Cooldown Reset");
+            //System.out.println("Projectile Cooldown Reset");
             canShoot = true;
         }
 
@@ -161,6 +163,7 @@ public abstract class Player extends GameObject {
             currentWalkingXDirection = Direction.LEFT;
             lastWalkingXDirection = Direction.LEFT;
             lastMovementDirection = Direction.LEFT;
+            playerOutOfDialogue();
         }
 
         // if walk right key is pressed, move player to the right
@@ -170,6 +173,7 @@ public abstract class Player extends GameObject {
             currentWalkingXDirection = Direction.RIGHT;
             lastWalkingXDirection = Direction.RIGHT;
             lastMovementDirection = Direction.RIGHT;
+            playerOutOfDialogue();
         }
         else {
             currentWalkingXDirection = Direction.NONE;
@@ -180,12 +184,14 @@ public abstract class Player extends GameObject {
             currentWalkingYDirection = Direction.UP;
             lastWalkingYDirection = Direction.UP;
             lastMovementDirection = Direction.UP;
+            playerOutOfDialogue();
         }
         else if (Keyboard.isKeyDown(MOVE_DOWN_KEY) || Keyboard.isKeyDown(Key.S)) {
             moveAmountY += walkSpeed;
             currentWalkingYDirection = Direction.DOWN;
             lastWalkingYDirection = Direction.DOWN;
             lastMovementDirection = Direction.DOWN;
+            playerOutOfDialogue();
         }
         else {
             currentWalkingYDirection = Direction.NONE;
@@ -305,6 +311,7 @@ public abstract class Player extends GameObject {
         else if (direction == Direction.RIGHT) {
             moveX(speed);
         }
+        //playerOutOfDialogue();
     }
 
     public void takeDamage(int amount) {
@@ -339,6 +346,14 @@ public abstract class Player extends GameObject {
 
     public boolean isDead(){
         return isDead;
+    }
+
+    public void playerInDialogue(){
+        inDialogue = true;
+    }
+
+    public void playerOutOfDialogue(){
+        inDialogue = false;
     }
 
 }
