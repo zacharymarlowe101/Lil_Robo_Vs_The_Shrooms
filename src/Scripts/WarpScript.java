@@ -22,7 +22,7 @@ public class WarpScript extends Script {
     @Override
     public ArrayList<ScriptAction> loadScriptActions() {
         ArrayList<ScriptAction> scriptActions = new ArrayList<>();
-        //scriptActions.add(new LockPlayerScriptAction());
+        // scriptActions.add(new LockPlayerScriptAction());
         // scriptActions.add(new TextboxScriptAction() {{
         //     addText("You are totally warping");
 

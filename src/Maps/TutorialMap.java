@@ -20,7 +20,7 @@ public class TutorialMap extends Map {
     public ArrayList<Trigger> loadTriggers() {
         ArrayList<Trigger> triggers = new ArrayList<>();
         triggers.add(new Trigger(getMapTile(12, 5).getLocation(), 32,600, new TutorialTrigger(), "wakingup"));
-        triggers.add(new Trigger(getMapTile(5, 14).getLocation(), 32,32, new WarpScript(), "haswarped"));
+        triggers.add(new Trigger(getMapTile(5, 4).getLocation(), 32,32, new WarpScript(), "haswarped"));
         return triggers;
     }
 
