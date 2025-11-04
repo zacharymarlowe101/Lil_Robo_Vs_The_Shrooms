@@ -11,13 +11,13 @@ import java.awt.Color;
 
 public class LaserAttack implements EnemyAttack {
 
-    private static final int COOLDOWN_FRAMES = 180;   // ~3 seconds between shots
-    private static final int DURATION_FRAMES = 60;    // visible for 1 second
-    private static final int BEAM_LENGTH = 245;       // px
-    private static final int BEAM_THICKNESS = 22;     // px
-    private static final int VERTICAL_SPACING = 26;   // distance between beams
-    private static final int FRONT_PADDING = 10;      // how far in front to spawn
-    private static final float LASER_SPEED = 1.6f;    // slow speed
+    private static final int COOLDOWN_FRAMES = 240;   // ~4 seconds between shots
+    private static final int DURATION_FRAMES = 90;   // visible for 1.5 second
+    private static final int BEAM_LENGTH = 300;       // px
+    private static final int BEAM_THICKNESS = 24;     // px
+    private static final int VERTICAL_SPACING = 12;   // distance between beams
+    private static final int FRONT_PADDING = 8;      // how far in front to spawn
+    private static final float LASER_SPEED = 1.4f;    // slow speed
 
     @Override
     public void perform(NPC npc, Player player) {
@@ -28,21 +28,16 @@ public class LaserAttack implements EnemyAttack {
             null
         );
 
-        // NPC center position
         float centerX = npc.getX() + npc.getBounds().getWidth() / 2f;
         float centerY = npc.getY() + npc.getBounds().getHeight() / 2f;
 
-        // Determine facing direction
         boolean facingRight = npc.getCurrentAnimationName().toUpperCase().contains("RIGHT");
 
-        // Base spawn X: a bit in front of the NPC
         float forwardOffset = npc.getBounds().getWidth() / 2f + FRONT_PADDING;
         float spawnX = facingRight ? centerX + forwardOffset : centerX - forwardOffset - BEAM_LENGTH;
 
-        // Beam travel direction
         float targetX = facingRight ? spawnX + 50 : spawnX - 50;
 
-        // Spawn two parallel slowly moving beams
         spawnMovingBeam(npc, spawnX, centerY - VERTICAL_SPACING, beamFrame, new java.awt.Point((int) targetX, (int) centerY));
         spawnMovingBeam(npc, spawnX, centerY + VERTICAL_SPACING, beamFrame, new java.awt.Point((int) targetX, (int) centerY));
     }
@@ -59,19 +54,16 @@ public class LaserAttack implements EnemyAttack {
             private int framesLeft = DURATION_FRAMES;
 
             {
-                // Set the laser speed lower
                 this.setSpeed(LASER_SPEED);
             }
 
             @Override
             public void update(Player player) {
-                // Countdown to hide
                 framesLeft--;
                 if (framesLeft <= 0) {
                     this.isHidden = true;
                 }
 
-                // Keep default update (movement, collision)
                 super.update(player);
             }
         };
