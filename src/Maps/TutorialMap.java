@@ -4,6 +4,7 @@ import Level.*;
 import NPCs.Mushroom1;
 import Scripts.UpdateTileOnClearScript;
 import Scripts.WarpScript;
+import Scripts.*;
 import Tilesets.CommonTileset;
 import Utils.Point;
 import java.util.ArrayList;
@@ -12,14 +13,14 @@ import java.util.ArrayList;
 public class TutorialMap extends Map {
 
     public TutorialMap() {
-        super("TutorialMap.txt", new CommonTileset());
-        this.playerStartPosition = new Point(500, 1000);
+         super("TutorialMap", new CommonTileset());
+        this.playerStartPosition = getMapTile(13, 8).getLocation();
     }
     @Override
     public ArrayList<Trigger> loadTriggers() {
         ArrayList<Trigger> triggers = new ArrayList<>();
-        
-        triggers.add(new Trigger(getMapTile(5, 4).getLocation(), 32,32, new WarpScript(), "haswarped"));
+        triggers.add(new Trigger(getMapTile(12, 5).getLocation(), 32,600, new TutorialTrigger(), "wakingup"));
+        triggers.add(new Trigger(getMapTile(5, 14).getLocation(), 32,32, new WarpScript(), "haswarped"));
         return triggers;
     }
 

@@ -1,5 +1,6 @@
 package GameObject;
 
+
 import java.awt.image.BufferedImage;
 
 // This class represents a Frame in an animation -- an array of Frames is an animation
