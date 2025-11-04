@@ -40,6 +40,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
         flagManager.addFlag("hasTalkedToDinosaur", false);
         flagManager.addFlag("hasFoundBall", false);
         flagManager.addFlag("haswarped", false);
+        flagManager.addFlag("wakingup", false);
 
         // define/setup map
         map = new TutorialMap();
