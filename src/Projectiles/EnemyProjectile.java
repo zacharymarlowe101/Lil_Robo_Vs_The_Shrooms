@@ -17,7 +17,14 @@ public class EnemyProjectile extends Projectile {
     private double lifetime = -1;
 
     public EnemyProjectile(float x, float y, Frame frame, Point start, Point target, NPC owner) {
-        super(x, y, frame, start, new java.awt.Point((int) target.x, (int) target.y));
+        super(
+            x - frame.getWidth() / 2f,
+            y - frame.getHeight() / 2f,
+            frame,
+            start,
+            new java.awt.Point((int) target.x, (int) target.y)
+        );
+
         this.owner = owner;
         this.startTime = System.currentTimeMillis();
 
@@ -37,7 +44,14 @@ public class EnemyProjectile extends Projectile {
     }
 
     public EnemyProjectile(float x, float y, Frame frame, float dirX, float dirY, NPC owner) {
-        super(x, y, frame, new Point(x, y), new java.awt.Point((int) x + 1, (int) y + 1));
+        super(
+            x - frame.getWidth() / 2f,
+            y - frame.getHeight() / 2f,
+            frame,
+            new Point(x, y),
+            new java.awt.Point((int) x + 1, (int) y + 1)
+        );
+
         this.owner = owner;
         this.startTime = System.currentTimeMillis();
 
