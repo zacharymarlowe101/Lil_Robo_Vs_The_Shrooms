@@ -16,6 +16,9 @@ import Builders.FrameBuilder;
 import GameObject.SpriteSheet;
 import GameObject.ImageEffect;
 import GameObject.AnimatedSprite;
+import java.awt.image.BufferedImage;
+import NPCs.*;
+import Engine.ImageLoader;
 
 public class Projectile extends MapEntity{
     //private Direction direction;
@@ -30,8 +33,10 @@ public class Projectile extends MapEntity{
     private GameObject owner;
     private int cooldown = 500; // milliseconds
 
-    private AnimatedSprite bulletSprite;
-    private SpriteSheet bulletSheet;
+    protected BufferedImage bulletImage;
+    protected AnimatedSprite bulletSprite;
+    protected SpriteSheet bulletSheet;
+
 
     protected ArrayList<Projectile> projectilesHit = new ArrayList<>();
 
@@ -42,6 +47,7 @@ public class Projectile extends MapEntity{
 
     public Projectile(float x, float y, Frame frame, Utils.Point p1, Point p2) { //P1 is start point, P2 is target point
         super(x, y, frame);
+       
         //this.direction = direction;
         dx = p2.x - p1.x;
         dy = p2.y - p1.y;
@@ -54,11 +60,13 @@ public class Projectile extends MapEntity{
 
     public Projectile(float x, float y) {
         super(x, y);
+
     }
 
     public Projectile(float x, float y, Frame frame) {
-    super(x, y, frame);
-}
+        super(x, y, frame);
+
+    }
 
 
     public void update(Player player) {
@@ -105,53 +113,86 @@ public class Projectile extends MapEntity{
         }
     }
 
-    protected void performAction(Player player) {}
+    protected void performAction(Player player) {
+        currentAnimationName = "Bullet";
+    }
 
 
 
     
-    @Override
-    public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
-        return new HashMap<String, Frame[]>() {{
-            put("STAND_LEFT", new Frame[] {
-                    new FrameBuilder(spriteSheet.getSprite(0, 0))
-                            .withScale(3)
-                            .withBounds(4, 5, 5, 10)
-                            .build()
-            });
-            put("STAND_RIGHT", new Frame[] {
-                   new FrameBuilder(spriteSheet.getSprite(0, 0))
-                           .withScale(3)
-                           .withBounds(4, 5, 5, 10)
-                           .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                           .build()
-           });
+    // @Override
+    // public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
 
-            put("WALK_LEFT", new Frame[]{
-                    new FrameBuilder(spriteSheet.getSprite(1, 0), 14)
-                            .withScale(3)
-                            .withBounds(4, 5, 5, 10)
-                            .build(),
-                    new FrameBuilder(spriteSheet.getSprite(1, 1), 14)
-                            .withScale(3)
-                            .withBounds(4, 5, 5, 10)
-                            .build()
-            });
+    // if(owner instanceof Player){
+    //         bulletImage = ImageLoader.load("PlayerBullet.png");
+            
+    //     } else if (owner instanceof Mushroom1){
+    //         bulletImage = ImageLoader.load("Mushroom1Bullet.png");
 
-            put("WALK_RIGHT", new Frame[]{
-                    new FrameBuilder(spriteSheet.getSprite(1, 0), 14)
-                            .withScale(3)
-                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(4, 5, 5, 10)
-                            .build(),
-                    new FrameBuilder(spriteSheet.getSprite(1, 1), 14)
-                            .withScale(3)
-                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(4, 5, 5, 10)
-                            .build()
-            });
-        }};
-    }
+    //     } else if (owner instanceof Mushroom2){
+    //         bulletImage = ImageLoader.load("PuffballBullet.png");
+
+    //     } else if (owner instanceof Mushroom3) {
+    //         bulletImage = ImageLoader.load("Laser.png");
+
+    //     } else {
+    //         bulletImage = ImageLoader.load("DefaultBullet.png");
+    //     }
+    //     HashMap<String, Frame[]> animations;
+
+    //     //this one shoots lasers
+    //     if(owner instanceof Mushroom3){
+    //         animations = new HashMap<String, Frame[]>() {{
+    //             put("Bullet", new Frame[] {
+    //                     new FrameBuilder(spriteSheet.getSprite(0, 0))
+    //                             .withScale(3)
+    //                             .withBounds(0, 0, 300, 24)
+    //                             .build(),
+    //                     new FrameBuilder(spriteSheet.getSprite(0, 1))
+    //                             .withScale(3)
+    //                             .withBounds(0, 0, 300, 24)
+    //                             .build(),
+    //                     new FrameBuilder(spriteSheet.getSprite(0, 2))
+    //                             .withScale(3)
+    //                             .withBounds(0, 0, 300, 24)
+    //                             .build(),
+    //                     new FrameBuilder(spriteSheet.getSprite(0, 3))
+    //                             .withScale(3)
+    //                             .withBounds(0, 0, 300, 24)
+    //                             .build(),
+    //             });
+            
+    //         }};
+    //     } else {//everything else shoots normal projectiles
+    //         animations = new HashMap<String, Frame[]>() {{
+    //             put("Bullet", new Frame[] {
+    //                     new FrameBuilder(spriteSheet.getSprite(0, 0))
+    //                             .withScale(3)
+    //                             .withBounds(0, 0, 16, 16)
+    //                             .build(),
+    //                     new FrameBuilder(spriteSheet.getSprite(0, 1))
+    //                             .withScale(3)
+    //                             .withBounds(0, 0, 16, 16)
+    //                             .build(),
+    //                     new FrameBuilder(spriteSheet.getSprite(0, 2))
+    //                             .withScale(3)
+    //                             .withBounds(0, 0, 16, 16)
+    //                             .build(),
+    //                     new FrameBuilder(spriteSheet.getSprite(0, 3))
+    //                             .withScale(3)
+    //                             .withBounds(0, 0, 16, 16)
+    //                             .build(),
+    //             });
+            
+    //         }};
+    //     }
+
+
+
+    //     bulletSprite = new AnimatedSprite(bulletSheet, super.x, super.y, "Bullet");
+
+    //     return animations;
+    // }
 
 
     @Override
@@ -207,5 +248,7 @@ public class Projectile extends MapEntity{
     public void setCooldown(int cooldown) {
         this.cooldown = cooldown;
     }
+
+    
 
 }

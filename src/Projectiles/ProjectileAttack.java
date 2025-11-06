@@ -6,7 +6,6 @@ import GameObject.Frame;
 import GameObject.ImageEffect;
 import Utils.Point;
 import Utils.ImageUtils;
-
 import java.awt.Color;
 
 public class ProjectileAttack implements EnemyAttack {
