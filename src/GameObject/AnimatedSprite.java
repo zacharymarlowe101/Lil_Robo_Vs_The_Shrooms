@@ -76,7 +76,7 @@ public class AnimatedSprite implements IntersectableRectangle {
 	public void update() {
 		// if animation name has been changed (previous no longer equals current), setup for the new animation and start using it
 		if (!previousAnimationName.equals(currentAnimationName)) {
-			resetAnimation();
+			resetAnimation();//line 79
 		} else {
 			// if animation has more than one frame, check if it's time to transition to a new frame based on that frame's delay
 			if (getCurrentAnimation().length > 1 && currentFrame.getDelay() > 0) {
@@ -103,7 +103,7 @@ public class AnimatedSprite implements IntersectableRectangle {
 	// this method is used when switching animations to "freshly load/reset" the new animation
 	private void resetAnimation() {
 		currentFrameIndex = 0;
-		updateCurrentFrame();
+		updateCurrentFrame();//line 106
 		frameDelayCounter = getCurrentFrame().getDelay();
 		hasAnimationLooped = false;
 	}
@@ -119,14 +119,14 @@ public class AnimatedSprite implements IntersectableRectangle {
 	// the sprite needs to have its current state updated based on animation logic,
 	// and location updated to match any changes to the animated sprite class
 	protected void updateCurrentFrame() {
-		currentFrame = getCurrentFrame();
+		currentFrame = getCurrentFrame();//line 122
 		currentFrame.setX(x);
 		currentFrame.setY(y);
 	}
 
 	// gets the frame from current animation that the animated sprite class is currently using
 	protected Frame getCurrentFrame() {
-		return animations.get(currentAnimationName)[currentFrameIndex];
+		return animations.get(currentAnimationName)[currentFrameIndex];//line 129
 	}
 
 	// gets the animation that the animated sprite class is currently using

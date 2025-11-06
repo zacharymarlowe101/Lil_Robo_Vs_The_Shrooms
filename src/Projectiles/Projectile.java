@@ -14,7 +14,6 @@ import Utils.Direction;
 import java.util.HashMap;
 import Builders.FrameBuilder;
 import GameObject.SpriteSheet;
-import GameObject.ImageEffect;
 import GameObject.AnimatedSprite;
 import java.awt.image.BufferedImage;
 import NPCs.*;
@@ -71,7 +70,7 @@ public class Projectile extends MapEntity{
 
     public void update(Player player) {
         this.performAction(player);
-        super.update();
+        super.update();//line 74, the super update
         moveY(velocityY);
         moveX(velocityX);
         lifetime -= deltaTime; //decides how long projectile lasts in the scene if they dont hit anything
@@ -114,7 +113,7 @@ public class Projectile extends MapEntity{
     }
 
     protected void performAction(Player player) {
-        currentAnimationName = "Bullet";
+        //currentAnimationName = "Bullet";
     }
 
 
@@ -138,25 +137,28 @@ public class Projectile extends MapEntity{
     //     } else {
     //         bulletImage = ImageLoader.load("DefaultBullet.png");
     //     }
-    //     HashMap<String, Frame[]> animations;
+
+
+    //     HashMap<String, Frame[]> animation;
 
     //     //this one shoots lasers
     //     if(owner instanceof Mushroom3){
-    //         animations = new HashMap<String, Frame[]>() {{
+    //         bulletSheet = new SpriteSheet(bulletImage, 300, 24);
+    //         animation = new HashMap<String, Frame[]>() {{
     //             put("Bullet", new Frame[] {
-    //                     new FrameBuilder(spriteSheet.getSprite(0, 0))
+    //                     new FrameBuilder(bulletSheet.getSprite(0, 0))
     //                             .withScale(3)
     //                             .withBounds(0, 0, 300, 24)
     //                             .build(),
-    //                     new FrameBuilder(spriteSheet.getSprite(0, 1))
+    //                     new FrameBuilder(bulletSheet.getSprite(0, 1))
     //                             .withScale(3)
     //                             .withBounds(0, 0, 300, 24)
     //                             .build(),
-    //                     new FrameBuilder(spriteSheet.getSprite(0, 2))
+    //                     new FrameBuilder(bulletSheet.getSprite(0, 2))
     //                             .withScale(3)
     //                             .withBounds(0, 0, 300, 24)
     //                             .build(),
-    //                     new FrameBuilder(spriteSheet.getSprite(0, 3))
+    //                     new FrameBuilder(bulletSheet.getSprite(0, 3))
     //                             .withScale(3)
     //                             .withBounds(0, 0, 300, 24)
     //                             .build(),
@@ -164,21 +166,22 @@ public class Projectile extends MapEntity{
             
     //         }};
     //     } else {//everything else shoots normal projectiles
-    //         animations = new HashMap<String, Frame[]>() {{
+    //         bulletSheet = new SpriteSheet(bulletImage, 16, 16);
+    //         animation = new HashMap<String, Frame[]>() {{
     //             put("Bullet", new Frame[] {
-    //                     new FrameBuilder(spriteSheet.getSprite(0, 0))
+    //                     new FrameBuilder(bulletSheet.getSprite(0, 0))
     //                             .withScale(3)
     //                             .withBounds(0, 0, 16, 16)
     //                             .build(),
-    //                     new FrameBuilder(spriteSheet.getSprite(0, 1))
+    //                     new FrameBuilder(bulletSheet.getSprite(0, 1))
     //                             .withScale(3)
     //                             .withBounds(0, 0, 16, 16)
     //                             .build(),
-    //                     new FrameBuilder(spriteSheet.getSprite(0, 2))
+    //                     new FrameBuilder(bulletSheet.getSprite(0, 2))
     //                             .withScale(3)
     //                             .withBounds(0, 0, 16, 16)
     //                             .build(),
-    //                     new FrameBuilder(spriteSheet.getSprite(0, 3))
+    //                     new FrameBuilder(bulletSheet.getSprite(0, 3))
     //                             .withScale(3)
     //                             .withBounds(0, 0, 16, 16)
     //                             .build(),
@@ -187,11 +190,9 @@ public class Projectile extends MapEntity{
     //         }};
     //     }
 
-
-
     //     bulletSprite = new AnimatedSprite(bulletSheet, super.x, super.y, "Bullet");
 
-    //     return animations;
+    //     return animation;
     // }
 
 
