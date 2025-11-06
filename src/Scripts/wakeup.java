@@ -15,7 +15,7 @@ public class wakeup extends Script {
         scriptActions.add(new LockPlayerScriptAction());
         
         scriptActions.add(new TextboxScriptAction() {{
-            addText("Beep Boop. Initializing dawn Protocol");
+            addText("Beep Boop. Initializing Dawn Protocol");
         }});
 
         
