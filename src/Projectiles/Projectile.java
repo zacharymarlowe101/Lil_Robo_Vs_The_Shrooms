@@ -46,7 +46,7 @@ public class Projectile extends MapEntity{
 
     public Projectile(float x, float y, Frame frame, Utils.Point p1, Point p2) { //P1 is start point, P2 is target point
         super(x, y, frame);
-        		this.animations = loadAnimations();
+        this.animations = loadAnimations(bulletSheet);
 
         //this.direction = direction;
         dx = p2.x - p1.x;
@@ -60,11 +60,14 @@ public class Projectile extends MapEntity{
 
     public Projectile(float x, float y) {
         super(x, y);
+        this.animations = loadAnimations(bulletSheet);
+
 
     }
 
     public Projectile(float x, float y, Frame frame) {
         super(x, y, frame);
+        this.animations = loadAnimations(bulletSheet);
 
     }
 
@@ -119,13 +122,13 @@ public class Projectile extends MapEntity{
 
 
     
-    
-    public HashMap<String, Frame[]> loadAnimations() {
+    @Override
+    public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
 
     this.currentAnimationName = "Bullet";
 
 
-    if(owner instanceof Player){
+        if(owner instanceof Player){
             bulletImage = ImageLoader.load("PlayerBullet.png");
             
         } else if (owner instanceof Mushroom1){
