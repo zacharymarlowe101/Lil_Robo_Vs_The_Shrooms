@@ -12,11 +12,11 @@ import Utils.Point;
 import java.util.ArrayList;
 
 // Represents a test map to be used in a level
-public class EnemyMap3 extends Map {
+public class BossMap extends Map {
 
-    public EnemyMap3() {
-        super("EnemyMap3.txt", new CommonTileset());
-        this.playerStartPosition = getMapTile(3, 20).getLocation();
+    public BossMap() {
+        super("BossMap.txt", new CommonTileset());
+        this.playerStartPosition = getMapTile(10, 26).getLocation();
     }
 
     // @Override
@@ -46,25 +46,13 @@ public class EnemyMap3 extends Map {
         // bug.setInteractScript(new BugScript());
         // npcs.add(bug);
 
-        // Mushroom1 mushroom1 = new Mushroom1(101, getMapTile(10, 14).getLocation(),3);
-        // npcs.add(mushroom1);
+        Mushroom1 mushroom1 = new Mushroom1(101, getMapTile(10, 10).getLocation(),3);
+        npcs.add(mushroom1);
 
-        // Mushroom1 mushroom4 = new Mushroom1(101, getMapTile(13, 15).getLocation(),3);
-        // npcs.add(mushroom4);
+        // Mushroom2 mushroom2 = new Mushroom2(102, getMapTile(10, 23).getLocation(),3);
+        // npcs.add(mushroom2);
 
-        // Mushroom1 mushroom5 = new Mushroom1(101, getMapTile(15, 13).getLocation(),3);
-        // npcs.add(mushroom5);
-
-        // Mushroom1 mushroom6 = new Mushroom1(101, getMapTile(14, 26).getLocation(),3);
-        // npcs.add(mushroom6);
-
-        // Mushroom1 mushroom7 = new Mushroom1(101, getMapTile(11, 27).getLocation(),3);
-        // npcs.add(mushroom7);
-
-        Mushroom2 mushroom2 = new Mushroom2(102, getMapTile(11, 21).getLocation(),3);
-        npcs.add(mushroom2);
-
-        // Mushroom3 mushroom3 = new Mushroom3(103, getMapTile(15, 21).getLocation(),3);
+        // Mushroom3 mushroom3 = new Mushroom3(103, getMapTile(12, 20).getLocation(),3);
         // npcs.add(mushroom3);
 
         return npcs;
@@ -74,12 +62,12 @@ public class EnemyMap3 extends Map {
     public ArrayList<Trigger> loadTriggers() {
         ArrayList<Trigger> triggers = new ArrayList<>();
        
-        triggers.add(new Trigger(getMapTile(19, 21).getLocation(), 32,32, new WarpScript(), "haswarped"));
+        triggers.add(new Trigger(getMapTile(10, 9).getLocation(), 32,32, new WarpScript(), "haswarped"));
         return triggers;
     }
     protected ArrayList<Script> loadUpdateScripts() {
         return new ArrayList<Script>() {{
-            add(new UpdateTileOnClearScript(new Point(19,21), new Point(2,4)));
+            add(new UpdateTileOnClearScript(new Point(10,9), new Point(2,4)));
         }};
     }
     

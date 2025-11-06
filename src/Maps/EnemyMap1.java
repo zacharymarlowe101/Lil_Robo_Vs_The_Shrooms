@@ -10,6 +10,7 @@ import Tilesets.CommonTileset;
 import Utils.Point;
 
 import java.util.ArrayList;
+import java.util.List;
 
 // Represents a test map to be used in a level
 public class EnemyMap1 extends Map {
@@ -29,34 +30,26 @@ public class EnemyMap1 extends Map {
     //     return enhancedMapTiles;
     // }
 
+
+    // RANDOM ENEMY SPAWNING LOGIC
     @Override
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
-        // Walrus walrus = new Walrus(1, getMapTile(4, 28).getLocation().subtractY(40));
-        // walrus.setInteractScript(new WalrusScript());
-        // npcs.add(walrus);
+         List<Point> spawnPoints = List.of(
+            new Point(12, 20),
+            new Point(13, 21),
+            new Point(14, 22)
+    );
 
-        // Dinosaur dinosaur = new Dinosaur(2, getMapTile(13, 4).getLocation());
-        // dinosaur.setExistenceFlag("hasTalkedToDinosaur");
-        // dinosaur.setInteractScript(new DinoScript());
-        // npcs.add(dinosaur);
-        
-        // Bug bug = new Bug(3, getMapTile(7, 12).getLocation().subtractX(20));
-        // bug.setInteractScript(new BugScript());
-        // npcs.add(bug);
+    EnemySpawner spawner = new EnemySpawner(this, spawnPoints);
+    List<NPC> randomEnemies = spawner.spawnMultipleEnemies(6);
 
-        Mushroom1 mushroom1 = new Mushroom1(101, getMapTile(12, 20).getLocation(), 2);
-        npcs.add(mushroom1);
-
-        Mushroom2 mushroom2 = new Mushroom2(102, getMapTile(12, 22).getLocation(), 2);
-        npcs.add(mushroom2);
-
-        Mushroom3 mushroom3 = new Mushroom3(103, getMapTile(13, 23).getLocation(), 2);
-        npcs.add(mushroom3);
-
-        return npcs;
-    }
+   for (NPC enemy : randomEnemies) {
+        npcs.add(enemy);
+        }
+    return npcs;
+}
 
     @Override
     public ArrayList<Trigger> loadTriggers() {

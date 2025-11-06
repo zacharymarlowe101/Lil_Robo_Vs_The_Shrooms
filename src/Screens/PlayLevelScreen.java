@@ -13,6 +13,7 @@ import Maps.EnemyMap2;
 import Maps.EnemyMap3;
 import Maps.EnemyMap4;  
 import Maps.EnemyMap5;
+import Maps.BossMap;
 
 
 
@@ -20,9 +21,11 @@ import Maps.EnemyMap5;
 public class PlayLevelScreen extends Screen implements GameListener {
     protected ScreenCoordinator screenCoordinator;
     protected Map map;
+    protected int mapn;
     protected Player player;
     protected PlayLevelScreenState playLevelScreenState;
     protected WinScreen winScreen;
+    protected int Rmap = 3;
     protected UpgradeScreen upgradeScreen;
     protected LoseScreen loseScreen;
     protected HUD HUDScreen;
@@ -34,6 +37,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
 
     public void initialize() {
         // setup state
+        
         flagManager = new FlagManager();
         flagManager.addFlag("hasLostBall", false);
         flagManager.addFlag("hasTalkedToWalrus", false);
@@ -174,8 +178,18 @@ public class PlayLevelScreen extends Screen implements GameListener {
     flagManager.addFlag("enemiesclear", false);
     flagManager.addFlag("haswarped", false);
 
-    int Rmap = 0;
-    Rmap = (int)(Math.random() * 5) + 1; // Randomly choose between 1 and 2
+
+
+   
+   
+    if(mapn == 3){
+        Rmap =4;
+    }else if(mapn == 4){
+        Rmap =5;
+    }else if(mapn == 5){
+        Rmap =6;
+    }
+  //  Rmap = (int)(Math.random() * 5) + 1; // Randomly choose between 1 and 2
     System.out.println(Rmap);
         if (Rmap == 1) {
             map = new EnemyMap1();
@@ -183,12 +197,17 @@ public class PlayLevelScreen extends Screen implements GameListener {
             map = new EnemyMap2();
         } else if (Rmap == 3) {
             map = new EnemyMap3();
+            mapn = 3;
         } else if (Rmap == 4) {
             map = new EnemyMap4();
+            mapn = 4;
         } else if (Rmap == 5) {
             map = new EnemyMap5();
+            mapn = 5;
+         } else if( Rmap == 6){
+            map = new BossMap();
         }
-        
+    
     
 
     
