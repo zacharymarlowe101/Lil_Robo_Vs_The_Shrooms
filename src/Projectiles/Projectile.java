@@ -46,7 +46,8 @@ public class Projectile extends MapEntity{
 
     public Projectile(float x, float y, Frame frame, Utils.Point p1, Point p2) { //P1 is start point, P2 is target point
         super(x, y, frame);
-       
+        		this.animations = loadAnimations();
+
         //this.direction = direction;
         dx = p2.x - p1.x;
         dy = p2.y - p1.y;
@@ -118,10 +119,10 @@ public class Projectile extends MapEntity{
 
 
     
-    @Override
-    public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
+    
+    public HashMap<String, Frame[]> loadAnimations() {
 
-    super.currentAnimationName = "Bullet";
+    this.currentAnimationName = "Bullet";
 
 
     if(owner instanceof Player){
@@ -140,6 +141,7 @@ public class Projectile extends MapEntity{
             bulletImage = ImageLoader.load("DefaultBullet.png");
         }
 
+        
 
         HashMap<String, Frame[]> animation;
 
@@ -192,18 +194,11 @@ public class Projectile extends MapEntity{
             }};
         }
 
-        bulletSprite = new AnimatedSprite(bulletSheet, super.x, super.y, "Bullet");
+  //      bulletSprite = new AnimatedSprite(bulletSheet, super.x, super.y, "Bullet");
 
         return animation;
     }
 
-
-    @Override
-    public void draw(GraphicsHandler graphicsHandler) {
-        super.draw(graphicsHandler);
-
-        if(bulletSprite != null) bulletSprite.draw(graphicsHandler);
-    }
 
     public void walk(Direction direction, float speed) {
         if (direction == Direction.UP) {
