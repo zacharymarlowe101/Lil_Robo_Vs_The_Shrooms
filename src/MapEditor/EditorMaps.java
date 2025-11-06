@@ -9,6 +9,7 @@ import Maps.EnemyMap2;
 import Maps.EnemyMap3;
 import Maps.EnemyMap4;
 import Maps.EnemyMap5;
+import Maps.BossMap;
 
 public class EditorMaps {
     public static ArrayList<String> getMapNames() {
@@ -20,6 +21,7 @@ public class EditorMaps {
             add("EnemyMap3");
             add("EnemyMap4");
             add("EnemyMap5");
+            add("BossMap");
         }};
     }
 
@@ -39,6 +41,8 @@ public class EditorMaps {
                  return new EnemyMap4();
              case "EnemyMap5":
                 return new EnemyMap5();
+            case "BossMap":
+                return new BossMap();
             default:
                 throw new RuntimeException("Unrecognized map name");
         }
