@@ -15,8 +15,7 @@ public class diagnostics extends Script {
         scriptActions.add(new LockPlayerScriptAction());
         
         scriptActions.add(new TextboxScriptAction() {{
-            addText("All appendages functional. ");
-            addText("Please used WASD or arrow keys to move.");
+           
         }});
 
         
