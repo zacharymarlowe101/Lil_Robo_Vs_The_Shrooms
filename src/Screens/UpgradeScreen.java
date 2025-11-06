@@ -81,11 +81,11 @@ public class UpgradeScreen extends Screen {
             increaseSpeed();
 
         } else if (Keyboard.isKeyDown(Key.TWO) && !keyLocker.isKeyLocked(Key.TWO)) {
-            option1.setScale(2.5f);
+            option2.setScale(2.5f);
             increaseHealth();
 
         } else if (Keyboard.isKeyDown(Key.THREE) && !keyLocker.isKeyLocked(Key.THREE)) {
-            option1.setScale(2.5f);
+            option3.setScale(2.5f);
             increaseDamage();
         } 
         
