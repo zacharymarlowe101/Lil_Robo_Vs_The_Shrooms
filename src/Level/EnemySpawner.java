@@ -7,17 +7,20 @@ import Utils.Point;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Function;
 
 public class EnemySpawner {
 
     private final Map map;
     private final List<Point> spawnPoints;
+    private final List<Function<Point, NPC>> weightedEnemyFactories;
     private final Random random = new Random();
     private int nextId = 1000;
 
-    public EnemySpawner(Map map, List<Point> spawnPoints) {
+    public EnemySpawner(Map map, List<Point> spawnPoints, List<WeightedFactory> weightedFactories) {
         this.map = map;
         this.spawnPoints = new ArrayList<>(spawnPoints);
+        this.weightedEnemyFactories = buildWeightedList(weightedFactories);
     }
 
     public List<NPC> spawnMultipleEnemies(int count) {
@@ -39,17 +42,27 @@ public class EnemySpawner {
     }
 
     private NPC createRandomEnemy(Point position) {
-        int type = random.nextInt(3);
-        int health = 3;
+        Function<Point, NPC> factory = weightedEnemyFactories.get(random.nextInt(weightedEnemyFactories.size()));
+        return factory.apply(position);
+    }
 
-        switch (type) {
-            case 0:
-                return new Mushroom1(nextId++, position, health);
-            case 1:
-                return new Mushroom2(nextId++, position, health);
-            case 2:
-            default:
-                return new Mushroom3(nextId++, position, health);
+    private List<Function<Point, NPC>> buildWeightedList(List<WeightedFactory> weightedFactories) {
+        List<Function<Point, NPC>> result = new ArrayList<>();
+        for (WeightedFactory wf : weightedFactories) {
+            for (int i = 0; i < wf.weight; i++) {
+                result.add(wf.factory);
+            }
+        }
+        return result;
+    }
+
+    public static class WeightedFactory {
+        public final int weight;
+        public final Function<Point, NPC> factory;
+
+        public WeightedFactory(int weight, Function<Point, NPC> factory) {
+            this.weight = weight;
+            this.factory = factory;
         }
     }
 }

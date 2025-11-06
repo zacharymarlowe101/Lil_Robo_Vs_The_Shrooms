@@ -21,7 +21,6 @@ public class NPC extends MapEntity {
     // Attack system
     protected EnemyAttack attack;
     protected int attackCooldown = 0;
-    //protected int NPCDamage = 1;
 
     // Constructors
     public NPC(int id, float x, float y, SpriteSheet spriteSheet, String startingAnimation) {
@@ -118,28 +117,6 @@ public class NPC extends MapEntity {
 
         updateEnemyAttack(player);
 
-        
-
-        /*if (map != null && map.getProjectiles() != null) {
-            for (Projectile p : map.getProjectiles()) {
-                System.out.println("Checking if Exists");
-                if (p == null || p.isHidden()) continue;
-                if (!projectilesHit.contains(p) && this.getBounds().intersects(p.getBounds())) {
-                    if (health > 0) {
-                        takeDamage(1);
-                        projectilesHit.add(p);
-                        p.isHidden = true; // Hide the projectile upon hitting the NPC
-                    }
-                }
-                System.out.println("Checking projectile collisions for Wall " + MapCollisionHandler.isCollidingWithMapEntity(p, map, null));
-                if(!projectilesHit.contains(p) && MapCollisionHandler.isCollidingWithMapEntity(p, map, null)){ //checks if projectile hits wall
-                    System.out.println("Projectile hit wall");
-                    projectilesHit.add(p);
-                    p.isHidden = true;
-                }
-            }
-        }*/
-
         super.update();
     }
 
@@ -176,7 +153,8 @@ public class NPC extends MapEntity {
         this.attack = attack;
     }
 
-    //public int getDamage(){
-    //    return NPCDamage;
-    //}
+    public Frame getCurrentFrame() {
+        return this.getCurrentAnimation()[this.getCurrentFrameIndex()];
+    }
+
 }

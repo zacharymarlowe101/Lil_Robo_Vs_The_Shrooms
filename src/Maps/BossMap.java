@@ -4,6 +4,7 @@ import Level.*;
 import NPCs.Mushroom1;
 import NPCs.Mushroom2;
 import NPCs.Mushroom3;
+import NPCs.MycorrhizalAmalgamation;
 import Scripts.UpdateTileOnClearScript;
 import Scripts.WarpScript;
 import Tilesets.CommonTileset;
@@ -46,14 +47,20 @@ public class BossMap extends Map {
         // bug.setInteractScript(new BugScript());
         // npcs.add(bug);
 
-        Mushroom1 mushroom1 = new Mushroom1(101, getMapTile(10, 10).getLocation(),3);
-        npcs.add(mushroom1);
+        // Mushroom1 mushroom1 = new Mushroom1(101, getMapTile(10, 10).getLocation(),3);
+        // npcs.add(mushroom1);
 
         // Mushroom2 mushroom2 = new Mushroom2(102, getMapTile(10, 23).getLocation(),3);
         // npcs.add(mushroom2);
 
         // Mushroom3 mushroom3 = new Mushroom3(103, getMapTile(12, 20).getLocation(),3);
         // npcs.add(mushroom3);
+
+        Point tile = getMapTile(8, 11).getLocation();
+        Point centeredLocation = new Point(tile.x + 58, tile.y);
+        MycorrhizalAmalgamation boss = new MycorrhizalAmalgamation(102, centeredLocation, 1);
+        npcs.add(boss);
+
 
         return npcs;
     }

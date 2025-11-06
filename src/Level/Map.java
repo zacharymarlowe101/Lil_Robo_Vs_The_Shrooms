@@ -88,6 +88,13 @@ public abstract class Map {
     // map's cleared flag
     protected boolean isCleared = false;
 
+    private final ArrayList<NPC> npcsToAdd = new ArrayList<>();
+    public void queueNPC(NPC npc) {
+        npc.setMap(this);
+        npcsToAdd.add(npc);
+    }
+
+
 
     public Map(String mapFileName, Tileset tileset) {
         this.mapFileName = mapFileName;
@@ -132,6 +139,10 @@ public abstract class Map {
                     onMapCleared();
             }
         }
+    }
+    if (!npcsToAdd.isEmpty()) {
+        npcs.addAll(npcsToAdd);
+        npcsToAdd.clear();
     }
 }
 
