@@ -89,18 +89,18 @@ public class UpgradeScreen extends Screen {
             increaseDamage();
         } 
         
-        if(option1.pointInBounds(GamePanel.getMousePositionPoint().x,GamePanel.getMousePositionPoint().y)){
+        if(GamePanel.isMouseClicked() && option1.pointInBounds(GamePanel.getMousePositionPoint().x,GamePanel.getMousePositionPoint().y)){
                 option1.setScale(2.5f);
                 increaseSpeed();
         }
 
-        if(option2.pointInBounds(GamePanel.getMousePositionPoint().x,GamePanel.getMousePositionPoint().y)){
-                option1.setScale(2.5f);
+        if(GamePanel.isMouseClicked() && option2.pointInBounds(GamePanel.getMousePositionPoint().x, GamePanel.getMousePositionPoint().y)){
+                option2.setScale(2.5f);
                 increaseHealth();
         }
 
-        if(option3.pointInBounds(GamePanel.getMousePositionPoint().x,GamePanel.getMousePositionPoint().y)){
-                option1.setScale(2.5f);
+        if(GamePanel.isMouseClicked() && option3.pointInBounds(GamePanel.getMousePositionPoint().x, GamePanel.getMousePositionPoint().y)){
+                option3.setScale(2.5f);
                 increaseDamage();
             }
 
@@ -113,7 +113,6 @@ public class UpgradeScreen extends Screen {
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
-        //graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), Color.black);
         option1.draw(graphicsHandler);
         option2.draw(graphicsHandler);
         option3.draw(graphicsHandler);

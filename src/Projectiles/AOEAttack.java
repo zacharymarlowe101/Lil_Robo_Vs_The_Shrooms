@@ -55,4 +55,6 @@ public class AOEAttack implements EnemyAttack {
     public int getCooldown() {
         return cooldown;
     }
+
+    
 }
