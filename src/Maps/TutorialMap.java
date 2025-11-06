@@ -14,13 +14,13 @@ public class TutorialMap extends Map {
 
     public TutorialMap() {
          super("TutorialMap", new CommonTileset());
-        this.playerStartPosition = getMapTile(15, 8).getLocation();
+        this.playerStartPosition = getMapTile(15, 9).getLocation();
     }
     @Override
     public ArrayList<Trigger> loadTriggers() {
         ArrayList<Trigger> triggers = new ArrayList<>();
-        triggers.add(new Trigger(getMapTile(14, 5).getLocation(), 32,600, new wakeup(), "wakingup"));
-        triggers.add(new Trigger(getMapTile(12, 5).getLocation(), 32,600, new diagnostics(), "diagnostics"));
+        triggers.add(new Trigger(getMapTile(15, 5).getLocation(), 32,600, new wakeup(), "wakingup"));
+      //  triggers.add(new Trigger(getMapTile(12, 5).getLocation(), 32,600, new diagnostics(), "diagnostics"));
         triggers.add(new Trigger(getMapTile(10, 5).getLocation(), 32,600, new weaponcheck(), "weaponcheck"));
         triggers.add(new Trigger(getMapTile(8, 5).getLocation(), 32,600, new ERADICATE(), "eradicate"));
         triggers.add(new Trigger(getMapTile(5, 4).getLocation(), 32,32, new WarpScript(), "haswarped"));

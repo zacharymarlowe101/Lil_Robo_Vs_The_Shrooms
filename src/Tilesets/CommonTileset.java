@@ -479,6 +479,7 @@ public class CommonTileset extends Tileset {
         // mud/grass cliff top left
         Frame mgctlFrame = new FrameBuilder(getSubImage(0, 4))
                 .withScale(tileScale)
+                .withBounds(0, 8, 32, 24)
                 .build();
 
         MapTileBuilder mgctlTile = new MapTileBuilder(mgctlFrame)
@@ -488,6 +489,7 @@ public class CommonTileset extends Tileset {
         // mud/grass cliff top right
         Frame mgctrFrame = new FrameBuilder(getSubImage(1, 5))
                 .withScale(tileScale)
+                .withBounds(0, 8, 32, 24)
                 .build();
 
         MapTileBuilder mgctrTile = new MapTileBuilder(mgctrFrame)
@@ -500,6 +502,7 @@ public class CommonTileset extends Tileset {
          // mud/grass cliff right bottom
         Frame mgcrbFrame = new FrameBuilder(getSubImage(0, 5))
                 .withScale(tileScale)
+                .withBounds(0, 0, 23, 32)
                 .build();
 
         MapTileBuilder mgcrbTile = new MapTileBuilder(mgcrbFrame)
@@ -509,6 +512,7 @@ public class CommonTileset extends Tileset {
        //mud grass cliff right top
         Frame mgcrtFrame = new FrameBuilder(getSubImage(1, 6))
                 .withScale(tileScale)
+                .withBounds(0, 0, 23, 32)
                 .build();
 
         MapTileBuilder mgcrtTile = new MapTileBuilder(mgcrtFrame)
@@ -520,6 +524,7 @@ public class CommonTileset extends Tileset {
         //mud/grass cliff left bottom 
         Frame mgclbFrame = new FrameBuilder(getSubImage(0, 6))
                 .withScale(tileScale)
+                .withBounds(9, 0, 23, 32)
                 .build();
 
         MapTileBuilder mgclbTile = new MapTileBuilder(mgclbFrame)
@@ -529,6 +534,7 @@ public class CommonTileset extends Tileset {
         //mud/grass cliff left top mgclt
         Frame mgcltFrame = new FrameBuilder(getSubImage(2, 5))
                 .withScale(tileScale)
+                .withBounds(9, 0, 23, 32)
                 .build();
 
         MapTileBuilder mgcltTile = new MapTileBuilder(mgcltFrame)
@@ -540,6 +546,7 @@ public class CommonTileset extends Tileset {
         //mud/grass cliff bottom left 
         Frame mgcblFrame = new FrameBuilder(getSubImage(2, 6))
                 .withScale(tileScale)
+                .withBounds(0, 0, 32, 1)
                 .build();
 
         MapTileBuilder mgcblTile = new MapTileBuilder(mgcblFrame)
@@ -549,6 +556,7 @@ public class CommonTileset extends Tileset {
         //mud/grass cliff bottom right
         Frame mgcbrFrame = new FrameBuilder(getSubImage(1, 4))
                 .withScale(tileScale)
+                .withBounds(0, 0, 32, 1)
                 .build();
 
         MapTileBuilder mgcbrTile = new MapTileBuilder(mgcbrFrame)

@@ -6,18 +6,18 @@ import GameObject.Frame;
 import GameObject.ImageEffect;
 import Utils.Point;
 import Utils.ImageUtils;
-import java.awt.Color;
 
+import java.awt.Color;
 
 public class LaserAttack implements EnemyAttack {
 
-    private static final int COOLDOWN_FRAMES = 240;   // ~4 seconds between shots
-    private static final int DURATION_FRAMES = 90;   // visible for 1.5 second
-    private static final int BEAM_LENGTH = 300;       // px
-    private static final int BEAM_THICKNESS = 24;     // px
-    private static final int VERTICAL_SPACING = 12;   // distance between beams
-    private static final int FRONT_PADDING = 8;      // how far in front to spawn
-    private static final float LASER_SPEED = 1.4f;    // slow speed
+    private static final int COOLDOWN_FRAMES = 240;
+    private static final int DURATION_FRAMES = 90;
+    private static final int BEAM_LENGTH = 300;
+    private static final int BEAM_THICKNESS = 24;
+    private static final int VERTICAL_SPACING = 12;
+    private static final int FRONT_PADDING = 8;
+    private static final float LASER_SPEED = 1.4f;
 
     @Override
     public void perform(NPC npc, Player player) {
@@ -55,6 +55,7 @@ public class LaserAttack implements EnemyAttack {
 
             {
                 this.setSpeed(LASER_SPEED);
+                this.setDestroyOnWallHit(false);
             }
 
             @Override

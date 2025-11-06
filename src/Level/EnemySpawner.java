@@ -20,22 +20,22 @@ public class EnemySpawner {
         this.spawnPoints = new ArrayList<>(spawnPoints);
     }
 
-    public void spawnRandomEnemy() {
-        if (spawnPoints.isEmpty()) return;
+    public List<NPC> spawnMultipleEnemies(int count) {
+        List<NPC> enemies = new ArrayList<>();
+        List<Point> availablePoints = new ArrayList<>(spawnPoints);
 
-        Point tileCoord = spawnPoints.get(random.nextInt(spawnPoints.size()));
-        MapTile tile = map.getMapTile((int) tileCoord.x, (int) tileCoord.y);
-        if (tile == null) return;
+        for (int i = 0; i < count && !availablePoints.isEmpty(); i++) {
+            int index = random.nextInt(availablePoints.size());
+            Point tileCoord = availablePoints.remove(index);
+            MapTile tile = map.getMapTile((int) tileCoord.x, (int) tileCoord.y);
+            if (tile == null) continue;
 
-        Point spawnLocation = tile.getLocation();
-        NPC enemy = createRandomEnemy(spawnLocation);
-        map.addNPC(enemy);
-    }
-
-    public void spawnMultipleEnemies(int count) {
-        for (int i = 0; i < count; i++) {
-            spawnRandomEnemy();
+            Point spawnLocation = tile.getLocation();
+            NPC enemy = createRandomEnemy(spawnLocation);
+            enemies.add(enemy);
         }
+
+        return enemies;
     }
 
     private NPC createRandomEnemy(Point position) {
