@@ -113,87 +113,89 @@ public class Projectile extends MapEntity{
     }
 
     protected void performAction(Player player) {
-        //currentAnimationName = "Bullet";
     }
 
 
 
     
-    // @Override
-    // public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
+    @Override
+    public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
 
-    // if(owner instanceof Player){
-    //         bulletImage = ImageLoader.load("PlayerBullet.png");
+    super.currentAnimationName = "Bullet";
+
+
+    if(owner instanceof Player){
+            bulletImage = ImageLoader.load("PlayerBullet.png");
             
-    //     } else if (owner instanceof Mushroom1){
-    //         bulletImage = ImageLoader.load("Mushroom1Bullet.png");
+        } else if (owner instanceof Mushroom1){
+            bulletImage = ImageLoader.load("Mushroom1Bullet.png");
 
-    //     } else if (owner instanceof Mushroom2){
-    //         bulletImage = ImageLoader.load("PuffballBullet.png");
+        } else if (owner instanceof Mushroom2){
+            bulletImage = ImageLoader.load("PuffballBullet.png");
 
-    //     } else if (owner instanceof Mushroom3) {
-    //         bulletImage = ImageLoader.load("Laser.png");
+        } else if (owner instanceof Mushroom3) {
+            bulletImage = ImageLoader.load("Laser.png");
 
-    //     } else {
-    //         bulletImage = ImageLoader.load("DefaultBullet.png");
-    //     }
+        } else {
+            bulletImage = ImageLoader.load("DefaultBullet.png");
+        }
 
 
-    //     HashMap<String, Frame[]> animation;
+        HashMap<String, Frame[]> animation;
 
-    //     //this one shoots lasers
-    //     if(owner instanceof Mushroom3){
-    //         bulletSheet = new SpriteSheet(bulletImage, 300, 24);
-    //         animation = new HashMap<String, Frame[]>() {{
-    //             put("Bullet", new Frame[] {
-    //                     new FrameBuilder(bulletSheet.getSprite(0, 0))
-    //                             .withScale(3)
-    //                             .withBounds(0, 0, 300, 24)
-    //                             .build(),
-    //                     new FrameBuilder(bulletSheet.getSprite(0, 1))
-    //                             .withScale(3)
-    //                             .withBounds(0, 0, 300, 24)
-    //                             .build(),
-    //                     new FrameBuilder(bulletSheet.getSprite(0, 2))
-    //                             .withScale(3)
-    //                             .withBounds(0, 0, 300, 24)
-    //                             .build(),
-    //                     new FrameBuilder(bulletSheet.getSprite(0, 3))
-    //                             .withScale(3)
-    //                             .withBounds(0, 0, 300, 24)
-    //                             .build(),
-    //             });
+        //this one shoots lasers
+        if(owner instanceof Mushroom3){
+            bulletSheet = new SpriteSheet(bulletImage, 300, 24);
+            animation = new HashMap<String, Frame[]>() {{
+                put("Bullet", new Frame[] {
+                        new FrameBuilder(bulletSheet.getSprite(0, 0))
+                                .withScale(3)
+                                .withBounds(0, 0, 300, 24)
+                                .build(),
+                        new FrameBuilder(bulletSheet.getSprite(0, 1))
+                                .withScale(3)
+                                .withBounds(0, 0, 300, 24)
+                                .build(),
+                        new FrameBuilder(bulletSheet.getSprite(0, 2))
+                                .withScale(3)
+                                .withBounds(0, 0, 300, 24)
+                                .build(),
+                        new FrameBuilder(bulletSheet.getSprite(0, 3))
+                                .withScale(3)
+                                .withBounds(0, 0, 300, 24)
+                                .build(),
+                });
             
-    //         }};
-    //     } else {//everything else shoots normal projectiles
-    //         bulletSheet = new SpriteSheet(bulletImage, 16, 16);
-    //         animation = new HashMap<String, Frame[]>() {{
-    //             put("Bullet", new Frame[] {
-    //                     new FrameBuilder(bulletSheet.getSprite(0, 0))
-    //                             .withScale(3)
-    //                             .withBounds(0, 0, 16, 16)
-    //                             .build(),
-    //                     new FrameBuilder(bulletSheet.getSprite(0, 1))
-    //                             .withScale(3)
-    //                             .withBounds(0, 0, 16, 16)
-    //                             .build(),
-    //                     new FrameBuilder(bulletSheet.getSprite(0, 2))
-    //                             .withScale(3)
-    //                             .withBounds(0, 0, 16, 16)
-    //                             .build(),
-    //                     new FrameBuilder(bulletSheet.getSprite(0, 3))
-    //                             .withScale(3)
-    //                             .withBounds(0, 0, 16, 16)
-    //                             .build(),
-    //             });
+            }};
+        } else {//everything else shoots normal projectiles
+            bulletSheet = new SpriteSheet(bulletImage, 16, 16);
+            animation = new HashMap<String, Frame[]>() {{
+                put("Bullet", new Frame[] {
+                        new FrameBuilder(bulletSheet.getSprite(0, 0))
+                                .withScale(3)
+                                .withBounds(0, 0, 16, 16)
+                                .build(),
+                        new FrameBuilder(bulletSheet.getSprite(0, 1))
+                                .withScale(3)
+                                .withBounds(0, 0, 16, 16)
+                                .build(),
+                        new FrameBuilder(bulletSheet.getSprite(0, 2))
+                                .withScale(3)
+                                .withBounds(0, 0, 16, 16)
+                                .build(),
+                        new FrameBuilder(bulletSheet.getSprite(0, 3))
+                                .withScale(3)
+                                .withBounds(0, 0, 16, 16)
+                                .build(),
+                });
             
-    //         }};
-    //     }
+            }};
+        }
 
-    //     bulletSprite = new AnimatedSprite(bulletSheet, super.x, super.y, "Bullet");
+        bulletSprite = new AnimatedSprite(bulletSheet, super.x, super.y, "Bullet");
 
-    //     return animation;
-    // }
+        return animation;
+    }
 
 
     @Override
