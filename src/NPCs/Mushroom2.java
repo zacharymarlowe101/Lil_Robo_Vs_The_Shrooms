@@ -92,4 +92,14 @@ public class Mushroom2 extends EnemyNPC {
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
     }
+
+    @Override
+    public void updateEnemyAttack(Player player) {
+        super.updateEnemyAttack(player);
+
+        if (attack != null && attack.isInRange(this, player)) {
+            super.takeDamage(getHealth());
+            super.update();
+        }
+    }
 }
