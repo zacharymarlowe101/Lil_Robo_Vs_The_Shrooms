@@ -65,6 +65,10 @@ public abstract class Player extends GameObject {
     public boolean canShoot = true;
     public boolean inDialogue = false;
 
+    //Reflect Variables
+    protected Key RELFLECT_KEY = Key.R;
+    private int maxReflects = 10;
+    private int reflectCount = 0;
 
     // track up to 120 frames of player position history (2 seconds if 60 FPS)
     private static final int MAX_POSITION_HISTORY = 120;
@@ -105,6 +109,18 @@ public abstract class Player extends GameObject {
             //didProjectileSpawn = true;
             map.addProjectile(projectile);
             projectile.setOwner(this);
+        }
+
+        if(Keyboard.isKeyDown(Key.R) && reflectCount !=0 && !inDialogue){ //Reflect projectile
+            for(Projectile p : map.getProjectiles()){
+                if(p.getOwner() != this){
+                    reflectCount--;
+                    p.setOwner(this);
+                    //float tempVelX = p.getVelocityX();
+                    //float tempVelY = p.getVelocityY();
+                }
+            }
+
         }
         // if(!GamePanel.isMouseClicked() && didProjectileSpawn == true){ //Reset projectile spawn //Keyboard.isKeyUp(Key.E)
         //     didProjectileSpawn = false;
