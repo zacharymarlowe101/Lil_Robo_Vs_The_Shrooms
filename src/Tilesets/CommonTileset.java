@@ -215,7 +215,7 @@ public class CommonTileset extends Tileset {
          // grass left
         Frame grassCliffLeftFrame = new FrameBuilder(getSubImage(6, 2))
                 .withScale(tileScale)
-                .withBounds(9, 0, 23, 32)
+                .withBounds(9, 10, 23, 32)
                 .build();
 
         MapTileBuilder grassCliffLeftTile = new MapTileBuilder(grassCliffLeftFrame)
@@ -225,7 +225,7 @@ public class CommonTileset extends Tileset {
        // grass right
         Frame grassCliffRightFrame = new FrameBuilder(getSubImage(6, 1))
                 .withScale(tileScale)
-                .withBounds(0, 0, 23, 32)
+                .withBounds(0, 10, 23, 32)
                 .build();
 
         MapTileBuilder grassCliffRightTile = new MapTileBuilder(grassCliffRightFrame)
@@ -249,7 +249,7 @@ public class CommonTileset extends Tileset {
        // mud lower
         Frame mudCliffLowerFrame = new FrameBuilder(getSubImage(5, 3))
                 .withScale(tileScale)
-                .withBounds(0, 0, 32, 1)
+                .withBounds(0, 10, 32, 1)
                 .build();
 
         MapTileBuilder mudCliffLowerTile = new MapTileBuilder(mudCliffLowerFrame)
@@ -259,7 +259,7 @@ public class CommonTileset extends Tileset {
          // mud left
         Frame mudCliffLeftFrame = new FrameBuilder(getSubImage(5, 2))
                 .withScale(tileScale)
-                .withBounds(9, 0, 23, 32)
+                .withBounds(9, 10, 23, 32)
                 .build();
 
         MapTileBuilder mudCliffLeftTile = new MapTileBuilder(mudCliffLeftFrame)
@@ -269,7 +269,7 @@ public class CommonTileset extends Tileset {
        // mud right
         Frame mudCliffRightFrame = new FrameBuilder(getSubImage(5, 1))
                 .withScale(tileScale)
-                .withBounds(0, 0, 23, 32)
+                .withBounds(0, 10, 23, 32)
                 .build();
 
         MapTileBuilder mudCliffRightTile = new MapTileBuilder(mudCliffRightFrame)
@@ -361,7 +361,7 @@ public class CommonTileset extends Tileset {
        // mud lower right
         Frame mudCliffLowerRightFrame = new FrameBuilder(getSubImage(4, 3))
                 .withScale(tileScale)
-                .withBounds(0, 0, 21, 1)
+                .withBounds(0, 10, 21, 1)
                 .build();
 
         MapTileBuilder mudCliffLowerRightTile = new MapTileBuilder(mudCliffLowerRightFrame)
@@ -394,7 +394,7 @@ public class CommonTileset extends Tileset {
          // mud lower left
         Frame mudCliffInvertedLowerLeftFrame = new FrameBuilder(getSubImage(9, 2))
                 .withScale(tileScale)
-                  .withBounds(9, 0, 21, 1)
+                .withBounds(9, 0, 21, 30)
                 .build();
 
         MapTileBuilder mudCliffInvertedLowerLeftTile = new MapTileBuilder(mudCliffInvertedLowerLeftFrame)
@@ -405,7 +405,7 @@ public class CommonTileset extends Tileset {
        // mud lower right
         Frame mudCliffInvertedLowerRightFrame = new FrameBuilder(getSubImage(9, 1))
                 .withScale(tileScale)
-                    .withBounds(0, 0, 21, 1)
+                .withBounds(2, 0, 21, 30)
                 .build();
 
         MapTileBuilder mudCliffInvertedLowerRightTile = new MapTileBuilder(mudCliffInvertedLowerRightFrame)
@@ -439,7 +439,7 @@ public class CommonTileset extends Tileset {
         // grass lower left
         Frame grassCliffInvertedLowerLeftFrame = new FrameBuilder(getSubImage(8, 2))
                 .withScale(tileScale)
-                .withBounds(9, 0, 21, 1)
+                .withBounds(9, 0, 21, 30)
                 .build();
 
         MapTileBuilder grassCliffInvertedLowerLeftTile = new MapTileBuilder(grassCliffInvertedLowerLeftFrame)
@@ -450,7 +450,7 @@ public class CommonTileset extends Tileset {
         // grass lower right
         Frame grassCliffInvertedLowerRightFrame = new FrameBuilder(getSubImage(8, 1))
                 .withScale(tileScale)
-                .withBounds(0, 0, 21, 1)
+                .withBounds(2, 0, 21, 30)
                 .build();
 
         MapTileBuilder grassCliffInvertedLowerRightTile = new MapTileBuilder(grassCliffInvertedLowerRightFrame)
@@ -502,7 +502,7 @@ public class CommonTileset extends Tileset {
          // mud/grass cliff right bottom
         Frame mgcrbFrame = new FrameBuilder(getSubImage(0, 5))
                 .withScale(tileScale)
-                .withBounds(0, 0, 23, 32)
+                .withBounds(0, 10, 23, 32)
                 .build();
 
         MapTileBuilder mgcrbTile = new MapTileBuilder(mgcrbFrame)
@@ -512,7 +512,7 @@ public class CommonTileset extends Tileset {
        //mud grass cliff right top
         Frame mgcrtFrame = new FrameBuilder(getSubImage(1, 6))
                 .withScale(tileScale)
-                .withBounds(0, 0, 23, 32)
+                .withBounds(0, 10, 23, 32)
                 .build();
 
         MapTileBuilder mgcrtTile = new MapTileBuilder(mgcrtFrame)
@@ -524,7 +524,7 @@ public class CommonTileset extends Tileset {
         //mud/grass cliff left bottom 
         Frame mgclbFrame = new FrameBuilder(getSubImage(0, 6))
                 .withScale(tileScale)
-                .withBounds(9, 0, 23, 32)
+                .withBounds(9, 10, 23, 32)
                 .build();
 
         MapTileBuilder mgclbTile = new MapTileBuilder(mgclbFrame)
@@ -534,7 +534,7 @@ public class CommonTileset extends Tileset {
         //mud/grass cliff left top mgclt
         Frame mgcltFrame = new FrameBuilder(getSubImage(2, 5))
                 .withScale(tileScale)
-                .withBounds(9, 0, 23, 32)
+                .withBounds(9, 10, 23, 32)
                 .build();
 
         MapTileBuilder mgcltTile = new MapTileBuilder(mgcltFrame)
@@ -546,7 +546,7 @@ public class CommonTileset extends Tileset {
         //mud/grass cliff bottom left 
         Frame mgcblFrame = new FrameBuilder(getSubImage(2, 6))
                 .withScale(tileScale)
-                .withBounds(0, 0, 32, 1)
+                .withBounds(0, 10, 32, 1)
                 .build();
 
         MapTileBuilder mgcblTile = new MapTileBuilder(mgcblFrame)
