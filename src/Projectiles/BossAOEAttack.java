@@ -1,22 +1,22 @@
 package Projectiles;
 
-import GameObject.Frame;
-import GameObject.ImageEffect;
 import Level.NPC;
 import Level.Player;
-import Utils.ImageUtils;
-
-import java.awt.Color;
+import GameObject.SpriteSheet;
+import Engine.ImageLoader;
 
 public class BossAOEAttack implements EnemyAttack {
 
     private int cooldown = 260;
     private int cooldownCounter = 0;
     private int usesRemaining = 3;
+    private int bulletLength = 16;
 
     @Override
     public void perform(NPC npc, Player player) {
         if (cooldownCounter > 0 || usesRemaining <= 0) return;
+
+        SpriteSheet spriteSheet = new SpriteSheet(ImageLoader.load("Mushroom1Bullet.png"), bulletLength, bulletLength);
 
         float centerX = npc.getX() + npc.getCurrentFrame().getWidth() / 2f;
         float centerY = npc.getY() + npc.getCurrentFrame().getHeight() / 2f;
@@ -32,15 +32,8 @@ public class BossAOEAttack implements EnemyAttack {
             float spawnX = centerX + dx * radius - (projectileSize / 2f);
             float spawnY = centerY + dy * radius - (projectileSize / 2f);
 
-            Frame projectileFrame = new Frame(
-                ImageUtils.createSolidImage(new Color(255, 100, 100), (int) projectileSize, (int) projectileSize),
-                ImageEffect.NONE,
-                1,
-                null
-            );
-            projectileFrame.setBounds(0, 0, (int) projectileSize, (int) projectileSize);
 
-            EnemyProjectile projectile = new EnemyProjectile(spawnX, spawnY, projectileFrame, dx, dy, npc);
+            EnemyProjectile projectile = new EnemyProjectile(spriteSheet, spawnX, spawnY, dx, dy, npc);
             projectile.setSpeed(1.8f);
             projectile.setLifetime(10000);
             projectile.setDestroyOnWallHit(true);

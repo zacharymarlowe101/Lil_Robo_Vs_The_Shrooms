@@ -2,16 +2,13 @@ package Projectiles;
 
 import Level.NPC;
 import Level.Player;
-import GameObject.Frame;
-import GameObject.ImageEffect;
-import Utils.ImageUtils;
-
-import java.awt.Color;
-
+import GameObject.SpriteSheet;
+import Engine.ImageLoader;
 public class AOEAttack implements EnemyAttack {
 
     private int projectileCount = 12;
     private int cooldown = 450;
+    private int bulletLength = 16;
 
     @Override
     public void perform(NPC npc, Player player) {
@@ -20,15 +17,9 @@ public class AOEAttack implements EnemyAttack {
 
         float radius = 30f;
 
-        for (int i = 0; i < projectileCount; i++) {
-            Frame projectileFrame = new Frame(
-                ImageUtils.createSolidImage(new Color(255, 100, 100), 20, 20),
-                ImageEffect.NONE,
-                1,
-                null
-            );
-            projectileFrame.setBounds(0, 0, 20, 20);
+        SpriteSheet spriteSheet = new SpriteSheet(ImageLoader.load("PuffballBullet.png"), bulletLength, bulletLength);
 
+        for (int i = 0; i < projectileCount; i++) {
             double angle = 2 * Math.PI * i / projectileCount;
 
             float dx = (float) Math.cos(angle);
@@ -37,7 +28,7 @@ public class AOEAttack implements EnemyAttack {
             float spawnX = centerX + dx * radius;
             float spawnY = centerY + dy * radius;
 
-            EnemyProjectile projectile = new EnemyProjectile(spawnX, spawnY, projectileFrame, dx, dy, npc);
+            EnemyProjectile projectile = new EnemyProjectile(spriteSheet, spawnX, spawnY, dx, dy, npc);
             projectile.setSpeed(2.5f);
             projectile.setLifetime(2250);
             projectile.setDestroyOnWallHit(true);

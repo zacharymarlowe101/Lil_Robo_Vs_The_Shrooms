@@ -170,8 +170,9 @@ public class MycorrhizalAmalgamation extends EnemyNPC implements HasHealth {
         return new HashMap<String, Frame[]>() {{
             put("STAND_LEFT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0))
-                        .withScale(3).withBounds(32, 32, 64, 64)
-                        .withImageEffect(ImageEffect.FLIP_HORIZONTAL).build()
+                    .withScale(3)
+                    .withBounds(32, 32, 64, 64)
+                    .build()
             });
             put("STAND_RIGHT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0))
@@ -179,14 +180,17 @@ public class MycorrhizalAmalgamation extends EnemyNPC implements HasHealth {
             });
             put("WALK_LEFT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 35)
-                        .withScale(3).withBounds(32, 32, 64, 64)
-                        .withImageEffect(ImageEffect.FLIP_HORIZONTAL).build(),
+                    .withScale(3)
+                    .withBounds(32, 32, 64, 64)
+                    .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 2), 35)
-                        .withScale(3).withBounds(32, 32, 64, 64)
-                        .withImageEffect(ImageEffect.FLIP_HORIZONTAL).build(),
+                    .withScale(3)
+                    .withBounds(32, 32, 64, 64)
+                    .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 3), 35)
-                        .withScale(3).withBounds(32, 32, 64, 64)
-                        .withImageEffect(ImageEffect.FLIP_HORIZONTAL).build()
+                    .withScale(3)
+                    .withBounds(32, 32, 64, 64)
+                    .build()
             });
             put("WALK_RIGHT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 35)

@@ -1,12 +1,13 @@
 package Maps;
 
 import Level.*;
-import NPCs.Mushroom1;
-import NPCs.Mushroom2;
-import NPCs.Mushroom3;
 import NPCs.MycorrhizalAmalgamation;
 import Scripts.UpdateTileOnClearScript;
 import Scripts.WarpScript;
+import Scripts.battle;
+import Scripts.showdown;
+import Scripts.twist;
+import Scripts.wakeup;
 import Tilesets.CommonTileset;
 import Utils.Point;
 
@@ -19,7 +20,15 @@ public class BossMap extends Map {
         super("BossMap.txt", new CommonTileset());
         this.playerStartPosition = getMapTile(10, 26).getLocation();
     }
-
+    @Override
+    public ArrayList<Trigger> loadTriggers() {
+        ArrayList<Trigger> triggers = new ArrayList<>();
+       triggers.add(new Trigger(getMapTile(9, 25).getLocation(), 250,30, new showdown(), "showdown"));
+        triggers.add(new Trigger(getMapTile(9, 23).getLocation(), 250,30, new twist(), "twist"));
+        triggers.add(new Trigger(getMapTile(9, 21).getLocation(), 250,30, new battle(), "battle"));
+        triggers.add(new Trigger(getMapTile(10, 9).getLocation(), 32,32, new WarpScript(), "haswarped"));
+        return triggers;
+    } 
     // @Override
     // public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
     //     ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
@@ -65,14 +74,7 @@ public class BossMap extends Map {
         return npcs;
     }
 
-    @Override
-    public ArrayList<Trigger> loadTriggers() {
-        ArrayList<Trigger> triggers = new ArrayList<>();
-       
-        triggers.add(new Trigger(getMapTile(10, 9).getLocation(), 32,32, new WarpScript(), "haswarped"));
-        return triggers;
-    }
-    protected ArrayList<Script> loadUpdateScripts() {
+       protected ArrayList<Script> loadUpdateScripts() {
         return new ArrayList<Script>() {{
             add(new UpdateTileOnClearScript(new Point(10,9), new Point(2,4)));
         }};

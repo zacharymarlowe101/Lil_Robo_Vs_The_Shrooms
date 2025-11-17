@@ -50,6 +50,9 @@ public class PlayLevelScreen extends Screen implements GameListener {
         flagManager.addFlag("diagnostics", false);
         flagManager.addFlag("weaponcheck", false);
         flagManager.addFlag("eradicate", false);
+        flagManager.addFlag("showdown", false);
+        flagManager.addFlag("twist", false);
+        flagManager.addFlag("battle", false);
 
 
         // define/setup map
@@ -186,7 +189,9 @@ public class PlayLevelScreen extends Screen implements GameListener {
     flagManager.addFlag("hasFoundBall", false);
     flagManager.addFlag("enemiesclear", false);
     flagManager.addFlag("haswarped", false);
-
+      flagManager.addFlag("showdown", false);
+        flagManager.addFlag("twist", false);
+        flagManager.addFlag("battle", false);
 
 
    
@@ -199,13 +204,13 @@ public class PlayLevelScreen extends Screen implements GameListener {
     //     Rmap =6;
     // }
         mapcount++;
-        System.out.println("mapcount:"+mapcount);
-        if(mapcount <7){
-           Rmap = (int)(Math.random() * 5) + 1; // Randomly choose between 1 and 2
-        }else{
-            Rmap =6;
-        }
-   
+        // System.out.println("mapcount:"+mapcount);
+        // if(mapcount <7){
+        //    Rmap = (int)(Math.random() * 5) + 1; // Randomly choose between 1 and 2
+        // }else{
+        //     Rmap =6;
+        // }
+   Rmap = 6;
     System.out.println(Rmap);
         if (Rmap == 1) {
             map = new EnemyMap1();
