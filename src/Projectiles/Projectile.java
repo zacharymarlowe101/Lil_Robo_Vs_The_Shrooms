@@ -3,7 +3,6 @@ package Projectiles;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import Engine.GraphicsHandler;
 import GameObject.Frame;
 import GameObject.GameObject;
 import Level.MapCollisionHandler;
@@ -29,12 +28,11 @@ public class Projectile extends MapEntity{
     private double lifetime = 1_000; // milliseconds
     private double deltaTime = 16.67; // milliseconds, approx 60 FPS
     private boolean expired = false;
-    private GameObject owner;
+    protected GameObject owner;
     private int cooldown = 500; // milliseconds
 
     protected BufferedImage bulletImage;
     protected AnimatedSprite bulletSprite;
-    protected SpriteSheet bulletSheet;
 
 
     protected ArrayList<Projectile> projectilesHit = new ArrayList<>();
@@ -44,9 +42,9 @@ public class Projectile extends MapEntity{
     public static int playerDamage = 1;
 
 
-    public Projectile(float x, float y, Frame frame, Utils.Point p1, Point p2) { //P1 is start point, P2 is target point
-        super(x, y, frame);
-        this.animations = loadAnimations(bulletSheet);
+    public Projectile(SpriteSheet spriteSheet, float x, float y, Utils.Point p1, Point p2) { //P1 is start point, P2 is target point
+        super(x, y, spriteSheet, "Bullet");
+        this.animations = loadAnimations(spriteSheet);
 
         //this.direction = direction;
         dx = p2.x - p1.x;
@@ -58,16 +56,23 @@ public class Projectile extends MapEntity{
         velocityY = (float)(dirY * speed);
     }
 
-    public Projectile(float x, float y) {
-        super(x, y);
-        this.animations = loadAnimations(bulletSheet);
 
+    public Projectile(SpriteSheet spriteSheet,float x, float y, float dirX, float dirY, NPC owner) { //P1 is start point, P2 is target point
+    super(x, y, spriteSheet, "Bullet");
+        super.animations = loadAnimations(spriteSheet);
 
+        //this.direction = direction;
+        length = Math.sqrt(dx*dx + dy*dy);
+        this.dirX = dirX;
+        this.dirY = dirY;
+        velocityX = (float)(dirX * speed);
+        velocityY = (float)(dirY * speed);
     }
 
-    public Projectile(float x, float y, Frame frame) {
-        super(x, y, frame);
-        this.animations = loadAnimations(bulletSheet);
+
+    public Projectile(SpriteSheet spriteSheet, float x, float y) {
+        super(x, y, spriteSheet, "Bullet");
+        this.animations = loadAnimations(spriteSheet);
 
     }
 
@@ -119,85 +124,39 @@ public class Projectile extends MapEntity{
     protected void performAction(Player player) {
     }
 
-
-
-    
+  
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
 
     this.currentAnimationName = "Bullet";
 
-
-        if(owner instanceof Player){
-            bulletImage = ImageLoader.load("PlayerBullet.png");
-            
-        } else if (owner instanceof Mushroom1){
-            bulletImage = ImageLoader.load("Mushroom1Bullet.png");
-
-        } else if (owner instanceof Mushroom2){
-            bulletImage = ImageLoader.load("PuffballBullet.png");
-
-        } else if (owner instanceof Mushroom3) {
-            bulletImage = ImageLoader.load("Laser.png");
-
-        } else {
-            bulletImage = ImageLoader.load("DefaultBullet.png");
-        }
-
         
 
-        HashMap<String, Frame[]> animation;
+    HashMap<String, Frame[]> animation;
 
-        //this one shoots lasers
-        if(owner instanceof Mushroom3){
-            bulletSheet = new SpriteSheet(bulletImage, 300, 24);
-            animation = new HashMap<String, Frame[]>() {{
-                put("Bullet", new Frame[] {
-                        new FrameBuilder(bulletSheet.getSprite(0, 0))
-                                .withScale(3)
-                                .withBounds(0, 0, 300, 24)
-                                .build(),
-                        new FrameBuilder(bulletSheet.getSprite(0, 1))
-                                .withScale(3)
-                                .withBounds(0, 0, 300, 24)
-                                .build(),
-                        new FrameBuilder(bulletSheet.getSprite(0, 2))
-                                .withScale(3)
-                                .withBounds(0, 0, 300, 24)
-                                .build(),
-                        new FrameBuilder(bulletSheet.getSprite(0, 3))
-                                .withScale(3)
-                                .withBounds(0, 0, 300, 24)
-                                .build(),
-                });
-            
-            }};
-        } else {//everything else shoots normal projectiles
-            bulletSheet = new SpriteSheet(bulletImage, 16, 16);
-            animation = new HashMap<String, Frame[]>() {{
-                put("Bullet", new Frame[] {
-                        new FrameBuilder(bulletSheet.getSprite(0, 0))
-                                .withScale(2)
-                                .withBounds(0, 0, 16, 16)
-                                .build(),
-                        new FrameBuilder(bulletSheet.getSprite(0, 1))
-                                .withScale(2)
-                                .withBounds(0, 0, 16, 16)
-                                .build(),
-                        new FrameBuilder(bulletSheet.getSprite(0, 2))
-                                .withScale(2)
-                                .withBounds(0, 0, 16, 16)
-                                .build(),
-                        new FrameBuilder(bulletSheet.getSprite(0, 3))
-                                .withScale(2)
-                                .withBounds(0, 0, 16, 16)
-                                .build(),
-                });
-            
-            }};
-        }
-
-  //      bulletSprite = new AnimatedSprite(bulletSheet, super.x, super.y, "Bullet");
+        
+        animation = new HashMap<String, Frame[]>() {{
+            put("Bullet", new Frame[] {
+                new FrameBuilder(spriteSheet.getSprite(0, 0))
+                        .withScale(3)
+                        .withBounds(0, 0, spriteSheet.getSpriteWidth(), spriteSheet.getSpriteHeight())
+                        .build(),
+                new FrameBuilder(spriteSheet.getSprite(0, 1))
+                        .withScale(3)
+                        .withBounds(0, 0, spriteSheet.getSpriteWidth(), spriteSheet.getSpriteHeight())
+                        .build(),
+                new FrameBuilder(spriteSheet.getSprite(0, 2))
+                        .withScale(3)
+                        .withBounds(0, 0, spriteSheet.getSpriteWidth(), spriteSheet.getSpriteHeight())
+                        .build(),
+                new FrameBuilder(spriteSheet.getSprite(0, 3))
+                        .withScale(3)
+                        .withBounds(0, 0, spriteSheet.getSpriteWidth(), spriteSheet.getSpriteHeight())
+                        .build(),
+            });
+    
+        }};
+ 
 
         return animation;
     }

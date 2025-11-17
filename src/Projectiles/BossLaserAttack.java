@@ -1,14 +1,10 @@
 package Projectiles;
 
-import GameObject.Frame;
-import GameObject.ImageEffect;
 import Level.NPC;
 import Level.Player;
-import Utils.ImageUtils;
 import Utils.Point;
-
-import java.awt.Color;
-
+import GameObject.SpriteSheet;
+import Engine.ImageLoader;
 public class BossLaserAttack implements EnemyAttack {
 
     private static final int COOLDOWN_FRAMES = 300;
@@ -18,17 +14,14 @@ public class BossLaserAttack implements EnemyAttack {
 
     private int cooldownCounter = 0;
     private int usesRemaining = 5;
+    private int bulletwidth = 300;
+    private int bulletHeight = 24;
 
     @Override
     public void perform(NPC npc, Player player) {
         if (cooldownCounter > 0 || usesRemaining <= 0) return;
 
-        Frame laserFrame = new Frame(
-            ImageUtils.createSolidImage(new Color(255, 0, 0), BEAM_WIDTH, BEAM_HEIGHT),
-            ImageEffect.NONE,
-            1,
-            null
-        );
+        SpriteSheet spriteSheet = new SpriteSheet(ImageLoader.load("Laser.png"), bulletwidth, bulletHeight);
 
         float centerX = npc.getX() + npc.getBounds().getWidth() / 2f;
         float centerY = npc.getY() + npc.getBounds().getHeight() / 2f;
@@ -42,9 +35,9 @@ public class BossLaserAttack implements EnemyAttack {
             : centerX - BEAM_WIDTH - 100;
 
         EnemyProjectile laser = new EnemyProjectile(
+            spriteSheet,
             spawnX,
             spawnY,
-            laserFrame,
             new Point(spawnX, spawnY),
             new Point(spawnX, spawnY),
             npc
