@@ -8,21 +8,22 @@ import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.EnemyNPC;
+import Level.HasHealth;
+import Level.Healthbar;
 import Level.Map;
 import Level.Player;
-import NPCs.Mushroom1;
-import NPCs.Mushroom2;
-import NPCs.Mushroom3;
 import Projectiles.BossAOEAttack;
-import Projectiles.BossLaserAttack;
 import Projectiles.BossProjectileAttack;
 import Utils.Point;
 
-public class MycorrhizalAmalgamation extends EnemyNPC {
+public class MycorrhizalAmalgamation extends EnemyNPC implements HasHealth {
+
+    private float hp = 10f;
+    private float maxHp = 10f;
+    private final Healthbar healthbar = new Healthbar(this);
 
     private BossProjectileAttack projectileAttack;
     private BossAOEAttack aoeAttack;
-    private BossLaserAttack laserAttack;
 
     private boolean phaseOneComplete = false;
     private boolean phaseTwoComplete = false;
@@ -32,102 +33,58 @@ public class MycorrhizalAmalgamation extends EnemyNPC {
 
     private boolean summonedMinions = false;
 
-    private final boolean skipToLaserPhase = false;
-
     public MycorrhizalAmalgamation(int id, Point location, int level) {
-        super(
-            id,
-            location.x,
-            location.y,
-            new SpriteSheet(ImageLoader.load("MycorrhizalAmalgamation.png"), 128, 128),
-            "WALK_RIGHT",
-            20,
-            2,
-            level
-        );
+        super(id, location.x, location.y,
+                new SpriteSheet(ImageLoader.load("MycorrhizalAmalgamation.png"), 128, 128),
+                "WALK_RIGHT", 20, 2, level);
+
+        this.maxHp = 10f;
+        this.hp = maxHp;
+
 
         projectileAttack = new BossProjectileAttack();
         aoeAttack = new BossAOEAttack();
-        laserAttack = new BossLaserAttack();
         this.attack = projectileAttack;
     }
 
+    @Override public float getX() { return super.getX(); }
+    @Override public float getY() { return super.getY(); }
+    @Override public float getHp() { return hp; }
+    @Override public float getMaxHp() { return maxHp; }
+    @Override public float getHpRatio() { return hp / maxHp; }
+
     @Override
-    public void performAction(Player player) {
-        float npcCenterX = this.getX() + this.getBounds().getWidth() / 2f;
-        float playerCenterX = player.getX() + player.getBounds().getWidth() / 2f;
-
-        if (playerCenterX > npcCenterX) {
-            if (!currentAnimationName.equals("WALK_RIGHT")) {
-                currentAnimationName = "WALK_RIGHT";
-            }
-        } else {
-            if (!currentAnimationName.equals("WALK_LEFT")) {
-                currentAnimationName = "WALK_LEFT";
-            }
-        }
-
-        if (skipToLaserPhase) {
-            phaseOneComplete = true;
-            phaseTwoComplete = true;
-            this.attack = laserAttack;
-        }
-
-        if (!summonedMinions && getHealth() <= getMaxHealth() / 2) {
-            summonedMinions = true;
-            summonMinions();
-        }
-
-        if (summonedMinions && !areMinionsDefeated()) {
-            return;
-        }
-
-        if (!phaseOneComplete) {
-            projectileAttack.tickCooldown();
-            if (projectileAttack.isInRange(this, player)) {
-                projectileAttack.perform(this, player);
-            }
-            if (projectileAttack.isPhaseOneComplete() && !waitingForPhaseSwap) {
-                waitingForPhaseSwap = true;
-                phaseSwapTimer = 0;
-            }
-            if (waitingForPhaseSwap) {
-                phaseSwapTimer++;
-                if (phaseSwapTimer >= PHASE_SWAP_DELAY) {
-                    phaseOneComplete = true;
-                    this.attack = aoeAttack;
-                    waitingForPhaseSwap = false;
-                }
-            }
-        } else if (!phaseTwoComplete) {
-            aoeAttack.tickCooldown();
-            if (aoeAttack.hasUsesRemaining() && aoeAttack.isInRange(this, player)) {
-                aoeAttack.perform(this, player);
-            }
-            if (!aoeAttack.hasUsesRemaining() && !waitingForPhaseSwap) {
-                waitingForPhaseSwap = true;
-                phaseSwapTimer = 0;
-            }
-            if (waitingForPhaseSwap) {
-                phaseSwapTimer++;
-                if (phaseSwapTimer >= PHASE_SWAP_DELAY + 300) {
-                    phaseOneComplete = false;
-                    aoeAttack = new BossAOEAttack();
-                    projectileAttack = new BossProjectileAttack();
-                    this.attack = projectileAttack;
-                    waitingForPhaseSwap = false;
-                }
-            }
-        }
+    public boolean isDead() {
+        return hp <= 0.0001f;
     }
 
+    @Override public int getHealth() { return (int) hp; }
+
+    @Override
+    public void takeDamage(int dmg) {
+        takeDamage((float) dmg);
+    }
+
+    @Override
+    public void takeDamage(float dmg) {
+        if (summonedMinions && !areMinionsDefeated()) return;
+        hp = Math.max(0f, hp - dmg);
+        System.out.println("BOSS HP: " + hp + "/" + maxHp + " | isDead: " + isDead());
+    }
+
+    @Override
+    public void setHealth(int health) {
+        this.hp = health;
+    }
+
+    public Healthbar getHealthbar() { return healthbar; }
+
     private boolean areMinionsDefeated() {
-        if (getMap() == null) return true;
+        Map map = getMap();
+        if (map == null) return true;
         for (int id = 300; id <= 323; id++) {
-            EnemyNPC minion = (EnemyNPC) getMap().getNPCById(id);
-            if (minion != null && !minion.isDead()) {
-                return false;
-            }
+            EnemyNPC minion = (EnemyNPC) map.getNPCById(id);
+            if (minion != null && !minion.isDead()) return false;
         }
         return true;
     }
@@ -136,23 +93,76 @@ public class MycorrhizalAmalgamation extends EnemyNPC {
         Map map = getMap();
         if (map == null) return;
 
-        int centerX = (int)(getX() + getBounds().getWidth() / 2);
-        int centerY = (int)(getY() + getBounds().getHeight() / 2);
+        int cx = (int)(getX() + getBounds().getWidth() / 2);
+        int cy = (int)(getY() + getBounds().getHeight() / 2);
 
-        map.queueNPC(new Mushroom1(300, new Point(centerX + 50, centerY - 150), 1));
-        map.queueNPC(new Mushroom1(301, new Point(centerX + 50, centerY + 300), 1));
-        map.queueNPC(new Mushroom1(302, new Point(centerX - 200, centerY + 100), 1));
-        map.queueNPC(new Mushroom1(303, new Point(centerX + 275, centerY + 100), 1));
+        map.queueNPC(new Mushroom1(300, new Point(cx + 50, cy - 150), 1));
+        map.queueNPC(new Mushroom1(301, new Point(cx + 50, cy + 300), 1));
+        map.queueNPC(new Mushroom1(302, new Point(cx - 200, cy + 100), 1));
+        map.queueNPC(new Mushroom1(303, new Point(cx + 275, cy + 100), 1));
 
-        map.queueNPC(new Mushroom3(310, new Point(centerX - 625, centerY - 310), 1));
-        map.queueNPC(new Mushroom3(311, new Point(centerX + 700, centerY - 310), 1));
-        map.queueNPC(new Mushroom3(312, new Point(centerX - 625, centerY + 450), 1));
-        map.queueNPC(new Mushroom3(313, new Point(centerX + 700, centerY + 450), 1));
+        map.queueNPC(new Mushroom3(310, new Point(cx - 625, cy - 310), 1));
+        map.queueNPC(new Mushroom3(311, new Point(cx + 700, cy - 310), 1));
+        map.queueNPC(new Mushroom3(312, new Point(cx - 625, cy + 450), 1));
+        map.queueNPC(new Mushroom3(313, new Point(cx + 700, cy + 450), 1));
 
-        map.queueNPC(new Mushroom2(320, new Point(centerX + 50, centerY - 310), 1));
-        map.queueNPC(new Mushroom2(321, new Point(centerX + 50, centerY + 500), 1));
-        map.queueNPC(new Mushroom2(322, new Point(centerX - 650, centerY + 100), 1));
-        map.queueNPC(new Mushroom2(323, new Point(centerX + 700, centerY + 100), 1));
+        map.queueNPC(new Mushroom2(320, new Point(cx + 50, cy - 310), 1));
+        map.queueNPC(new Mushroom2(321, new Point(cx + 50, cy + 500), 1));
+        map.queueNPC(new Mushroom2(322, new Point(cx - 650, cy + 100), 1));
+        map.queueNPC(new Mushroom2(323, new Point(cx + 700, cy + 100), 1));
+    }
+
+    @Override
+    public void performAction(Player player) {
+
+        float npcCX = getX() + getBounds().getWidth() / 2f;
+        float playCX = player.getX() + player.getBounds().getWidth() / 2f;
+        currentAnimationName = playCX > npcCX ? "WALK_RIGHT" : "WALK_LEFT";
+
+        if (isDead()) {
+            this.isHidden = true;
+            return;
+        }
+
+        if (!summonedMinions && hp <= maxHp * 0.5f) {
+            summonedMinions = true;
+            summonMinions();
+        }
+
+        if (summonedMinions && !areMinionsDefeated()) return;
+
+        if (!phaseOneComplete) {
+            projectileAttack.tickCooldown();
+            if (projectileAttack.isInRange(this, player))
+                projectileAttack.perform(this, player);
+            if (projectileAttack.isPhaseOneComplete() && !waitingForPhaseSwap) {
+                waitingForPhaseSwap = true;
+                phaseSwapTimer = 0;
+            }
+            if (waitingForPhaseSwap && ++phaseSwapTimer >= PHASE_SWAP_DELAY) {
+                phaseOneComplete = true;
+                this.attack = aoeAttack;
+                waitingForPhaseSwap = false;
+            }
+            return;
+        }
+
+        if (!phaseTwoComplete) {
+            aoeAttack.tickCooldown();
+            if (aoeAttack.hasUsesRemaining() && aoeAttack.isInRange(this, player))
+                aoeAttack.perform(this, player);
+            if (!aoeAttack.hasUsesRemaining() && !waitingForPhaseSwap) {
+                waitingForPhaseSwap = true;
+                phaseSwapTimer = 0;
+            }
+            if (waitingForPhaseSwap && ++phaseSwapTimer >= PHASE_SWAP_DELAY + 300) {
+                phaseOneComplete = false;
+                aoeAttack = new BossAOEAttack();
+                projectileAttack = new BossProjectileAttack();
+                this.attack = projectileAttack;
+                waitingForPhaseSwap = false;
+            }
+        }
     }
 
     @Override
@@ -162,45 +172,33 @@ public class MycorrhizalAmalgamation extends EnemyNPC {
                 new FrameBuilder(spriteSheet.getSprite(0, 0))
                     .withScale(3)
                     .withBounds(32, 32, 64, 64)
-                    .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                     .build()
             });
             put("STAND_RIGHT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0))
-                    .withScale(3)
-                    .withBounds(32, 32, 64, 64)
-                    .build()
+                        .withScale(3).withBounds(32, 32, 64, 64).build()
             });
             put("WALK_LEFT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 35)
                     .withScale(3)
                     .withBounds(32, 32, 64, 64)
-                    .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                     .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 2), 35)
                     .withScale(3)
                     .withBounds(32, 32, 64, 64)
-                    .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                     .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 3), 35)
                     .withScale(3)
                     .withBounds(32, 32, 64, 64)
-                    .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                     .build()
             });
             put("WALK_RIGHT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 35)
-                    .withScale(3)
-                    .withBounds(32, 32, 64, 64)
-                    .build(),
+                        .withScale(3).withBounds(32, 32, 64, 64).build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 2), 35)
-                    .withScale(3)
-                    .withBounds(32, 32, 64, 64)
-                    .build(),
+                        .withScale(3).withBounds(32, 32, 64, 64).build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 3), 35)
-                    .withScale(3)
-                    .withBounds(32, 32, 64, 64)
-                    .build()
+                        .withScale(3).withBounds(32, 32, 64, 64).build()
             });
         }};
     }
@@ -208,5 +206,13 @@ public class MycorrhizalAmalgamation extends EnemyNPC {
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
+
+        float camX = this.getMap().getCamera().getX();
+        float camY = this.getMap().getCamera().getY();
+
+        healthbar.draw(graphicsHandler.getGraphics(), camX, camY);
     }
+
+    @Override public int getHealthbarWidth() { return 120; }
+    @Override public int getHealthbarYOffset() { return -60; }
 }

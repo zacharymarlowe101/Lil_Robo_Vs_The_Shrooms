@@ -5,10 +5,10 @@ import Level.MapCollisionHandler;
 import Level.NPC;
 import Level.Player;
 import Utils.Point;
+import GameObject.SpriteSheet;
 
 public class EnemyProjectile extends Projectile {
 
-    private NPC owner;
     private float velocityX;
     private float velocityY;
     private float speed = 3.0f;
@@ -16,16 +16,16 @@ public class EnemyProjectile extends Projectile {
     private long startTime;
     private double lifetime = -1;
 
-    public EnemyProjectile(float x, float y, Frame frame, Point start, Point target, NPC owner) {
+    public EnemyProjectile(SpriteSheet spriteSheet, float x, float y, Point start, Point target, NPC owner) {
         super(
-            x - frame.getWidth() / 2f,
-            y - frame.getHeight() / 2f,
-            frame,
+            spriteSheet,
+            x - spriteSheet.getSpriteWidth() / 2f,
+            y - spriteSheet.getSpriteHeight() / 2f,
             start,
             new java.awt.Point((int) target.x, (int) target.y)
         );
 
-        this.owner = owner;
+        super.owner = owner;
         this.startTime = System.currentTimeMillis();
 
         float dx = target.x - start.x;
@@ -43,13 +43,14 @@ public class EnemyProjectile extends Projectile {
         this.setOwner(owner);
     }
 
-    public EnemyProjectile(float x, float y, Frame frame, float dirX, float dirY, NPC owner) {
+    public EnemyProjectile(SpriteSheet spriteSheet, float x, float y, float dirX, float dirY, NPC owner) {
         super(
-            x - frame.getWidth() / 2f,
-            y - frame.getHeight() / 2f,
-            frame,
-            new Point(x, y),
-            new java.awt.Point((int) x + 1, (int) y + 1)
+            spriteSheet,
+            x - spriteSheet.getSpriteWidth() / 2f,
+            y - spriteSheet.getSpriteHeight() / 2f,
+            dirX,
+            dirY,
+            owner
         );
 
         this.owner = owner;

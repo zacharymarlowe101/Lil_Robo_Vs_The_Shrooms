@@ -1,24 +1,22 @@
 package Level;
 
-import java.awt.Color;
 import java.util.ArrayList;
-
 import Engine.GamePanel;
 import Engine.Key;
 import Engine.KeyLocker;
 import Engine.Keyboard;
 import GameObject.Frame;
 import GameObject.GameObject;
-import GameObject.ImageEffect;
 import GameObject.Rectangle;
 import GameObject.SpriteSheet;
 import Projectiles.Projectile;
 import Utils.Direction;
-import Utils.ImageUtils;
 import Utils.Point;
 import java.util.LinkedList;
+import Engine.ImageLoader;
 
 import java.awt.event.MouseMotionListener;
+import java.util.HashMap;
 
 public abstract class Player extends GameObject {
     // values that affect player movement
@@ -70,6 +68,8 @@ public abstract class Player extends GameObject {
     private static final int MAX_POSITION_HISTORY = 120;
     private LinkedList<Point> positionHistory = new LinkedList<>();
 
+    private int playerBulletLength = 16;
+
 
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
         super(spriteSheet, x, y, startingAnimationName);
@@ -98,7 +98,7 @@ public abstract class Player extends GameObject {
 
 
         if((GamePanel.isMouseClicked() || Keyboard.isKeyDown(Key.SPACE)) && canShoot && !inDialogue){ //Spawn projectile //Keyboard.isKeyDown(Key.E)
-            Projectile projectile = new Projectile(x + this.getBounds().getWidth() / 2f, y,new Frame(ImageUtils.createSolidImage(new Color(255, 0, 0), 20, 20), ImageEffect.NONE, 1, null), new Point(this.getCalibratedXLocation(),this.getCalibratedYLocation()),GamePanel.getMousePositionPoint());
+            Projectile projectile = new Projectile( new SpriteSheet(ImageLoader.load("PlayerBullet.png"), playerBulletLength, playerBulletLength), x + this.getBounds().getWidth() / 2f, y, new Point(this.getCalibratedXLocation(),this.getCalibratedYLocation()),GamePanel.getMousePositionPoint());
             projectileCooldown = projectile.getCooldown();
             projectile.setOwner(this);
             canShoot = false;

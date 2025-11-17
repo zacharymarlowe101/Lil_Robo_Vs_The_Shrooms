@@ -9,11 +9,14 @@ import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.EnemyNPC;
+import Level.Healthbar;
 import Level.Player;
 import Projectiles.ProjectileAttack;
 import Utils.Point;
 
 public class Mushroom1 extends EnemyNPC {
+
+    private final Healthbar healthbar = new Healthbar(this);
 
     public Mushroom1(int id, Point location, int level) {
         super(
@@ -37,6 +40,11 @@ public class Mushroom1 extends EnemyNPC {
 
     @Override
     public void performAction(Player player) {
+        if (isDead()) {
+            this.isHidden = true;
+            return;
+        }
+
         if (player.getX() > this.getX()) {
             if (!currentAnimationName.equals("WALK_RIGHT")) {
                 currentAnimationName = "WALK_RIGHT";
@@ -46,8 +54,7 @@ public class Mushroom1 extends EnemyNPC {
                 currentAnimationName = "WALK_LEFT";
             }
         }
-
-   }
+    }
 
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
@@ -111,5 +118,11 @@ public class Mushroom1 extends EnemyNPC {
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
+
+        float camX = this.getMap().getCamera().getX();
+        float camY = this.getMap().getCamera().getY();
+
+        healthbar.draw(graphicsHandler.getGraphics(), camX, camY);
     }
-}
+
+    }

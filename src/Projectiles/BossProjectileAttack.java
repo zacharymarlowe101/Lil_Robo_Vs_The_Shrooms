@@ -1,31 +1,23 @@
 package Projectiles;
 
-import GameObject.Frame;
-import GameObject.ImageEffect;
 import Level.NPC;
 import Level.Player;
-import Utils.ImageUtils;
 import Utils.Point;
-
-import java.awt.Color;
+import GameObject.SpriteSheet;
+import Engine.ImageLoader;
 
 public class BossProjectileAttack implements EnemyAttack {
 
     private final int cooldown = 90;
     private int cooldownCounter = 0;
     private int shotsRemaining = 15;
+    private int bulletLength = 16;
 
     @Override
     public void perform(NPC npc, Player player) {
         if (cooldownCounter > 0 || shotsRemaining <= 0) return;
 
-        Frame projectileFrame = new Frame(
-            ImageUtils.createSolidImage(new Color(255, 0, 0), 50, 50),
-            ImageEffect.NONE,
-            1,
-            null
-        );
-
+        SpriteSheet spriteSheet = new SpriteSheet(ImageLoader.load("PuffballBullet.png"), bulletLength, bulletLength);
         float npcCenterX = npc.getX() + npc.getCurrentFrame().getWidth() / 2f;
         float npcCenterY = npc.getY() + npc.getCurrentFrame().getHeight() / 2f;
 
@@ -39,7 +31,7 @@ public class BossProjectileAttack implements EnemyAttack {
         float targetY = player.getY() + player.getBounds().getHeight() / 2f;
         Point target = new Point(targetX, targetY);
 
-        EnemyProjectile projectile = new EnemyProjectile(spawnX, spawnY, projectileFrame, start, target, npc);
+        EnemyProjectile projectile = new EnemyProjectile(spriteSheet, spawnX, spawnY,  start, target, npc);
         projectile.setDestroyOnWallHit(true);
         npc.getMap().addProjectile(projectile);
 

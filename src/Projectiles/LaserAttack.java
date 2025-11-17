@@ -3,11 +3,10 @@ package Projectiles;
 import Level.NPC;
 import Level.Player;
 import GameObject.Frame;
-import GameObject.ImageEffect;
 import Utils.Point;
-import Utils.ImageUtils;
-
-import java.awt.Color;
+import Engine.ImageLoader;
+import java.util.HashMap;
+import GameObject.SpriteSheet;
 
 public class LaserAttack implements EnemyAttack {
 
@@ -18,15 +17,14 @@ public class LaserAttack implements EnemyAttack {
     private static final int VERTICAL_SPACING = 12;
     private static final int FRONT_PADDING = 8;
     private static final float LASER_SPEED = 1.4f;
+    private int bulletwidth = 300;
+    private int bulletHeight = 24;
+
 
     @Override
     public void perform(NPC npc, Player player) {
-        Frame beamFrame = new Frame(
-            ImageUtils.createSolidImage(new Color(255, 50, 50), BEAM_LENGTH, BEAM_THICKNESS),
-            ImageEffect.NONE,
-            1,
-            null
-        );
+        SpriteSheet spriteSheet = new SpriteSheet(ImageLoader.load("Laser.png"), bulletwidth, bulletHeight);
+
 
         float centerX = npc.getX() + npc.getBounds().getWidth() / 2f;
         float centerY = npc.getY() + npc.getBounds().getHeight() / 2f;
@@ -38,15 +36,15 @@ public class LaserAttack implements EnemyAttack {
 
         float targetX = facingRight ? spawnX + 50 : spawnX - 50;
 
-        spawnMovingBeam(npc, spawnX, centerY - VERTICAL_SPACING, beamFrame, new java.awt.Point((int) targetX, (int) centerY));
-        spawnMovingBeam(npc, spawnX, centerY + VERTICAL_SPACING, beamFrame, new java.awt.Point((int) targetX, (int) centerY));
+        spawnMovingBeam(npc, spawnX, centerY - VERTICAL_SPACING, spriteSheet, new java.awt.Point((int) targetX, (int) centerY));
+        spawnMovingBeam(npc, spawnX, centerY + VERTICAL_SPACING, spriteSheet, new java.awt.Point((int) targetX, (int) centerY));
     }
 
-    private void spawnMovingBeam(NPC npc, float spawnX, float spawnY, Frame frame, java.awt.Point target) {
+    private void spawnMovingBeam(NPC npc, float spawnX, float spawnY, SpriteSheet spriteSheet, java.awt.Point target) {
         EnemyProjectile laser = new EnemyProjectile(
+            spriteSheet,
             spawnX,
             spawnY,
-            frame,
             new Point(spawnX, spawnY),
             new Point(target.x, target.y),
             npc

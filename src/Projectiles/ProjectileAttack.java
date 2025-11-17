@@ -2,22 +2,16 @@ package Projectiles;
 
 import Level.NPC;
 import Level.Player;
-import GameObject.Frame;
-import GameObject.ImageEffect;
 import Utils.Point;
-import Utils.ImageUtils;
-import java.awt.Color;
+import Engine.ImageLoader;
+import GameObject.SpriteSheet;
 
 public class ProjectileAttack implements EnemyAttack {
+    private int bulletLength = 16;
 
     @Override
     public void perform(NPC npc, Player player) {
-        Frame projectileFrame = new Frame(
-            ImageUtils.createSolidImage(new Color(255, 0, 0), 20, 20),
-            ImageEffect.NONE,
-            1,
-            null
-        );
+        SpriteSheet spriteSheet = new SpriteSheet(ImageLoader.load("Mushroom1Bullet.png"), bulletLength, bulletLength);
 
         float npcCenterX = npc.getX() + npc.getBounds().getWidth() / 2f;
         float npcCenterY = npc.getY() + npc.getBounds().getHeight() / 2f;
@@ -33,7 +27,7 @@ public class ProjectileAttack implements EnemyAttack {
         Point target = new Point(targetX, targetY);
 
 
-        EnemyProjectile projectile = new EnemyProjectile(spawnX, spawnY, projectileFrame, start, target, npc);
+        EnemyProjectile projectile = new EnemyProjectile(spriteSheet, spawnX, spawnY, start, target, npc);
         npc.getMap().addProjectile(projectile);
     }
 
