@@ -245,6 +245,9 @@ public class Camera extends Rectangle {
         for (NPC npc : activeNPCs) {
             if (containsDraw(npc)) {
                 if (npc.getBounds().getY() < player.getBounds().getY1()  + (player.getBounds().getHeight() / 2f)) {
+                    if (npc instanceof HasHealth) {
+                    ((HasHealth) npc).getHealthbar().draw(graphicsHandler.getGraphics(), getX(), getY());
+                    }
                     npc.draw(graphicsHandler);
                 }
                 else {
@@ -269,6 +272,9 @@ public class Camera extends Rectangle {
 
         // npcs determined to be drawn after player from the above step are drawn here
         for (NPC npc : drawNpcsAfterPlayer) {
+            if (npc instanceof HasHealth) {
+                ((HasHealth) npc).getHealthbar().draw(graphicsHandler.getGraphics(), getX(), getY());
+            }
             npc.draw(graphicsHandler);
         }
 

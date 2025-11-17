@@ -18,9 +18,10 @@ public class NPC extends MapEntity {
     protected int deathTimer = 60;
     protected ArrayList<Projectile> projectilesHit = new ArrayList<>();
 
-    // Attack system
+    // Attack System
     protected EnemyAttack attack;
     protected int attackCooldown = 0;
+
 
     // Constructors
     public NPC(int id, float x, float y, SpriteSheet spriteSheet, String startingAnimation) {
@@ -135,6 +136,10 @@ public class NPC extends MapEntity {
         super.draw(graphicsHandler);
     }
 
+    public void draw(GraphicsHandler graphicsHandler, float camX, float camY) {
+        draw(graphicsHandler);
+    }
+
     public int getId() {
         return id;
     }
@@ -157,4 +162,15 @@ public class NPC extends MapEntity {
         return this.getCurrentAnimation()[this.getCurrentFrameIndex()];
     }
 
+    public boolean isDead() {
+        return isDead;
+    }
+
+    public boolean isHidden() {
+        return isHidden;
+    }
+
+    public void setHidden(boolean hidden) {
+        this.isHidden = hidden;
+    }
 }
