@@ -13,6 +13,9 @@ import Maps.EnemyMap2;
 import Maps.EnemyMap3;
 import Maps.EnemyMap4;  
 import Maps.EnemyMap5;
+import Maps.EnemyMap6;
+import Maps.EnemyMap7;
+import Maps.EnemyMap8;
 import Maps.BossMap;
 import Level.GameListener;
 
@@ -126,6 +129,8 @@ public class PlayLevelScreen extends Screen implements GameListener {
     @Override
     public void onLose(){
         playLevelScreenState = PlayLevelScreenState.LOSE_SCREEN;
+        mapcount = 0;
+        System.out.println(mapcount);
     }
     
 
@@ -137,6 +142,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
                 HUDScreen.draw(graphicsHandler);
                 if (mapcount == 8){
                     playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
+                    Rmap = (int)(Math.random() * 5) + 1; // Randomly choose between 1 and 2
                     mapcount = 0;
                 }
                 
@@ -206,9 +212,9 @@ public class PlayLevelScreen extends Screen implements GameListener {
         mapcount++;
         System.out.println("mapcount:"+mapcount);
         if(mapcount <7){
-           Rmap = (int)(Math.random() * 5) + 1; // Randomly choose between 1 and 2
+           Rmap = (int)(Math.random() * 8) + 1; // Randomly choose between 1 and 2
         }else{
-            Rmap =6;
+            Rmap =9;
         }
    //Rmap = 6;
     System.out.println(Rmap);
@@ -226,6 +232,13 @@ public class PlayLevelScreen extends Screen implements GameListener {
             map = new EnemyMap5();
             mapn = 5;
          } else if( Rmap == 6){
+            map = new EnemyMap6();
+        }
+            else if( Rmap == 7){
+            map = new EnemyMap7();
+        } else if ( Rmap == 8){
+            map = new EnemyMap8();
+        } else if (Rmap == 9){
             map = new BossMap();
         }
     
