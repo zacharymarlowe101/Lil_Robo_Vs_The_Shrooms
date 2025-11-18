@@ -236,6 +236,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
         } else if (Rmap == 5) {
             map = new EnemyMap5();
             mapn = 5;
+<<<<<<< HEAD
          } else if( Rmap == 6){
             map = new EnemyMap6();
         }
@@ -246,6 +247,15 @@ public class PlayLevelScreen extends Screen implements GameListener {
                 map = new EnemyMap8();
             }
              else {
+=======
+        } else if( Rmap == 6){
+            map = new EnemyMap6();
+        } else if(Rmap == 7){
+            map = new EnemyMap7();
+        } else if(Rmap == 8) {
+            map = new EnemyMap8();
+        } else if(Rmap == 9){
+>>>>>>> 22a6630808c3c10936006c581cbc2b0164803f09
             map = new BossMap();
         }
     

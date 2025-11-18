@@ -2,6 +2,8 @@ package Screens;
 
 import Engine.*;
 import SpriteFont.SpriteFont;
+import GameObject.Sprite;
+import GameObject.SpriteSheet;
 
 import java.awt.*;
 
@@ -11,6 +13,7 @@ public class WinScreen extends Screen {
     protected SpriteFont instructions;
     protected KeyLocker keyLocker = new KeyLocker();
     protected PlayLevelScreen playLevelScreen;
+    protected Sprite winCard;
 
     public WinScreen(PlayLevelScreen playLevelScreen) {
         this.playLevelScreen = playLevelScreen;
@@ -19,8 +22,10 @@ public class WinScreen extends Screen {
 
     @Override
     public void initialize() {
-        winMessage = new SpriteFont("You win!", 250, 239, "Arial", 30, Color.white);
-        instructions = new SpriteFont("Press Space to start a new game plus or Escape to go back to the main menu", 250, 279,"Arial", 20, Color.white);
+        winCard = new Sprite(ImageLoader.load("WinCard.png"), 74, 128);
+        winCard.setScale(3);
+        winCard.setLocation((Config.GAME_WINDOW_WIDTH-winCard.getWidth())/2, (Config.GAME_WINDOW_HEIGHT-winCard.getHeight())/2);
+
         keyLocker.lockKey(Key.SPACE);
         keyLocker.lockKey(Key.ESC);
         keyLocker.lockKey(Key.ONE);
@@ -47,8 +52,6 @@ public class WinScreen extends Screen {
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
-        graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), Color.black);
-        winMessage.draw(graphicsHandler);
-        instructions.draw(graphicsHandler);
+        winCard.draw(graphicsHandler);
     }
 }
