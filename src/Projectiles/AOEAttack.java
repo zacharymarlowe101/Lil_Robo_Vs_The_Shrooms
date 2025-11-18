@@ -39,7 +39,7 @@ public class AOEAttack implements EnemyAttack {
 
     @Override
     public boolean isInRange(NPC npc, Player player) {
-        return npc.distanceTo(player) < 350;
+        return npc.distanceTo(player) < 250;
     }
 
     @Override
