@@ -23,7 +23,7 @@ public class UpgradeScreen extends Screen {
 
     protected KeyLocker keyLocker = new KeyLocker();
     protected UpgradeScreen upgradeScreen;
-     protected PlayLevelScreen playLevelScreen;
+    protected PlayLevelScreen playLevelScreen;
 
     public UpgradeScreen(PlayLevelScreen playLevelScreen) {
         this.playLevelScreen = playLevelScreen;
@@ -47,6 +47,7 @@ public class UpgradeScreen extends Screen {
         option1.setScale(3.0f);
         option2.setScale(3.0f);
         option3.setScale(3.0f);
+        
 
         keyLocker.lockKey(Key.SPACE);
         keyLocker.lockKey(Key.ESC);
@@ -77,30 +78,30 @@ public class UpgradeScreen extends Screen {
 
         // if space is pressed, reset level. if escape is pressed, go back to main menu
         if (Keyboard.isKeyDown(Key.ONE) && !keyLocker.isKeyLocked(Key.ONE)) {
-            option1.setScale(2.5f);
+            option1.setScale(2.8f);
             increaseSpeed();
 
         } else if (Keyboard.isKeyDown(Key.TWO) && !keyLocker.isKeyLocked(Key.TWO)) {
-            option2.setScale(2.5f);
+            option2.setScale(2.8f);
             increaseHealth();
 
         } else if (Keyboard.isKeyDown(Key.THREE) && !keyLocker.isKeyLocked(Key.THREE)) {
-            option3.setScale(2.5f);
+            option3.setScale(2.8f);
             increaseDamage();
         } 
         
         if(GamePanel.isMouseClicked() && option1.pointInBounds(GamePanel.getMousePositionPoint().x,GamePanel.getMousePositionPoint().y)){
-                option1.setScale(2.5f);
+                option1.setScale(2.8f);
                 increaseSpeed();
         }
 
         if(GamePanel.isMouseClicked() && option2.pointInBounds(GamePanel.getMousePositionPoint().x, GamePanel.getMousePositionPoint().y)){
-                option2.setScale(2.5f);
+                option2.setScale(2.8f);
                 increaseHealth();
         }
 
         if(GamePanel.isMouseClicked() && option3.pointInBounds(GamePanel.getMousePositionPoint().x, GamePanel.getMousePositionPoint().y)){
-                option3.setScale(2.5f);
+                option3.setScale(2.8f);
                 increaseDamage();
             }
 

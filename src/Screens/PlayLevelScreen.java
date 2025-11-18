@@ -217,17 +217,17 @@ public class PlayLevelScreen extends Screen implements GameListener {
     System.out.println(Rmap);
         if (Rmap == 1) {
             map = new EnemyMap1();
-        } else if (Rmap == 2) {
-            map = new EnemyMap2();
-        } else if (Rmap == 3) {
-            map = new EnemyMap3();
-            mapn = 3;
-        } else if (Rmap == 4) {
-            map = new EnemyMap4();
-            mapn = 4;
-        } else if (Rmap == 5) {
-            map = new EnemyMap5();
-            mapn = 5;
+        // } else if (Rmap == 2) {
+        //     map = new EnemyMap2();
+        // } else if (Rmap == 3) {
+        //     map = new EnemyMap3();
+        //     mapn = 3;
+        // } else if (Rmap == 4) {
+        //     map = new EnemyMap4();
+        //     mapn = 4;
+        // } else if (Rmap == 5) {
+        //     map = new EnemyMap5();
+        //     mapn = 5;
         } else if( Rmap == 6){
             map = new EnemyMap6();
         } else if(Rmap == 7){
