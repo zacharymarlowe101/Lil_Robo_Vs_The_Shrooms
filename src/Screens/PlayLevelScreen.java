@@ -3,6 +3,7 @@ import Engine.GraphicsHandler;
 import Engine.Screen;
 import Game.GameState;
 import Game.ScreenCoordinator;
+import GameObject.Rectangle;
 import Level.*;
 import Maps.EnemyMap1;
 import Maps.TutorialMap;
@@ -13,6 +14,9 @@ import Maps.EnemyMap2;
 import Maps.EnemyMap3;
 import Maps.EnemyMap4;  
 import Maps.EnemyMap5;
+import Maps.EnemyMap6;
+import Maps.EnemyMap7;
+import Maps.EnemyMap8;
 import Maps.EnemyMap6;
 import Maps.EnemyMap7;
 import Maps.EnemyMap8;
@@ -129,6 +133,8 @@ public class PlayLevelScreen extends Screen implements GameListener {
     @Override
     public void onLose(){
         playLevelScreenState = PlayLevelScreenState.LOSE_SCREEN;
+        mapcount = 0;
+        System.out.println(mapcount);
     }
     
 
@@ -140,6 +146,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
                 HUDScreen.draw(graphicsHandler);
                 if (mapcount == 8){
                     playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
+                    Rmap = (int)(Math.random() * 5) + 1; // Randomly choose between 1 and 2
                     mapcount = 0;
                 }
                 
@@ -211,23 +218,23 @@ public class PlayLevelScreen extends Screen implements GameListener {
         if(mapcount <7){
            Rmap = (int)(Math.random() * 8) + 1; // Randomly choose between 1 and 2
         }else{
-            Rmap = 9;
+            Rmap =6;
         }
    //Rmap = 6;
     System.out.println(Rmap);
         if (Rmap == 1) {
             map = new EnemyMap1();
-        // } else if (Rmap == 2) {
-        //     map = new EnemyMap2();
-        // } else if (Rmap == 3) {
-        //     map = new EnemyMap3();
-        //     mapn = 3;
-        // } else if (Rmap == 4) {
-        //     map = new EnemyMap4();
-        //     mapn = 4;
-        // } else if (Rmap == 5) {
-        //     map = new EnemyMap5();
-        //     mapn = 5;
+        } else if (Rmap == 2) {
+            map = new EnemyMap2();
+        } else if (Rmap == 3) {
+            map = new EnemyMap3();
+            mapn = 3;
+        } else if (Rmap == 4) {
+            map = new EnemyMap4();
+            mapn = 4;
+        } else if (Rmap == 5) {
+            map = new EnemyMap5();
+            mapn = 5;
         } else if( Rmap == 6){
             map = new EnemyMap6();
         } else if(Rmap == 7){
