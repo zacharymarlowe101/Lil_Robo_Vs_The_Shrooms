@@ -99,7 +99,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
         switch (playLevelScreenState) {
             // if level is "running" update player and map to keep game logic for the platformer level going
             case RUNNING:
-                player.update();
+                player.update(); //uh oh
                 map.update(player);
                 //HUDScreen.update();
                 break;
@@ -108,6 +108,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
                 break;
             case LOSE_SCREEN:
                 loseScreen.update();
+                mapcount = 0;
                 break;
             case HUD:
                 //update HUD here later
@@ -146,7 +147,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
                 HUDScreen.draw(graphicsHandler);
                 if (mapcount == 8){
                     playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
-                    Rmap = (int)(Math.random() * 5) + 1; // Randomly choose between 1 and 2
+                    Rmap = (int)(Math.random() * 8) + 1; // Randomly choose between 1 and 2
                     mapcount = 0;
                 }
                 
@@ -236,6 +237,15 @@ public class PlayLevelScreen extends Screen implements GameListener {
             map = new EnemyMap5();
             mapn = 5;
          } else if( Rmap == 6){
+            map = new EnemyMap6();
+        }
+            else if( Rmap == 7){
+            map = new EnemyMap7();
+          }
+            else if( Rmap == 8){
+                map = new EnemyMap8();
+            }
+             else {
             map = new BossMap();
         }
     
