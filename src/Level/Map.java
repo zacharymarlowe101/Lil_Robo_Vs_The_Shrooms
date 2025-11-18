@@ -127,19 +127,25 @@ public abstract class Map {
 
         while (iterator.hasNext()) {
             NPC npc = iterator.next();
-            npc.update(player);
 
-            if (npc.isDead && npc.isHidden) {
+            if (!npc.isDead()) {
+                npc.update(player);
+            }
+
+            if (npc.isDead()) {
+                npc.isHidden = true;
                 iterator.remove();
                 System.out.println("Removed NPC " + npc.getId() + " from map.");
 
-                // Check if map is cleared after removing this NPC
-                if (npcs.isEmpty()) {
-                    isCleared = true;
-                    onMapCleared();
+            if (npcs.isEmpty()) {
+                isCleared = true;
+                onMapCleared();
             }
         }
     }
+
+
+
     if (!npcsToAdd.isEmpty()) {
         npcs.addAll(npcsToAdd);
         npcsToAdd.clear();

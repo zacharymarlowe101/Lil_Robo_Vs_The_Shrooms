@@ -14,7 +14,11 @@ import Maps.EnemyMap2;
 import Maps.EnemyMap3;
 import Maps.EnemyMap4;  
 import Maps.EnemyMap5;
+import Maps.EnemyMap6;
+import Maps.EnemyMap7;
+import Maps.EnemyMap8;
 import Maps.BossMap;
+import Level.GameListener;
 
 
 
@@ -23,6 +27,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
     protected ScreenCoordinator screenCoordinator;
     protected Map map;
     protected int mapn;
+    protected int mapcount;
     protected Player player;
     protected PlayLevelScreenState playLevelScreenState;
     protected WinScreen winScreen;
@@ -49,6 +54,9 @@ public class PlayLevelScreen extends Screen implements GameListener {
         flagManager.addFlag("diagnostics", false);
         flagManager.addFlag("weaponcheck", false);
         flagManager.addFlag("eradicate", false);
+        flagManager.addFlag("showdown", false);
+        flagManager.addFlag("twist", false);
+        flagManager.addFlag("battle", false);
 
 
         // define/setup map
@@ -131,6 +139,12 @@ public class PlayLevelScreen extends Screen implements GameListener {
             case RUNNING:
                 map.draw(player, graphicsHandler);
                 HUDScreen.draw(graphicsHandler);
+                if (mapcount == 8){
+                    playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
+                    mapcount = 0;
+                }
+                
+
                 break;
             case UPGRADE_SCREEN:
                 map.draw(player, graphicsHandler);
@@ -155,6 +169,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
 
     public void resetLevel() {
         initialize();
+        playLevelScreenState = PlayLevelScreenState.RUNNING;
     }
 
     public void goBackToMenu() {
@@ -178,19 +193,28 @@ public class PlayLevelScreen extends Screen implements GameListener {
     flagManager.addFlag("hasFoundBall", false);
     flagManager.addFlag("enemiesclear", false);
     flagManager.addFlag("haswarped", false);
-
+      flagManager.addFlag("showdown", false);
+        flagManager.addFlag("twist", false);
+        flagManager.addFlag("battle", false);
 
 
    
    
-    if(mapn == 3){
-        Rmap =4;
-    }else if(mapn == 4){
-        Rmap =5;
-    }else if(mapn == 5){
-        Rmap =6;
-    }
-  //  Rmap = (int)(Math.random() * 5) + 1; // Randomly choose between 1 and 2
+    // if(mapn == 3){
+    //     Rmap =4;
+    // }else if(mapn == 4){
+    //     Rmap =5;
+    // }else if(mapn == 5){
+    //     Rmap =6;
+    // }
+        mapcount++;
+        System.out.println("mapcount:"+mapcount);
+        if(mapcount <7){
+           Rmap = (int)(Math.random() * 8) + 1; // Randomly choose between 1 and 2
+        }else{
+            Rmap = 9;
+        }
+   //Rmap = 6;
     System.out.println(Rmap);
         if (Rmap == 1) {
             map = new EnemyMap1();
@@ -205,7 +229,13 @@ public class PlayLevelScreen extends Screen implements GameListener {
         } else if (Rmap == 5) {
             map = new EnemyMap5();
             mapn = 5;
-         } else if( Rmap == 6){
+        } else if( Rmap == 6){
+            map = new EnemyMap6();
+        } else if(Rmap == 7){
+            map = new EnemyMap7();
+        } else if(Rmap == 8) {
+            map = new EnemyMap8();
+        } else if(Rmap == 9){
             map = new BossMap();
         }
     
