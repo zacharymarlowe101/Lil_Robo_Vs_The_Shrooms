@@ -26,16 +26,24 @@ public class EnemyMap6 extends Map {
         ArrayList<NPC> npcs = new ArrayList<>();
 
         List<Point> spawnPoints = List.of(
-            new Point(7, 25),
-            new Point(10, 23),
-            new Point(12, 20),
-            new Point(8, 23),
-            new Point(8, 24),
-            new Point(7, 24),
-            new Point(10, 24),
-            new Point(11, 25),
-            new Point(12, 21),
-            new Point(12, 23)
+            new Point(15, 16),
+            new Point(21, 14),
+            new Point(17, 9),
+            new Point(21, 7),
+            new Point(21, 1),
+            new Point(16, 3),
+            new Point(11, 1),
+            new Point(4, 1),
+            new Point(3, 5),
+            new Point(7, 7),
+            new Point(9, 9),
+            new Point(4, 13),
+            new Point(4, 19),
+            new Point(4, 26),
+            new Point(1, 22),
+            new Point(6, 26),
+            new Point(15, 25),
+            new Point(19, 28)
         );
 
         List<EnemySpawner.WeightedFactory> enemyWeights = List.of(
@@ -45,7 +53,7 @@ public class EnemyMap6 extends Map {
         );
 
         EnemySpawner spawner = new EnemySpawner(this, spawnPoints, enemyWeights);
-        List<NPC> randomEnemies = spawner.spawnMultipleEnemies(4);
+        List<NPC> randomEnemies = spawner.spawnMultipleEnemies(12);
 
         for (NPC enemy : randomEnemies) {
             npcs.add(enemy);
