@@ -15,6 +15,7 @@ public class EnemyProjectile extends Projectile {
     private boolean destroyOnWallHit = true;
     private long startTime;
     private double lifetime = -1;
+    private float dirX, dirY;
 
     public EnemyProjectile(float x, float y, Frame frame, Point start, Point target, NPC owner) {
         super(
@@ -33,9 +34,11 @@ public class EnemyProjectile extends Projectile {
         float distance = (float) Math.sqrt(dx * dx + dy * dy);
 
         if (distance != 0) {
+            dirX = dx / distance; dirY = dy / distance;
             this.velocityX = (dx / distance) * speed;
             this.velocityY = (dy / distance) * speed;
         } else {
+            dirX = 0; dirY = 0;
             this.velocityX = 0;
             this.velocityY = 0;
         }
@@ -83,11 +86,50 @@ public class EnemyProjectile extends Projectile {
             return;
         }
 
-        if (this.getBounds().intersects(player.getBounds())) {
-            player.takeDamage(1);
-            this.isHidden = true;
-            map.getProjectiles().remove(this);
-            return;
+        // if (this.getBounds().intersects(player.getBounds()) && !player.isReflecting) {
+        //     player.takeDamage(1);
+        //     this.isHidden = true;
+        //     map.getProjectiles().remove(this);
+        //     return;
+        // }
+
+        if (map != null && map.getProjectiles() != null) {
+            for (NPC npcs : map.getActiveNPCs()) { //checks if projectile hits npc
+                //System.out.println("Checking if Exists");
+                if (this == null || this.isHidden()) continue;
+                if (!projectilesHit.contains(this) && this.getBounds().intersects(npcs.getBounds()/*<<<Should be list of all NPCs*/) && this.getOwner() != npcs) {
+                    if (npcs.getHealth() > 0) {
+                        npcs.takeDamage(playerDamage);
+                        projectilesHit.add(this);
+                        this.isHidden = true; // Hide the projectile upon hitting the NPC
+                        map.getProjectiles().remove(this);
+                    }
+                }
+                //System.out.println("Checking projectile collisions for Wall " + MapCollisionHandler.isCollidingWithMapEntity(p, map, null));
+            }
+            //System.out.println("Player Reflecting = " + player.isReflecting);
+            if(!projectilesHit.contains(this) && this.getBounds().intersects(player.getBounds()) && this.getOwner() != player && !player.isReflecting){ //checks if projectile hits player
+                if (player.getHealth() > 0) {
+                        player.takeDamage(enemyDamage);
+                        projectilesHit.add(this);
+                        this.isHidden = true; // Hide the projectile upon hitting the NPC
+                        map.getProjectiles().remove(this);
+                    }
+            }
+            if(!projectilesHit.contains(this) && MapCollisionHandler.isCollidingWithMapEntity(this, map, null)){ //checks if projectile hits wall
+               // System.out.println("Projectile hit wall");
+                projectilesHit.add(this);
+                this.isHidden = true;
+                map.getProjectiles().remove(this);
+            }
+        }
+
+        for(Projectile p : map.getProjectiles()){
+            if(p.getOwner() != player && p.getBounds().intersects(player.getBounds()) && player.isReflecting){
+                player.reflectCount--;
+                p.setOwner(player);
+                p.reverseDirection();
+            }
         }
 
         if (destroyOnWallHit && MapCollisionHandler.isCollidingWithMapEntity(this, map, null)) {
@@ -111,5 +153,10 @@ public class EnemyProjectile extends Projectile {
 
     public void setLifetime(double lifetime) {
         this.lifetime = lifetime;
+    }
+
+    public void reverseDirection() {
+        this.velocityX = (float)(dirX * -1);
+        this.velocityY = (float)(dirY * -1);
     }
 }

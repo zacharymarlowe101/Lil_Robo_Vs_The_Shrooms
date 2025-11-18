@@ -3,6 +3,7 @@ import Engine.GraphicsHandler;
 import Engine.Screen;
 import Game.GameState;
 import Game.ScreenCoordinator;
+import GameObject.Rectangle;
 import Level.*;
 import Maps.EnemyMap1;
 import Maps.TutorialMap;

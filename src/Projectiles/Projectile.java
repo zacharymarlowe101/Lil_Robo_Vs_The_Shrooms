@@ -98,6 +98,7 @@ public class Projectile extends MapEntity{
                 }
                 //System.out.println("Checking projectile collisions for Wall " + MapCollisionHandler.isCollidingWithMapEntity(p, map, null));
             }
+            //System.out.println("Player Reflecting = " + player.isReflecting);
             if(!projectilesHit.contains(this) && this.getBounds().intersects(player.getBounds()) && this.getOwner() != player){ //checks if projectile hits player
                 if (player.getHealth() > 0) {
                         player.takeDamage(enemyDamage);
@@ -250,6 +251,9 @@ public class Projectile extends MapEntity{
         this.cooldown = cooldown;
     }
 
-    
+    public void reverseDirection() {
+        this.velocityX = (float)(dirX * -1);
+        this.velocityY = (float)(dirY * -1);
+    }
 
 }

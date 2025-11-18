@@ -68,7 +68,10 @@ public abstract class Player extends GameObject {
     //Reflect Variables
     protected Key RELFLECT_KEY = Key.R;
     private int maxReflects = 10;
-    private int reflectCount = 0;
+    public int reflectCount = 10;
+    public boolean isReflecting = false;
+    private float reflectTime = 2000; //milliseconds
+    private float DeltaTime = 16.67f;
 
     // track up to 120 frames of player position history (2 seconds if 60 FPS)
     private static final int MAX_POSITION_HISTORY = 120;
@@ -110,23 +113,25 @@ public abstract class Player extends GameObject {
             map.addProjectile(projectile);
             projectile.setOwner(this);
         }
+        
 
-        if(Keyboard.isKeyDown(Key.R) && reflectCount !=0 && !inDialogue){ //Reflect projectile
-            for(Projectile p : map.getProjectiles()){
-                if(p.getOwner() != this){
-                    reflectCount--;
-                    p.setOwner(this);
-                    //float tempVelX = p.getVelocityX();
-                    //float tempVelY = p.getVelocityY();
-                }
-            }
-
+        if(Keyboard.isKeyDown(RELFLECT_KEY) && reflectCount !=0 && !inDialogue && !isReflecting){ //Reflect projectile
+            isReflecting = true;
+            reflectCount--;
+            System.out.println("Pressed R & Registered Input");
         }
-        // if(!GamePanel.isMouseClicked() && didProjectileSpawn == true){ //Reset projectile spawn //Keyboard.isKeyUp(Key.E)
-        //     didProjectileSpawn = false;
-        // }
+        
+        if(isReflecting){
 
-        projectileCooldown -= 16.67; //approx 60 FPS
+            reflectTime -= DeltaTime;
+            if(reflectTime <= 0){
+                reflectTime = 1000;
+                isReflecting = false;
+                System.out.println("Turns Reflect Off!");
+            }
+        }
+
+        projectileCooldown -= DeltaTime; //approx 60 FPS
         if(projectileCooldown <= 0 && canShoot == false){
             //System.out.println("Projectile Cooldown Reset");
             canShoot = true;
