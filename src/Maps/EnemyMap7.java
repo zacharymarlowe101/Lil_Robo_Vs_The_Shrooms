@@ -20,37 +20,53 @@ public class EnemyMap7 extends Map {
         this.playerStartPosition = getMapTile(7, 24).getLocation();
     }
 
-    // RANDOM ENEMY SPAWNING LOGIC
+    
     @Override
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
+        // fixed single mushroom that always spawns
+        Mushroom1 mushroom1 = new Mushroom1(101, getMapTile(12, 25).getLocation(), 1);
+        npcs.add(mushroom1);
+
+        // all the original Mushroom2 spawn points
         List<Point> spawnPoints = List.of(
-            new Point(7, 25),
-            new Point(10, 23),
-            new Point(12, 20),
-            new Point(8, 23),
-            new Point(8, 24),
-            new Point(7, 24),
-            new Point(10, 24),
-            new Point(11, 25),
-            new Point(12, 21),
-            new Point(12, 23)
-        );
+            // lower level
+            new Point(15, 17),
+            new Point(16, 13),
+            new Point(11, 17),
+            new Point(12, 13),
+            new Point(8, 13),
+            new Point(7, 17),
+            new Point(4, 13),
+            new Point(3, 17),
 
+            // upper level
+            new Point(6, 7),
+            new Point(7, 3),
+            new Point(10, 7),
+            new Point(11, 3),
+            new Point(14, 7),
+            new Point(15, 3),
+            new Point(18, 7),
+            new Point(19, 3)
+        );
+    
+        // only Mushroom2 type enemies
         List<EnemySpawner.WeightedFactory> enemyWeights = List.of(
-            new EnemySpawner.WeightedFactory(45, pos -> new Mushroom1(1000 + pos.hashCode(), pos, 3)),
-            new EnemySpawner.WeightedFactory(45, pos -> new Mushroom2(2000 + pos.hashCode(), pos, 3)),
-            new EnemySpawner.WeightedFactory(10, pos -> new Mushroom3(3000 + pos.hashCode(), pos, 3))
+            new EnemySpawner.WeightedFactory(
+                100, 
+                pos -> new Mushroom2(2000 + pos.hashCode(), pos, 1)
+            )
         );
-
+    
         EnemySpawner spawner = new EnemySpawner(this, spawnPoints, enemyWeights);
-        List<NPC> randomEnemies = spawner.spawnMultipleEnemies(4);
-
-        for (NPC enemy : randomEnemies) {
-            npcs.add(enemy);
-        }
-
+    
+        // spawn exactly 8 random Mushroom2s
+        List<NPC> randomEnemies = spawner.spawnMultipleEnemies(8);
+    
+        npcs.addAll(randomEnemies);
+    
         return npcs;
     }
 

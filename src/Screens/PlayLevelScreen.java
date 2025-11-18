@@ -3,6 +3,7 @@ import Engine.GraphicsHandler;
 import Engine.Screen;
 import Game.GameState;
 import Game.ScreenCoordinator;
+import GameObject.Rectangle;
 import Level.*;
 import Maps.EnemyMap1;
 import Maps.TutorialMap;
@@ -13,6 +14,9 @@ import Maps.EnemyMap2;
 import Maps.EnemyMap3;
 import Maps.EnemyMap4;  
 import Maps.EnemyMap5;
+import Maps.EnemyMap6;
+import Maps.EnemyMap7;
+import Maps.EnemyMap8;
 import Maps.EnemyMap6;
 import Maps.EnemyMap7;
 import Maps.EnemyMap8;
@@ -214,7 +218,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
         if(mapcount <7){
            Rmap = (int)(Math.random() * 8) + 1; // Randomly choose between 1 and 2
         }else{
-            Rmap =9;
+            Rmap =6;
         }
    //Rmap = 6;
     System.out.println(Rmap);
@@ -232,13 +236,6 @@ public class PlayLevelScreen extends Screen implements GameListener {
             map = new EnemyMap5();
             mapn = 5;
          } else if( Rmap == 6){
-            map = new EnemyMap6();
-        }
-            else if( Rmap == 7){
-            map = new EnemyMap7();
-        } else if ( Rmap == 8){
-            map = new EnemyMap8();
-        } else if (Rmap == 9){
             map = new BossMap();
         }
     
