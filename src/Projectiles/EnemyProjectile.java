@@ -103,8 +103,11 @@ public class EnemyProjectile extends Projectile {
                     if (npcs.getHealth() > 0) {
                         npcs.takeDamage(playerDamage);
                         projectilesHit.add(this);
-                        this.isHidden = true; // Hide the projectile upon hitting the NPC
-                        map.getProjectiles().remove(this);
+                        
+                        if(!isPersistentBullet){
+                            this.isHidden = true; // Hide the projectile upon hitting the NPC
+                            map.getProjectiles().remove(this);
+                        }
                     }
                 }
                 //System.out.println("Checking projectile collisions for Wall " + MapCollisionHandler.isCollidingWithMapEntity(p, map, null));
@@ -114,15 +117,20 @@ public class EnemyProjectile extends Projectile {
                 if (player.getHealth() > 0) {
                         player.takeDamage(enemyDamage);
                         projectilesHit.add(this);
-                        this.isHidden = true; // Hide the projectile upon hitting the NPC
-                        map.getProjectiles().remove(this);
+                        if(!isPersistentBullet){
+                            this.isHidden = true; // Hide the projectile upon hitting the NPC
+                            map.getProjectiles().remove(this);
+                        }
                     }
             }
             if(!projectilesHit.contains(this) && MapCollisionHandler.isCollidingWithMapEntity(this, map, null)){ //checks if projectile hits wall
                // System.out.println("Projectile hit wall");
                 projectilesHit.add(this);
-                this.isHidden = true;
-                map.getProjectiles().remove(this);
+
+                if(!isPersistentBullet){
+                    this.isHidden = true;
+                    map.getProjectiles().remove(this);
+                }
             }
         }
 

@@ -8,6 +8,7 @@ import Scripts.UpdateTileOnClearScript;
 import Scripts.WarpScript;
 import Tilesets.CommonTileset;
 import Utils.Point;
+import java.util.List;
 
 import java.util.ArrayList;
 
@@ -46,45 +47,48 @@ public class EnemyMap4 extends Map {
         // bug.setInteractScript(new BugScript());
         // npcs.add(bug);
 
-        // Mushroom1 mushroom1 = new Mushroom1(101, getMapTile(17, 19).getLocation(),3);
-        // npcs.add(mushroom1);
+        Mushroom3 mushroom1 = new Mushroom3(101, getMapTile(7, 13).getLocation(), 1);
+        npcs.add(mushroom1);
 
-        // Mushroom1 mushroom8 = new Mushroom1(101, getMapTile(19, 19).getLocation(),3);
-        // npcs.add(mushroom8);
-        
-        // Mushroom1 mushroom9 = new Mushroom1(101, getMapTile(17, 17).getLocation(),3);
-        // npcs.add(mushroom9);
+        Mushroom3 mushroom2 = new Mushroom3(101, getMapTile(16, 14).getLocation(), 1);
+        npcs.add(mushroom2);
 
-        // Mushroom1 mushroom10 = new Mushroom1(101, getMapTile(14, 12).getLocation(),3);
-        // npcs.add(mushroom10);
+        Mushroom3 mushroom3 = new Mushroom3(101, getMapTile(13, 19).getLocation(), 1);
+        npcs.add(mushroom3);
 
-        // Mushroom1 mushroom11 = new Mushroom1(101, getMapTile(10, 16).getLocation(),3);
-        // npcs.add(mushroom11);
+        Mushroom3 mushroom4 = new Mushroom3(101, getMapTile(18, 16).getLocation(), 1);
+        npcs.add(mushroom4);
 
-        // Mushroom1 mushroom12 = new Mushroom1(101, getMapTile(16, 14).getLocation(),3);
-        // npcs.add(mushroom12);
-
-        // Mushroom1 mushroom13 = new Mushroom1(101, getMapTile(12, 18).getLocation(),3);
-        // npcs.add(mushroom13);
-
-        // Mushroom2 mushroom2 = new Mushroom2(102, getMapTile(3, 10).getLocation(),3);
-        // npcs.add(mushroom2);
-       
-        // Mushroom2 mushroom6 = new Mushroom2(102, getMapTile(15, 17).getLocation(),3);
-        // npcs.add(mushroom6);
-       
-        // Mushroom2 mushroom7 = new Mushroom2(102, getMapTile(12, 14).getLocation(),3);
-        // npcs.add(mushroom7);
-       
-        // Mushroom3 mushroom3 = new Mushroom3(103, getMapTile(11, 11).getLocation(),3);
-        // npcs.add(mushroom3);
-        
-        // Mushroom3 mushroom4 = new Mushroom3(102, getMapTile(11, 12).getLocation(),3);
-        // npcs.add(mushroom4);
-
-         Mushroom3 mushroom5 = new Mushroom3(102, getMapTile(11, 13).getLocation(),3);
+        Mushroom3 mushroom5 = new Mushroom3(101, getMapTile(15, 21).getLocation(), 1);
         npcs.add(mushroom5);
 
+        Mushroom3 mushroom6 = new Mushroom3(101, getMapTile(20, 18).getLocation(), 1);
+        npcs.add(mushroom6);
+
+
+
+
+        List<Point> spawnPoints = List.of(
+            new Point(15, 17),
+            new Point(13, 16),
+            new Point(13, 13),
+            new Point(8, 12),
+            new Point(9, 10),
+            new Point(5, 11)
+        );
+
+        List<EnemySpawner.WeightedFactory> enemyWeights = List.of(
+            new EnemySpawner.WeightedFactory(45, pos -> new Mushroom1(1000 + pos.hashCode(), pos, 3)),
+            new EnemySpawner.WeightedFactory(45, pos -> new Mushroom2(2000 + pos.hashCode(), pos, 3)),
+            new EnemySpawner.WeightedFactory(10, pos -> new Mushroom3(3000 + pos.hashCode(), pos, 3))
+        );
+
+        EnemySpawner spawner = new EnemySpawner(this, spawnPoints, enemyWeights);
+        List<NPC> randomEnemies = spawner.spawnMultipleEnemies(3);
+
+        for (NPC enemy : randomEnemies) {
+            npcs.add(enemy);
+        }
         return npcs;
     }
 
