@@ -15,7 +15,7 @@ public class ERADICATE extends Script {
         scriptActions.add(new LockPlayerScriptAction());
         
         scriptActions.add(new TextboxScriptAction() {{
-            addText("Searching for Primary Funtion");
+            addText("Searching for Primary Function");
             addText("ERADICATE");
         }});
 
