@@ -74,6 +74,7 @@ public class EnemyNPC extends NPC implements HasHealth {
 
     @Override
     public boolean isDead() {
+        
         return hp <= 0.0001f;
     }
 

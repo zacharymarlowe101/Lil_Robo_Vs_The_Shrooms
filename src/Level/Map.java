@@ -718,6 +718,9 @@ public int getEnemiesRemaining() {
 
     public void draw(Player player, GraphicsHandler graphicsHandler) {
         camera.draw(player, graphicsHandler);
+        if(player.isReflecting){
+            
+        }
         if (textbox.isActive()) {
             textbox.draw(graphicsHandler);
         }

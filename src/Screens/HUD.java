@@ -21,6 +21,8 @@ public class HUD extends Screen {
     protected UpgradeScreen upgradeScreen;
     protected PlayLevelScreen playLevelScreen;
 
+    protected Rectangle staminaBar;
+
     public HUD(PlayLevelScreen playLevelScreen) {
         this.playLevelScreen = playLevelScreen;
         initialize();
@@ -31,6 +33,7 @@ public class HUD extends Screen {
         if(robot != null){
             //System.out.println("Initializing HUD Health: " + robot.getHealth());
             instructions = new SpriteFont("HEALTH: " + robot.getHealth(), 15, 7, "Arial", 30, Color.white);
+            staminaBar = new Rectangle(100,100,25,100);
         }
         //option3 = new SpriteFont("Increase Bullet Damage [Press 3]", 270, 359,"Arial", 20, Color.white);
         //keyLocker.lockKey(Key.SPACE);
@@ -75,6 +78,11 @@ public class HUD extends Screen {
             //System.out.println("Drawing HUD Health: " + robot.getHealth());
             instructions = new SpriteFont("HEALTH: " + robot.getHealth(), 15, 7, "Arial", 30, Color.white);
             instructions.draw(graphicsHandler);
+            int x = 10, y = 575, width = 25, height = robot.reflectCount*20;
+            graphicsHandler.drawFilledRectangle(x, y - height, width, height, Color.BLUE);
+            //graphicsHandler.drawFilledRectangleWithBorder(10,375,25,200,Color.BLUE,Color.BLACK,2);
+            graphicsHandler.drawRectangle(10,375,25,200,Color.BLACK);
+            
         }
         
     }

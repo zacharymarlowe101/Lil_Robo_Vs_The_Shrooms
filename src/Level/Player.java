@@ -1,7 +1,9 @@
 package Level;
 
+import Builders.FrameBuilder;
 import java.util.ArrayList;
 import Engine.GamePanel;
+import Engine.GraphicsHandler;
 import Engine.Key;
 import Engine.KeyLocker;
 import Engine.Keyboard;
@@ -118,6 +120,7 @@ public abstract class Player extends GameObject {
         if(Keyboard.isKeyDown(RELFLECT_KEY) && reflectCount !=0 && !inDialogue && !isReflecting){ //Reflect projectile
             isReflecting = true;
             reflectCount--;
+            //forceField.draw(graphicsHandler);
             System.out.println("Pressed R & Registered Input");
         }
         
