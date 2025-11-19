@@ -73,6 +73,7 @@ public class EnemyProjectile extends Projectile {
 
     @Override
     public void update(Player player) {
+        
         moveX(velocityX);
         moveY(velocityY);
 
@@ -137,6 +138,8 @@ public class EnemyProjectile extends Projectile {
             this.isHidden = true;
             map.getProjectiles().remove(this);
         }
+
+        super.update();
     }
 
     public void setSpeed(float newSpeed) {

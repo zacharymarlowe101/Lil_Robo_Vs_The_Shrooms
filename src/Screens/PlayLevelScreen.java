@@ -17,9 +17,6 @@ import Maps.EnemyMap5;
 import Maps.EnemyMap6;
 import Maps.EnemyMap7;
 import Maps.EnemyMap8;
-import Maps.EnemyMap6;
-import Maps.EnemyMap7;
-import Maps.EnemyMap8;
 import Maps.BossMap;
 import Level.GameListener;
 
