@@ -60,7 +60,7 @@ public class LaserAttack implements EnemyAttack {
             public void update(Player player) {
                 framesLeft--;
                 if (framesLeft <= 0) {
-                   // this.isHidden = true;
+                    this.isHidden = true;
                 }
 
                 super.update(player);

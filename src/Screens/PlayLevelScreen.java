@@ -217,7 +217,9 @@ public class PlayLevelScreen extends Screen implements GameListener {
         }else{
             Rmap =6;
         }
-   //Rmap = 6;
+
+    //how do I set it to win state here?
+    //Rmap = 9;
     System.out.println(Rmap);
         if (Rmap == 1) {
             map = new EnemyMap1();
