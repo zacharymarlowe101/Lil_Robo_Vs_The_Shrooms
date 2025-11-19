@@ -213,13 +213,13 @@ public class PlayLevelScreen extends Screen implements GameListener {
     // }
         mapcount++;
         System.out.println("mapcount:"+mapcount);
-        // if(mapcount <7){
-        //    Rmap = (int)(Math.random() * 8) + 1; // Randomly choose between 1 and 2
-        // }else{
-        //     Rmap =9;
-        // }
+        if(mapcount <7){
+           Rmap = (int)(Math.random() * 8) + 1; // Randomly choose between 1 and 2
+        }else{
+            Rmap =9;
+        }
     
-        Rmap = 1;
+       
 
     System.out.println(Rmap);
         if (Rmap == 1) {
