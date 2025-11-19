@@ -136,7 +136,7 @@ public class EnemyProjectile extends Projectile {
 
         for(Projectile p : map.getProjectiles()){
             if(p.getOwner() != player && p.getBounds().intersects(player.getBounds()) && player.isReflecting){
-                player.reflectCount--;
+                //player.reflectCount--;
                 p.setOwner(player);
                 p.reverseDirection();
             }

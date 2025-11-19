@@ -134,14 +134,15 @@ public abstract class Map {
 
             if (npc.isDead()) {
                 npc.isHidden = true;
+                player.reflectCount += 2;
                 iterator.remove();
                 System.out.println("Removed NPC " + npc.getId() + " from map.");
 
-            if (npcs.isEmpty()) {
-                isCleared = true;
-                onMapCleared();
+                if (npcs.isEmpty()) {
+                    isCleared = true;
+                    onMapCleared();
+                }
             }
-        }
     }
 
 

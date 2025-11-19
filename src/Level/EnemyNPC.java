@@ -74,7 +74,7 @@ public class EnemyNPC extends NPC implements HasHealth {
 
     @Override
     public boolean isDead() {
-        
+        //Need to increase value of player thing when this is called... guess I should find where it is called...
         return hp <= 0.0001f;
     }
 
