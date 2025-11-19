@@ -222,7 +222,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
        
 
     System.out.println(Rmap);
-    Rmap = 4;
+    // Rmap = 4;
         if (Rmap == 1) {
             map = new EnemyMap1();
         } else if (Rmap == 2) {
