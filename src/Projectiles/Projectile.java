@@ -17,6 +17,7 @@ import GameObject.AnimatedSprite;
 import java.awt.image.BufferedImage;
 import NPCs.*;
 import Engine.ImageLoader;
+import GameObject.ImageEffect;
 
 public class Projectile extends MapEntity{
     //private Direction direction;
@@ -34,6 +35,7 @@ public class Projectile extends MapEntity{
     protected BufferedImage bulletImage;
     protected AnimatedSprite bulletSprite;
 
+    protected boolean isPersistentBullet = false;
 
     protected ArrayList<Projectile> projectilesHit = new ArrayList<>();
 
@@ -97,8 +99,12 @@ public class Projectile extends MapEntity{
                     if (npcs.getHealth() > 0) {
                         npcs.takeDamage(playerDamage);
                         projectilesHit.add(this);
-                        this.isHidden = true; // Hide the projectile upon hitting the NPC
-                        map.getProjectiles().remove(this);
+
+                        if(!isPersistentBullet){
+                            this.isHidden = true; // Hide the projectile upon hitting the NPC
+
+                            map.getProjectiles().remove(this);
+                        }
                     }
                 }
                 //System.out.println("Checking projectile collisions for Wall " + MapCollisionHandler.isCollidingWithMapEntity(p, map, null));
@@ -108,15 +114,21 @@ public class Projectile extends MapEntity{
                 if (player.getHealth() > 0) {
                         player.takeDamage(enemyDamage);
                         projectilesHit.add(this);
-                        this.isHidden = true; // Hide the projectile upon hitting the NPC
-                        map.getProjectiles().remove(this);
+
+                        if(!isPersistentBullet){
+                            this.isHidden = true; // Hide the projectile upon hitting the NPC
+                            map.getProjectiles().remove(this);
+                        }
                     }
             }
             if(!projectilesHit.contains(this) && MapCollisionHandler.isCollidingWithMapEntity(this, map, null)){ //checks if projectile hits wall
                // System.out.println("Projectile hit wall");
                 projectilesHit.add(this);
-                this.isHidden = true;
-                map.getProjectiles().remove(this);
+
+                if(!isPersistentBullet){
+                    this.isHidden = true;
+                    map.getProjectiles().remove(this);
+                }
             }
             
         }
@@ -135,7 +147,6 @@ public class Projectile extends MapEntity{
 
     HashMap<String, Frame[]> animation;
 
-        
         animation = new HashMap<String, Frame[]>() {{
             put("Bullet", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 10)

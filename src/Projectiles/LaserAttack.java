@@ -15,10 +15,11 @@ public class LaserAttack implements EnemyAttack {
     private static final int BEAM_LENGTH = 300;
     private static final int BEAM_THICKNESS = 24;
     private static final int VERTICAL_SPACING = 12;
-    private static final int FRONT_PADDING = 8;
+    private static final int FRONT_PADDING = 75;
     private static final float LASER_SPEED = 1.4f;
     private int bulletwidth = 300;
     private int bulletHeight = 24;
+    private boolean facingRight;
 
 
     @Override
@@ -29,12 +30,13 @@ public class LaserAttack implements EnemyAttack {
         float centerX = npc.getX() + npc.getBounds().getWidth() / 2f;
         float centerY = npc.getY() + npc.getBounds().getHeight() / 2f;
 
-        boolean facingRight = npc.getCurrentAnimationName().toUpperCase().contains("RIGHT");
+        facingRight = npc.getCurrentAnimationName().toUpperCase().contains("RIGHT");
 
         float forwardOffset = npc.getBounds().getWidth() / 2f + FRONT_PADDING;
         float spawnX = facingRight ? centerX + forwardOffset : centerX - forwardOffset - BEAM_LENGTH;
 
         float targetX = facingRight ? spawnX + 50 : spawnX - 50;
+
 
         spawnMovingBeam(npc, spawnX, centerY - VERTICAL_SPACING, spriteSheet, new java.awt.Point((int) targetX, (int) centerY));
         spawnMovingBeam(npc, spawnX, centerY + VERTICAL_SPACING, spriteSheet, new java.awt.Point((int) targetX, (int) centerY));
@@ -58,6 +60,7 @@ public class LaserAttack implements EnemyAttack {
 
             @Override
             public void update(Player player) {
+                super.isPersistentBullet = true;
                 framesLeft--;
                 if (framesLeft <= 0) {
                     this.isHidden = true;
@@ -72,7 +75,7 @@ public class LaserAttack implements EnemyAttack {
 
     @Override
     public boolean isInRange(NPC npc, Player player) {
-        return npc.distanceTo(player) < 350;
+        return npc.distanceTo(player) < 300;
     }
 
     @Override
