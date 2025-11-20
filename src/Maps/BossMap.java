@@ -68,6 +68,7 @@ public class BossMap extends Map {
         Point tile = getMapTile(8, 11).getLocation();
         Point centeredLocation = new Point(tile.x + 58, tile.y);
         MycorrhizalAmalgamation boss = new MycorrhizalAmalgamation(102, centeredLocation, 1);
+        boss.setBoss(true);
         npcs.add(boss);
 
 

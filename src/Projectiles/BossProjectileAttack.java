@@ -10,8 +10,9 @@ public class BossProjectileAttack implements EnemyAttack {
 
     private final int cooldown = 90;
     private int cooldownCounter = 0;
-    private int shotsRemaining = 15;
+    private int shotsRemaining;
     private int bulletLength = 16;
+    private int maxUses = 8;
 
     @Override
     public void perform(NPC npc, Player player) {
@@ -42,6 +43,12 @@ public class BossProjectileAttack implements EnemyAttack {
     public void startCooldown() {
         cooldownCounter = cooldown;
     }
+
+    public void reset() {
+        shotsRemaining = maxUses;
+    }
+
+
 
     public void tickCooldown() {
         if (cooldownCounter > 0) cooldownCounter--;
