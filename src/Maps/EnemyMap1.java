@@ -8,6 +8,7 @@ import Scripts.UpdateTileOnClearScript;
 import Scripts.WarpScript;
 import Tilesets.CommonTileset;
 import Utils.Point;
+import Game.GameSession;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ public class EnemyMap1 extends Map {
     @Override
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
+        int level = GameSession.getDifficultyLevel();
 
         List<Point> spawnPoints = List.of(
             new Point(7, 21),
@@ -36,12 +38,9 @@ public class EnemyMap1 extends Map {
         );
 
         List<EnemySpawner.WeightedFactory> enemyWeights = List.of(
-            new EnemySpawner.WeightedFactory(1, pos -> new Mushroom1(1000 + pos.hashCode(), pos, 3)),
-            new EnemySpawner.WeightedFactory(1, pos -> new Mushroom2(2000 + pos.hashCode(), pos, 3)),
-            new EnemySpawner.WeightedFactory(1, pos -> new Mushroom3(3000 + pos.hashCode(), pos, 3)),
-            new EnemySpawner.WeightedFactory(1, pos -> new Mushroom1(1000 + pos.hashCode(), pos, 3)),
-            new EnemySpawner.WeightedFactory(1, pos -> new Mushroom2(2000 + pos.hashCode(), pos, 3)),
-            new EnemySpawner.WeightedFactory(1, pos -> new Mushroom3(3000 + pos.hashCode(), pos, 3))
+            new EnemySpawner.WeightedFactory(1, pos -> new Mushroom1(1000 + pos.hashCode(), pos, level)),
+            new EnemySpawner.WeightedFactory(1, pos -> new Mushroom2(2000 + pos.hashCode(), pos, level)),
+            new EnemySpawner.WeightedFactory(1, pos -> new Mushroom3(3000 + pos.hashCode(), pos, level))
         );
 
         EnemySpawner spawner = new EnemySpawner(this, spawnPoints, enemyWeights);

@@ -41,10 +41,8 @@ public class Mushroom1 extends EnemyNPC {
                 super.perform(npc, player);
 
                 if (player.getX() > npc.getX()) {
-                    System.out.println("Attacking right!");
                     npc.setCurrentAnimationName("ATTACK_RIGHT");
                 } else {
-                    System.out.println("Attacking left!");
                     npc.setCurrentAnimationName("ATTACK_LEFT");
                 }
             }

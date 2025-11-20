@@ -42,7 +42,7 @@ public class EnemyNPC extends NPC implements HasHealth {
     }
 
     public int getDamage() {
-        return (int) (baseDamage * Math.pow(1.5, level - 1));
+        return (int) (baseDamage * Math.pow(1.08, level - 1));
     }
 
     @Override
@@ -72,12 +72,17 @@ public class EnemyNPC extends NPC implements HasHealth {
 
         setHealth(Math.max(0f, getHp() - amount));
 
-        if (getHp() <= 0.0001f) {
+        float hp = getHp();
+        float maxHp = getMaxHp();
+        System.out.println("HP: " + hp + "/" + maxHp + " | isDead: " + isDead());
+
+        if (hp <= 0.0001f) {
             this.isDead = true;
             this.isPlayingDeathAnimation = true;
             setCurrentAnimationName("DEATH");
         }
     }
+
 
 
     @Override

@@ -18,8 +18,8 @@ import Utils.Point;
 
 public class MycorrhizalAmalgamation extends EnemyNPC implements HasHealth {
 
-    private float hp = 10f;
-    private float maxHp = 10f;
+    private float hp = 50f;
+    private float maxHp = 50f;
     private final Healthbar healthbar = new Healthbar(this);
 
     private BossProjectileAttack projectileAttack;
