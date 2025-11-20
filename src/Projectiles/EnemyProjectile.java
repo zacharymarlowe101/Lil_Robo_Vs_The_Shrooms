@@ -1,6 +1,7 @@
 package Projectiles;
 
 import GameObject.Frame;
+import Level.EnemyNPC;
 import Level.MapCollisionHandler;
 import Level.NPC;
 import Level.Player;
@@ -26,7 +27,7 @@ public class EnemyProjectile extends Projectile {
             new java.awt.Point((int) target.x, (int) target.y)
         );
 
-        super.owner = owner;
+        this.owner = owner;
         this.startTime = System.currentTimeMillis();
 
         float dx = target.x - start.x;
@@ -34,13 +35,13 @@ public class EnemyProjectile extends Projectile {
         float distance = (float) Math.sqrt(dx * dx + dy * dy);
 
         if (distance != 0) {
-            dirX = dx / distance; dirY = dy / distance;
-            this.velocityX = (dx / distance) * speed;
-            this.velocityY = (dy / distance) * speed;
+            dirX = dx / distance;
+            dirY = dy / distance;
+            this.velocityX = dirX * speed;
+            this.velocityY = dirY * speed;
         } else {
-            dirX = 0; dirY = 0;
-            this.velocityX = 0;
-            this.velocityY = 0;
+            dirX = velocityX = 0;
+            dirY = velocityY = 0;
         }
 
         this.setOwner(owner);
@@ -73,7 +74,6 @@ public class EnemyProjectile extends Projectile {
 
     @Override
     public void update(Player player) {
-        
         moveX(velocityX);
         moveY(velocityY);
 
@@ -82,66 +82,65 @@ public class EnemyProjectile extends Projectile {
 
         if (map == null || isHidden()) return;
 
+        // Lifetime expiration
         if (lifetime > 0 && System.currentTimeMillis() - startTime > lifetime) {
             this.isHidden = true;
             map.getProjectiles().remove(this);
             return;
         }
 
-        // if (this.getBounds().intersects(player.getBounds()) && !player.isReflecting) {
-        //     player.takeDamage(1);
-        //     this.isHidden = true;
-        //     map.getProjectiles().remove(this);
-        //     return;
-        // }
+        // Check collision with NPCs (enemy damage)
+        for (NPC npc : map.getActiveNPCs()) {
+            if (this.isHidden()) continue;
+            
+            if (this.getOwner() instanceof EnemyNPC && npc instanceof EnemyNPC) {
+                continue;
+            }
 
-        if (map != null && map.getProjectiles() != null) {
-            for (NPC npcs : map.getActiveNPCs()) { //checks if projectile hits npc
-                //System.out.println("Checking if Exists");
-                if (this == null || this.isHidden()) continue;
-                if (!projectilesHit.contains(this) && this.getBounds().intersects(npcs.getBounds()/*<<<Should be list of all NPCs*/) && this.getOwner() != npcs) {
-                    if (npcs.getHealth() > 0) {
-                        npcs.takeDamage(playerDamage);
-                        projectilesHit.add(this);
-                        
-                        if(!isPersistentBullet){
-                            this.isHidden = true; // Hide the projectile upon hitting the NPC
-                            map.getProjectiles().remove(this);
-                        }
+            if (projectilesHit.contains(this)) continue;
+
+            if (this.getBounds().intersects(npc.getBounds())) {
+                if (npc.getHealth() > 0) {
+                    npc.takeDamage(playerDamage);
+                    projectilesHit.add(this);
+
+                    if (!isPersistentBullet) {
+                        this.isHidden = true;
+                        map.getProjectiles().remove(this);
                     }
                 }
-                //System.out.println("Checking projectile collisions for Wall " + MapCollisionHandler.isCollidingWithMapEntity(p, map, null));
             }
-            //System.out.println("Player Reflecting = " + player.isReflecting);
-            if(!projectilesHit.contains(this) && this.getBounds().intersects(player.getBounds()) && this.getOwner() != player && !player.isReflecting){ //checks if projectile hits player
-                if (player.getHealth() > 0) {
-                        player.takeDamage(enemyDamage);
-                        projectilesHit.add(this);
-                        if(!isPersistentBullet){
-                            this.isHidden = true; // Hide the projectile upon hitting the NPC
-                            map.getProjectiles().remove(this);
-                        }
-                    }
-            }
-            if(!projectilesHit.contains(this) && MapCollisionHandler.isCollidingWithMapEntity(this, map, null)){ //checks if projectile hits wall
-               // System.out.println("Projectile hit wall");
+        }
+
+        // Check collision with Player (player damage)
+        if (!projectilesHit.contains(this) &&
+            this.getBounds().intersects(player.getBounds()) &&
+            this.getOwner() != player &&
+            !player.isReflecting) {
+
+            if (player.getHealth() > 0) {
+                player.takeDamage(enemyDamage);
                 projectilesHit.add(this);
 
-                if(!isPersistentBullet){
+                if (!isPersistentBullet) {
                     this.isHidden = true;
                     map.getProjectiles().remove(this);
                 }
             }
         }
 
-        for(Projectile p : map.getProjectiles()){
-            if(p.getOwner() != player && p.getBounds().intersects(player.getBounds()) && player.isReflecting){
-                //player.reflectCount--;
+        // Reflect logic
+        for (Projectile p : map.getProjectiles()) {
+            if (p.getOwner() != player &&
+                p.getBounds().intersects(player.getBounds()) &&
+                player.isReflecting) {
+
                 p.setOwner(player);
                 p.reverseDirection();
             }
         }
 
+        // Wall collision
         if (destroyOnWallHit && MapCollisionHandler.isCollidingWithMapEntity(this, map, null)) {
             this.isHidden = true;
             map.getProjectiles().remove(this);
@@ -168,7 +167,7 @@ public class EnemyProjectile extends Projectile {
     }
 
     public void reverseDirection() {
-        this.velocityX = (float)(dirX * -1);
-        this.velocityY = (float)(dirY * -1);
+        this.velocityX = -dirX * speed;
+        this.velocityY = -dirY * speed;
     }
 }

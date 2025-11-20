@@ -132,17 +132,19 @@ public abstract class Map {
                 npc.update(player);
             }
 
-            if (npc.isDead() && npc.isHidden) {
-                // Reflect bonus after the enemy finishes its death animation
-                player.reflectCount += 2;
+            if (npc.isHidden()) {
+                if (npc.isDead()) {
+                    player.reflectCount += 2;
+                }
+
                 iterator.remove();
                 System.out.println("Removed NPC " + npc.getId() + " from map.");
-            }
-        }
 
-        if (npcs.isEmpty()) {
-            isCleared = true;
-            onMapCleared();
+                if (npcs.isEmpty()) {
+                    isCleared = true;
+                    onMapCleared();
+                }
+            }
         }
 
         if (!npcsToAdd.isEmpty()) {
@@ -718,9 +720,6 @@ public int getEnemiesRemaining() {
 
     public void draw(Player player, GraphicsHandler graphicsHandler) {
         camera.draw(player, graphicsHandler);
-        if(player.isReflecting){
-            
-        }
         if (textbox.isActive()) {
             textbox.draw(graphicsHandler);
         }

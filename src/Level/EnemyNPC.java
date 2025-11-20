@@ -8,7 +8,6 @@ import java.util.HashMap;
 public class EnemyNPC extends NPC implements HasHealth {
 
     private float baseHealth;
-    private float hp;
     private final int baseDamage;
     private int level = 1;
 
@@ -70,8 +69,16 @@ public class EnemyNPC extends NPC implements HasHealth {
     @Override
     public void takeDamage(float amount) {
         if (isDead()) return;
-        hp = Math.max(0f, getHp() - amount);
+
+        setHealth(Math.max(0f, getHp() - amount));
+
+        if (getHp() <= 0.0001f) {
+            this.isDead = true;
+            this.isPlayingDeathAnimation = true;
+            setCurrentAnimationName("DEATH");
+        }
     }
+
 
     @Override
     public Healthbar getHealthbar() {
