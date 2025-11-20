@@ -8,11 +8,11 @@ import Scripts.UpdateTileOnClearScript;
 import Scripts.WarpScript;
 import Tilesets.CommonTileset;
 import Utils.Point;
+import Game.GameSession;
 
 import java.util.ArrayList;
 import java.util.List;
 
-// Represents a test map to be used in a level
 public class EnemyMap8 extends Map {
 
     public EnemyMap8() {
@@ -20,10 +20,11 @@ public class EnemyMap8 extends Map {
         this.playerStartPosition = getMapTile(3, 26).getLocation();
     }
 
-    // RANDOM ENEMY SPAWNING LOGIC
     @Override
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
+
+        int level = GameSession.getDifficultyLevel();
 
         List<Point> spawnPoints = List.of(
             new Point(9, 26),
@@ -49,17 +50,15 @@ public class EnemyMap8 extends Map {
         );
 
         List<EnemySpawner.WeightedFactory> enemyWeights = List.of(
-            new EnemySpawner.WeightedFactory(45, pos -> new Mushroom1(1000 + pos.hashCode(), pos, 3)),
-            new EnemySpawner.WeightedFactory(45, pos -> new Mushroom2(2000 + pos.hashCode(), pos, 3)),
-            new EnemySpawner.WeightedFactory(10, pos -> new Mushroom3(3000 + pos.hashCode(), pos, 3))
+            new EnemySpawner.WeightedFactory(45, pos -> new Mushroom1(1000 + pos.hashCode(), pos, level)),
+            new EnemySpawner.WeightedFactory(45, pos -> new Mushroom2(2000 + pos.hashCode(), pos, level)),
+            new EnemySpawner.WeightedFactory(10, pos -> new Mushroom3(3000 + pos.hashCode(), pos, level))
         );
 
         EnemySpawner spawner = new EnemySpawner(this, spawnPoints, enemyWeights);
         List<NPC> randomEnemies = spawner.spawnMultipleEnemies(10);
 
-        for (NPC enemy : randomEnemies) {
-            npcs.add(enemy);
-        }
+        npcs.addAll(randomEnemies);
 
         return npcs;
     }
@@ -67,13 +66,14 @@ public class EnemyMap8 extends Map {
     @Override
     public ArrayList<Trigger> loadTriggers() {
         ArrayList<Trigger> triggers = new ArrayList<>();
-        triggers.add(new Trigger(getMapTile(3, 5).getLocation(), 32,32, new WarpScript(), "haswarped"));
+        triggers.add(new Trigger(getMapTile(3, 5).getLocation(), 32, 32, new WarpScript(), "haswarped"));
         return triggers;
     }
 
+    @Override
     protected ArrayList<Script> loadUpdateScripts() {
         return new ArrayList<Script>() {{
-            add(new UpdateTileOnClearScript(new Point(3,5), new Point(2,4)));
+            add(new UpdateTileOnClearScript(new Point(3, 5), new Point(2, 4)));
         }};
     }
 }
