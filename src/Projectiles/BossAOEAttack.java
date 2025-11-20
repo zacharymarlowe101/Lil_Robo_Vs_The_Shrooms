@@ -22,7 +22,7 @@ public class BossAOEAttack implements EnemyAttack {
         float centerY = npc.getY() + npc.getCurrentFrame().getHeight() / 2f;
         float radius = 32f;
         float projectileSize = 30f;
-        int projectileCount = 64;
+        int projectileCount = 86;
 
         for (int i = 0; i < projectileCount; i++) {
             double angle = 2 * Math.PI * i / projectileCount;
@@ -31,7 +31,6 @@ public class BossAOEAttack implements EnemyAttack {
 
             float spawnX = centerX + dx * radius - (projectileSize / 2f);
             float spawnY = centerY + dy * radius - (projectileSize / 2f);
-
 
             EnemyProjectile projectile = new EnemyProjectile(spriteSheet, spawnX, spawnY, dx, dy, npc);
             projectile.setSpeed(1.8f);
@@ -45,15 +44,22 @@ public class BossAOEAttack implements EnemyAttack {
         cooldownCounter = cooldown;
     }
 
+    public void startCooldown() {
+        cooldownCounter = cooldown;
+    }
+
     public void tickCooldown() {
-        if (cooldownCounter > 0) {
-            cooldownCounter--;
-        }
+        if (cooldownCounter > 0) cooldownCounter--;
     }
 
     public boolean hasUsesRemaining() {
         return usesRemaining > 0;
     }
+
+    public boolean isOffCooldown() {
+    return cooldownCounter <= 0;
+    }
+
 
     @Override
     public boolean isInRange(NPC npc, Player player) {
@@ -62,6 +68,6 @@ public class BossAOEAttack implements EnemyAttack {
 
     @Override
     public int getCooldown() {
-        return 0;
+        return cooldown;
     }
 }

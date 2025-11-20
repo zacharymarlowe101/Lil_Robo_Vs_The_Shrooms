@@ -13,6 +13,7 @@ import Level.Healthbar;
 import Level.Player;
 import Projectiles.ProjectileAttack;
 import Utils.Point;
+import Level.NPC;
 
 public class Mushroom1 extends EnemyNPC {
 
@@ -30,87 +31,125 @@ public class Mushroom1 extends EnemyNPC {
             level
         );
 
+        setNonLooping("ATTACK_LEFT");
+        setNonLooping("ATTACK_RIGHT");
+        setNonLooping("DEATH");
+
         this.attack = new ProjectileAttack() {
             @Override
+            public void perform(NPC npc, Player player) {
+                super.perform(npc, player);
+
+                if (player.getX() > npc.getX()) {
+                    System.out.println("Attacking right!");
+                    npc.setCurrentAnimationName("ATTACK_RIGHT");
+                } else {
+                    System.out.println("Attacking left!");
+                    npc.setCurrentAnimationName("ATTACK_LEFT");
+                }
+            }
+
+            @Override
             public int getCooldown() {
-                return 90;
+                return 240;
             }
         };
     }
 
     @Override
     public void performAction(Player player) {
-        if (isDead()) {
-            this.isHidden = true;
-            return;
+        boolean isAttacking = currentAnimationName.equals("ATTACK_LEFT") ||
+                              currentAnimationName.equals("ATTACK_RIGHT");
+        if (isAttacking && isCurrentAnimationFinished()) {
+            setCurrentAnimationName(player.getX() > getX() ? "WALK_RIGHT" : "WALK_LEFT");
         }
-
-        if (player.getX() > this.getX()) {
-            if (!currentAnimationName.equals("WALK_RIGHT")) {
-                currentAnimationName = "WALK_RIGHT";
+        if (!isAttacking) {
+            String targetWalk = player.getX() > getX() ? "WALK_RIGHT" : "WALK_LEFT";
+            if (!currentAnimationName.equals(targetWalk)) {
+                setCurrentAnimationName(targetWalk);
             }
-        } else {
-            if (!currentAnimationName.equals("WALK_LEFT")) {
-                currentAnimationName = "WALK_LEFT";
-            }
+            updateEnemyAttack(player);
         }
     }
 
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
-            put("STAND_LEFT", new Frame[] {
-                new FrameBuilder(spriteSheet.getSprite(0, 0))
-                    .withScale(2)
-                    .withBounds(3, 5, 16, 16)
-                    .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                    .build()
-            });
-            put("STAND_RIGHT", new Frame[] {
-                new FrameBuilder(spriteSheet.getSprite(0, 0))
-                    .withScale(2)
-                    .withBounds(3, 5, 16, 16)
-                    .build()
-            });
-            put("WALK_LEFT", new Frame[] {
+            put("STAND_LEFT", new Frame[]{
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 35)
-                    .withScale(2)
-                    .withBounds(3, 5, 16, 16)
-                    .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                    .build(),
+                    .withScale(2).withBounds(3, 5, 16, 16).withImageEffect(ImageEffect.FLIP_HORIZONTAL).build(),
+                new FrameBuilder(spriteSheet.getSprite(0, 1), 35)
+                    .withScale(2).withBounds(3, 5, 16, 16).withImageEffect(ImageEffect.FLIP_HORIZONTAL).build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 2), 35)
-                    .withScale(2)
-                    .withBounds(3, 5, 16, 16)
-                    .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                    .build(),
-                new FrameBuilder(spriteSheet.getSprite(0, 2), 35)
-                    .withScale(2)
-                    .withBounds(3, 5, 16, 16)
-                    .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                    .build(),
+                    .withScale(2).withBounds(3, 5, 16, 16).withImageEffect(ImageEffect.FLIP_HORIZONTAL).build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 3), 35)
-                    .withScale(2)
-                    .withBounds(3, 5, 16, 16)
-                    .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                    .build()
+                    .withScale(2).withBounds(3, 5, 16, 16).withImageEffect(ImageEffect.FLIP_HORIZONTAL).build()
             });
-            put("WALK_RIGHT", new Frame[] {
+
+            put("STAND_RIGHT", new Frame[]{
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 35)
-                    .withScale(2)
-                    .withBounds(3, 5, 16, 16)
-                    .build(),
+                    .withScale(2).withBounds(3, 5, 16, 16).build(),
+                new FrameBuilder(spriteSheet.getSprite(0, 1), 35)
+                    .withScale(2).withBounds(3, 5, 16, 16).build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 2), 35)
-                    .withScale(2)
-                    .withBounds(3, 5, 16, 16)
-                    .build(),
-                new FrameBuilder(spriteSheet.getSprite(0, 2), 35)
-                    .withScale(2)
-                    .withBounds(3, 5, 16, 16)
-                    .build(),
+                    .withScale(2).withBounds(3, 5, 16, 16).build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 3), 35)
-                    .withScale(2)
-                    .withBounds(3, 5, 16, 16)
-                    .build()
+                    .withScale(2).withBounds(3, 5, 16, 16).build()
+            });
+
+            put("WALK_LEFT", new Frame[]{
+                new FrameBuilder(spriteSheet.getSprite(0, 0), 35)
+                    .withScale(2).withBounds(3, 5, 16, 16).withImageEffect(ImageEffect.FLIP_HORIZONTAL).build(),
+                new FrameBuilder(spriteSheet.getSprite(0, 1), 35)
+                    .withScale(2).withBounds(3, 5, 16, 16).withImageEffect(ImageEffect.FLIP_HORIZONTAL).build(),
+                new FrameBuilder(spriteSheet.getSprite(0, 2), 35)
+                    .withScale(2).withBounds(3, 5, 16, 16).withImageEffect(ImageEffect.FLIP_HORIZONTAL).build(),
+                new FrameBuilder(spriteSheet.getSprite(0, 3), 35)
+                    .withScale(2).withBounds(3, 5, 16, 16).withImageEffect(ImageEffect.FLIP_HORIZONTAL).build()
+            });
+
+            put("WALK_RIGHT", new Frame[]{
+                new FrameBuilder(spriteSheet.getSprite(0, 0), 35)
+                    .withScale(2).withBounds(3, 5, 16, 16).build(),
+                new FrameBuilder(spriteSheet.getSprite(0, 1), 35)
+                    .withScale(2).withBounds(3, 5, 16, 16).build(),
+                new FrameBuilder(spriteSheet.getSprite(0, 2), 35)
+                    .withScale(2).withBounds(3, 5, 16, 16).build(),
+                new FrameBuilder(spriteSheet.getSprite(0, 3), 35)
+                    .withScale(2).withBounds(3, 5, 16, 16).build()
+            });
+
+            put("ATTACK_RIGHT", new Frame[]{
+                new FrameBuilder(spriteSheet.getSprite(1, 0), 18)
+                    .withScale(2).withBounds(3, 5, 16, 16).build(),
+                new FrameBuilder(spriteSheet.getSprite(1, 1), 18)
+                    .withScale(2).withBounds(3, 5, 16, 16).build(),
+                new FrameBuilder(spriteSheet.getSprite(1, 2), 18)
+                    .withScale(2).withBounds(3, 5, 16, 16).build(),
+                new FrameBuilder(spriteSheet.getSprite(1, 3), 18)
+                    .withScale(2).withBounds(3, 5, 16, 16).build()
+            });
+
+            put("ATTACK_LEFT", new Frame[]{
+                new FrameBuilder(spriteSheet.getSprite(1, 0), 18)
+                    .withScale(2).withBounds(3, 5, 16, 16).withImageEffect(ImageEffect.FLIP_HORIZONTAL).build(),
+                new FrameBuilder(spriteSheet.getSprite(1, 1), 18)
+                    .withScale(2).withBounds(3, 5, 16, 16).withImageEffect(ImageEffect.FLIP_HORIZONTAL).build(),
+                new FrameBuilder(spriteSheet.getSprite(1, 2), 18)
+                    .withScale(2).withBounds(3, 5, 16, 16).withImageEffect(ImageEffect.FLIP_HORIZONTAL).build(),
+                new FrameBuilder(spriteSheet.getSprite(1, 3), 18)
+                    .withScale(2).withBounds(3, 5, 16, 16).withImageEffect(ImageEffect.FLIP_HORIZONTAL).build()
+            });
+
+            put("DEATH", new Frame[]{
+                new FrameBuilder(spriteSheet.getSprite(2, 0), 25)
+                    .withScale(2).withBounds(3, 5, 16, 16).build(),
+                new FrameBuilder(spriteSheet.getSprite(2, 1), 18)
+                    .withScale(2).withBounds(3, 5, 16, 16).build(),
+                new FrameBuilder(spriteSheet.getSprite(2, 2), 12)
+                    .withScale(2).withBounds(3, 5, 16, 16).build(),
+                new FrameBuilder(spriteSheet.getSprite(2, 3), 12)
+                    .withScale(2).withBounds(3, 5, 16, 16).build()
             });
         }};
     }
@@ -119,10 +158,9 @@ public class Mushroom1 extends EnemyNPC {
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
 
-        float camX = this.getMap().getCamera().getX();
-        float camY = this.getMap().getCamera().getY();
+        float camX = getMap().getCamera().getX();
+        float camY = getMap().getCamera().getY();
 
         healthbar.draw(graphicsHandler.getGraphics(), camX, camY);
     }
-
-    }
+}

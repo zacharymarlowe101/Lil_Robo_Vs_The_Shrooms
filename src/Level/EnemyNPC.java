@@ -7,15 +7,9 @@ import java.util.HashMap;
 
 public class EnemyNPC extends NPC implements HasHealth {
 
-    protected float hp;
-    protected float maxHp;
-
     private float baseHealth;
     private final int baseDamage;
     private int level = 1;
-
-    protected boolean isHidden = false;
-    private boolean isActive = true;
 
     private Healthbar healthbar;
 
@@ -25,7 +19,6 @@ public class EnemyNPC extends NPC implements HasHealth {
         this.baseDamage = baseDamage;
 
         setLevel(level);
-
         this.healthbar = new Healthbar(this);
     }
 
@@ -35,18 +28,13 @@ public class EnemyNPC extends NPC implements HasHealth {
         this.baseDamage = baseDamage;
 
         setLevel(level);
-
         this.healthbar = new Healthbar(this);
     }
 
     public void setLevel(int level) {
         this.level = Math.max(1, level);
-
-        float scaledHealth = (float)(baseHealth * Math.pow(1.5, this.level - 1));
-        this.maxHp = scaledHealth;
-        this.hp = scaledHealth;
-
-        setHealth((int)scaledHealth);
+        float scaledHealth = (float) (baseHealth * Math.pow(1.5, this.level - 1));
+        this.setHealth(scaledHealth);
     }
 
     public int getLevel() {
@@ -54,38 +42,22 @@ public class EnemyNPC extends NPC implements HasHealth {
     }
 
     public int getDamage() {
-        return (int)(baseDamage * Math.pow(1.5, level - 1));
+        return (int) (baseDamage * Math.pow(1.5, level - 1));
     }
 
     @Override
     public float getHp() {
-        return hp;
+        return getHealth();
     }
 
     @Override
     public float getMaxHp() {
-        return maxHp;
+        return (float) (baseHealth * Math.pow(1.5, level - 1));
     }
 
     @Override
     public float getHpRatio() {
-        return hp / maxHp;
-    }
-
-    @Override
-    public boolean isDead() {
-        return hp <= 0.0001f;
-    }
-
-    @Override
-    public void takeDamage(float amount) {
-        if (isDead()) return;
-        hp = Math.max(0f, hp - amount);
-    }
-
-    @Override
-    public void takeDamage(int amount) {
-        takeDamage((float) amount);
+        return getHp() / getMaxHp();
     }
 
     @Override
@@ -93,25 +65,9 @@ public class EnemyNPC extends NPC implements HasHealth {
         return healthbar;
     }
 
-    public boolean isHidden() {
-        return isHidden;
-    }
-
-    public void setIsHidden(boolean isHidden) {
-        this.isHidden = isHidden;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        this.isActive = active;
-    }
-
     @Override
     protected void performAction(Player player) {
-        if (isHidden || !isActive) return;
+        if (isHidden || isDead()) return;
 
         facePlayer(player);
         updateEnemyAttack(player);

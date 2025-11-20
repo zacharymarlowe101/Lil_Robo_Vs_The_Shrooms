@@ -13,11 +13,10 @@ import Level.Healthbar;
 import Level.Player;
 import Projectiles.AOEAttack;
 import Utils.Point;
+import Level.NPC;
 
 public class Mushroom2 extends EnemyNPC {
 
-    private float hp = 3f;
-    private float maxHp = 3f;
     private final Healthbar healthbar = new Healthbar(this);
 
     public Mushroom2(int id, Point location, int level) {
@@ -31,109 +30,95 @@ public class Mushroom2 extends EnemyNPC {
             1,
             level
         );
-        this.attack = new AOEAttack();
-    }
 
-    @Override public float getX() { return super.getX(); }
-    @Override public float getY() { return super.getY(); }
-    @Override public float getHp() { return hp; }
-    @Override public float getMaxHp() { return maxHp; }
-    @Override public float getHpRatio() { return hp / maxHp; }
+        setNonLooping("ATTACK_LEFT");
+        setNonLooping("ATTACK_RIGHT");
+        setNonLooping("DEATH");
 
-    @Override
-    public boolean isDead() {
-        return hp <= 0.0001f;
-    }
+        this.attack = new AOEAttack() {
+            @Override
+            public void perform(NPC npc, Player player) {
+                super.perform(npc, player);
 
-    @Override
-    public void takeDamage(float dmg) {
-        hp = Math.max(0f, hp - dmg);
-        System.out.println("Mushroom2 HP: " + hp + "/" + maxHp);
-    }
+                if (player.getX() > npc.getX()) {
+                    npc.setCurrentAnimationName("ATTACK_RIGHT");
+                } else {
+                    npc.setCurrentAnimationName("ATTACK_LEFT");
+                }
 
-    @Override
-    public void takeDamage(int dmg) {
-        takeDamage((float) dmg);
-    }
+                npc.takeDamage(((EnemyNPC) npc).getHp());
+            }
 
-    public Healthbar getHealthbar() {
-        return healthbar;
+            @Override
+            public int getCooldown() {
+                return 90;
+            }
+        };
     }
 
     @Override
     public void performAction(Player player) {
         if (isDead()) {
-            this.isHidden = true;
+            if (!currentAnimationName.equals("DEATH")) {
+                setCurrentAnimationName("DEATH");
+            }
+
+            if (isCurrentAnimationFinished()) {
+                setIsHidden(true);
+            }
+
             return;
         }
 
-        if (player.getX() < this.getX()) {
-            if (!currentAnimationName.equals("STAND_LEFT")) {
-                currentAnimationName = "STAND_LEFT";
+        if (currentAnimationName.equals("ATTACK_LEFT") || currentAnimationName.equals("ATTACK_RIGHT")) {
+            if (!isCurrentAnimationFinished()) {
+                return;
             }
+
+            setCurrentAnimationName(player.getX() > getX() ? "STAND_RIGHT" : "STAND_LEFT");
         } else {
-            if (!currentAnimationName.equals("STAND_RIGHT")) {
-                currentAnimationName = "STAND_RIGHT";
-            }
-        }
-    }
+            setCurrentAnimationName(player.getX() > getX() ? "STAND_RIGHT" : "STAND_LEFT");
 
-    @Override
-    public void updateEnemyAttack(Player player) {
-        super.updateEnemyAttack(player);
-
-        if (attack != null && attack.isInRange(this, player)) {
-            attack.perform(this, player);
-
-            this.hp = 0f;
-            this.isHidden = true;
-
-            System.out.println("Mushroom2 used AOE and self-destructed.");
+            updateEnemyAttack(player);
         }
     }
 
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
-            put("STAND_LEFT", new Frame[] {
-                new FrameBuilder(spriteSheet.getSprite(0, 0), 40)
-                    .withScale(2)
-                    .withBounds(13, 5, 16, 16)
-                    .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                    .build(),
-                new FrameBuilder(spriteSheet.getSprite(0, 1), 40)
-                    .withScale(2)
-                    .withBounds(13, 5, 16, 16)
-                    .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                    .build(),
-                new FrameBuilder(spriteSheet.getSprite(0, 2), 24)
-                    .withScale(2)
-                    .withBounds(13, 5, 16, 16)
-                    .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                    .build(),
-                new FrameBuilder(spriteSheet.getSprite(0, 3), 16)
-                    .withScale(2)
-                    .withBounds(13, 5, 16, 16)
-                    .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                    .build()
+            put("STAND_LEFT", new Frame[]{
+                new FrameBuilder(spriteSheet.getSprite(0, 0), 40).withScale(2).withBounds(13, 5, 16, 16).withImageEffect(ImageEffect.FLIP_HORIZONTAL).build(),
+                new FrameBuilder(spriteSheet.getSprite(0, 1), 40).withScale(2).withBounds(13, 5, 16, 16).withImageEffect(ImageEffect.FLIP_HORIZONTAL).build(),
+                new FrameBuilder(spriteSheet.getSprite(0, 2), 24).withScale(2).withBounds(13, 5, 16, 16).withImageEffect(ImageEffect.FLIP_HORIZONTAL).build(),
+                new FrameBuilder(spriteSheet.getSprite(0, 3), 16).withScale(2).withBounds(13, 5, 16, 16).withImageEffect(ImageEffect.FLIP_HORIZONTAL).build()
             });
-            put("STAND_RIGHT", new Frame[] {
-                new FrameBuilder(spriteSheet.getSprite(0, 0), 40)
-                    .withScale(2)
-                    .withBounds(3, 5, 16, 16)
-                    .build(),
-                new FrameBuilder(spriteSheet.getSprite(0, 1), 40)
-                    .withScale(2)
-                    .withBounds(3, 5, 16, 16)
-                    .build(),
-                new FrameBuilder(spriteSheet.getSprite(0, 2), 24)
-                    .withScale(2)
-                    .withBounds(3, 5, 16, 16)
-                    .build(),
-                new FrameBuilder(spriteSheet.getSprite(0, 3), 16)
-                    .withScale(2)
-                    .withBounds(3, 5, 16, 16)
-                    .build()
+
+            put("STAND_RIGHT", new Frame[]{
+                new FrameBuilder(spriteSheet.getSprite(0, 0), 40).withScale(2).withBounds(3, 5, 16, 16).build(),
+                new FrameBuilder(spriteSheet.getSprite(0, 1), 40).withScale(2).withBounds(3, 5, 16, 16).build(),
+                new FrameBuilder(spriteSheet.getSprite(0, 2), 24).withScale(2).withBounds(3, 5, 16, 16).build(),
+                new FrameBuilder(spriteSheet.getSprite(0, 3), 16).withScale(2).withBounds(3, 5, 16, 16).build()
+            });
+
+            put("ATTACK_RIGHT", new Frame[]{
+                new FrameBuilder(spriteSheet.getSprite(1, 0), 18).withScale(2).withBounds(3, 5, 16, 16).build(),
+                new FrameBuilder(spriteSheet.getSprite(1, 1), 18).withScale(2).withBounds(3, 5, 16, 16).build(),
+                new FrameBuilder(spriteSheet.getSprite(1, 2), 18).withScale(2).withBounds(3, 5, 16, 16).build(),
+                new FrameBuilder(spriteSheet.getSprite(1, 3), 18).withScale(2).withBounds(3, 5, 16, 16).build()
+            });
+
+            put("ATTACK_LEFT", new Frame[]{
+                new FrameBuilder(spriteSheet.getSprite(1, 0), 18).withScale(2).withBounds(13, 5, 16, 16).withImageEffect(ImageEffect.FLIP_HORIZONTAL).build(),
+                new FrameBuilder(spriteSheet.getSprite(1, 1), 18).withScale(2).withBounds(13, 5, 16, 16).withImageEffect(ImageEffect.FLIP_HORIZONTAL).build(),
+                new FrameBuilder(spriteSheet.getSprite(1, 2), 18).withScale(2).withBounds(13, 5, 16, 16).withImageEffect(ImageEffect.FLIP_HORIZONTAL).build(),
+                new FrameBuilder(spriteSheet.getSprite(1, 3), 18).withScale(2).withBounds(13, 5, 16, 16).withImageEffect(ImageEffect.FLIP_HORIZONTAL).build()
+            });
+
+            put("DEATH", new Frame[]{
+                new FrameBuilder(spriteSheet.getSprite(2, 0), 25).withScale(2).withBounds(3, 5, 16, 16).build(),
+                new FrameBuilder(spriteSheet.getSprite(2, 1), 18).withScale(2).withBounds(3, 5, 16, 16).build(),
+                new FrameBuilder(spriteSheet.getSprite(2, 2), 12).withScale(2).withBounds(3, 5, 16, 16).build(),
+                new FrameBuilder(spriteSheet.getSprite(2, 3), 12).withScale(2).withBounds(3, 5, 16, 16).build()
             });
         }};
     }

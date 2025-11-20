@@ -13,17 +13,15 @@ import java.util.HashMap;
 public class NPC extends MapEntity {
     protected int id = 0;
     protected boolean isLocked = false;
-    protected int health = 3;
+    protected float health = 3.0f;
     protected boolean isDead = false;
     protected int deathTimer = 60;
     protected ArrayList<Projectile> projectilesHit = new ArrayList<>();
 
-    // Attack System
     protected EnemyAttack attack;
     protected int attackCooldown = 0;
+    protected boolean isPlayingDeathAnimation = false;
 
-
-    // Constructors
     public NPC(int id, float x, float y, SpriteSheet spriteSheet, String startingAnimation) {
         super(x, y, spriteSheet, startingAnimation);
         this.id = id;
@@ -49,25 +47,24 @@ public class NPC extends MapEntity {
         this.id = id;
     }
 
-    public void setHealth(int health) {
+    public void setHealth(float health) {
         this.health = health;
     }
 
-    public int getHealth() {
+    public float getHealth() {
         return this.health;
     }
 
-    public void takeDamage(int amount) {
+    public void takeDamage(float amount) {
         if (isDead) return;
 
         health -= amount;
 
-        if (health <= 0) {
-            health = 0;
+        if (health <= 0.0f) {
+            health = 0.0f;
             isDead = true;
-            System.out.println("NPC " + id + " died.");
-        } else {
-            System.out.println("NPC " + id + " took " + amount + " damage. Remaining health: " + this.health);
+            isPlayingDeathAnimation = true;
+            setCurrentAnimationName("DEATH");
         }
     }
 
@@ -97,7 +94,7 @@ public class NPC extends MapEntity {
     }
 
     public void updateEnemyAttack(Player player) {
-        if (isDead || isHidden) return;
+        if (isDead || isHidden || isPlayingDeathAnimation) return;
 
         if (attackCooldown > 0) {
             attackCooldown--;
@@ -109,17 +106,25 @@ public class NPC extends MapEntity {
 
     public void update(Player player) {
         if (isDead) {
-            deathTimer--;
-            if (deathTimer <= 0) this.isHidden = true;
+            if (isPlayingDeathAnimation) {
+                if (!currentAnimationName.equals("DEATH")) {
+                    setCurrentAnimationName("DEATH");
+                } 
+                else if (isCurrentAnimationFinished()) {
+                    isPlayingDeathAnimation = false;
+                    setHidden(true);
+                }
+            }
+
+            super.update();
             return;
         }
 
         if (!isLocked) performAction(player);
-
         updateEnemyAttack(player);
-
         super.update();
     }
+
 
     public void lock() {
         isLocked = true;

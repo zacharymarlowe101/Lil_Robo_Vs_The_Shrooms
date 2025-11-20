@@ -117,12 +117,6 @@ public class EnemyProjectile extends Projectile {
                         map.getProjectiles().remove(this);
                     }
             }
-            if(!projectilesHit.contains(this) && MapCollisionHandler.isCollidingWithMapEntity(this, map, null)){ //checks if projectile hits wall
-               // System.out.println("Projectile hit wall");
-                projectilesHit.add(this);
-                this.isHidden = true;
-                map.getProjectiles().remove(this);
-            }
         }
 
         for(Projectile p : map.getProjectiles()){

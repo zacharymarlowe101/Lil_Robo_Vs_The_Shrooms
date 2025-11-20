@@ -31,7 +31,7 @@ public class BossProjectileAttack implements EnemyAttack {
         float targetY = player.getY() + player.getBounds().getHeight() / 2f;
         Point target = new Point(targetX, targetY);
 
-        EnemyProjectile projectile = new EnemyProjectile(spriteSheet, spawnX, spawnY,  start, target, npc);
+        EnemyProjectile projectile = new EnemyProjectile(spriteSheet, spawnX, spawnY, start, target, npc);
         projectile.setDestroyOnWallHit(true);
         npc.getMap().addProjectile(projectile);
 
@@ -39,14 +39,20 @@ public class BossProjectileAttack implements EnemyAttack {
         shotsRemaining--;
     }
 
+    public void startCooldown() {
+        cooldownCounter = cooldown;
+    }
+
     public void tickCooldown() {
-        if (cooldownCounter > 0) {
-            cooldownCounter--;
-        }
+        if (cooldownCounter > 0) cooldownCounter--;
     }
 
     public boolean isPhaseOneComplete() {
         return shotsRemaining <= 0;
+    }
+
+    public boolean isOffCooldown() {
+    return cooldownCounter <= 0;
     }
 
     @Override
