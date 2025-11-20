@@ -149,7 +149,7 @@ public class Projectile extends MapEntity{
 
         animation = new HashMap<String, Frame[]>() {{
             put("Bullet", new Frame[] {
-                new FrameBuilder(spriteSheet.getSprite(0, 0), 10)
+                new FrameBuilder(spriteSheet.getSprite(0, 0), 10)//getting from 0,0 with 10 delay
                         .withScale(2)
                         .withBounds(0, 0, spriteSheet.getSpriteWidth(), spriteSheet.getSpriteHeight())
                         .build(),

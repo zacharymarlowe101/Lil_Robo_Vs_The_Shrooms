@@ -139,7 +139,7 @@ public class UpgradeScreen extends Screen {
 
     private void increaseHealth(){
         if(!isOptionChosen){
-            robot.setHealth(robot.getHealth() + 1);
+            robot.setHealth(robot.getHealth() + 4);
             isOptionChosen = true;
         }
 
