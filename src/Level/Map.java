@@ -133,8 +133,10 @@ public abstract class Map {
             }
 
             if (npc.isHidden()) {
-                if (npc.isDead()) {
+                if (npc.isDead() && player.reflectCount < 9) {
                     player.reflectCount += 2;
+                } else if(npc.isDead() && player.reflectCount == 9){
+                    player.reflectCount++;
                 }
 
                 iterator.remove();

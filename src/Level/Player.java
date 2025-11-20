@@ -68,7 +68,7 @@ public abstract class Player extends GameObject {
     //Reflect Variables
     protected Key RELFLECT_KEY = Key.R;
     private int maxReflects = 10;
-    public int reflectCount = 0;
+    public int reflectCount;
     public boolean isReflecting = false;
     private float reflectTime = 2000; //milliseconds
     private float DeltaTime = 16.67f;
