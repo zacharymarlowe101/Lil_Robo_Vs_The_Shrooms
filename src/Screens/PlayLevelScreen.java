@@ -222,7 +222,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
         }else{
             Rmap =9;
         }
-    
+    // Rmap = 9;
        
 
     System.out.println(Rmap);
