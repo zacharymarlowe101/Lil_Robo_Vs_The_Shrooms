@@ -1,6 +1,7 @@
 package Projectiles;
 
 import GameObject.SpriteSheet;
+import Level.EnemyNPC;
 import Level.MapCollisionHandler;
 import Level.NPC;
 import Level.Player;
@@ -96,8 +97,11 @@ public class EnemyProjectile extends Projectile {
         for (NPC npc : map.getActiveNPCs()) {
             if (this.isHidden()) continue;
 
-            // Don't hit the owner NPC
-            if (this.getOwner() instanceof NPC && npc == (NPC) this.getOwner()) continue;
+            // Skip if projectile owner is an enemy and npc is also an enemy
+            if (this.getOwner() instanceof EnemyNPC && npc instanceof EnemyNPC) continue;
+
+            // Skip self-hit
+            if (this.getOwner() == npc) continue;
 
             if (!projectilesHit.contains(this) &&
                 this.getBounds().intersects(npc.getBounds()) &&
@@ -112,6 +116,7 @@ public class EnemyProjectile extends Projectile {
                 }
             }
         }
+
 
         // Check collision with player
         if (!projectilesHit.contains(this) &&
