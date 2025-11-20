@@ -142,13 +142,13 @@ public class Mushroom1 extends EnemyNPC {
             });
 
             put("DEATH", new Frame[]{
-                new FrameBuilder(spriteSheet.getSprite(2, 0), 25)
+                new FrameBuilder(spriteSheet.getSprite(2, 0), 20)
                     .withScale(2).withBounds(3, 5, 16, 16).build(),
-                new FrameBuilder(spriteSheet.getSprite(2, 1), 18)
+                new FrameBuilder(spriteSheet.getSprite(2, 1), 15)
                     .withScale(2).withBounds(3, 5, 16, 16).build(),
-                new FrameBuilder(spriteSheet.getSprite(2, 2), 12)
+                new FrameBuilder(spriteSheet.getSprite(2, 2), 10)
                     .withScale(2).withBounds(3, 5, 16, 16).build(),
-                new FrameBuilder(spriteSheet.getSprite(2, 3), 12)
+                new FrameBuilder(spriteSheet.getSprite(2, 3), 10)
                     .withScale(2).withBounds(3, 5, 16, 16).build()
             });
         }};
