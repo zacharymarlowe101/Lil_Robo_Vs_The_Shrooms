@@ -12,12 +12,12 @@ public class EnemyNPC extends NPC implements HasHealth {
     private int level = 1;
 
     private Healthbar healthbar;
+    private boolean isBoss = false;
 
     public EnemyNPC(int id, float x, float y, SpriteSheet spriteSheet, String startingAnimation, int baseHealth, int baseDamage, int level) {
         super(id, x, y, spriteSheet, startingAnimation);
         this.baseHealth = baseHealth;
         this.baseDamage = baseDamage;
-
         setLevel(level);
         this.healthbar = new Healthbar(this);
     }
@@ -26,9 +26,17 @@ public class EnemyNPC extends NPC implements HasHealth {
         super(id, x, y, animations, startingAnimation);
         this.baseHealth = baseHealth;
         this.baseDamage = baseDamage;
-
         setLevel(level);
         this.healthbar = new Healthbar(this);
+    }
+
+    public void setBoss(boolean boss) {
+        this.isBoss = boss;
+        this.healthbar.setBossMode(boss);
+    }
+
+    public boolean isBoss() {
+        return this.isBoss;
     }
 
     public void setLevel(int level) {
@@ -42,7 +50,7 @@ public class EnemyNPC extends NPC implements HasHealth {
     }
 
     public int getDamage() {
-        return (int) (baseDamage * Math.pow(1.5, level - 1));
+        return (int) (baseDamage * Math.pow(1.08, level - 1));
     }
 
     @Override
@@ -62,7 +70,6 @@ public class EnemyNPC extends NPC implements HasHealth {
 
     @Override
     public boolean isDead() {
-        //Need to increase value of player thing when this is called... guess I should find where it is called...
         return getHp() <= 0.0001f;
     }
 
@@ -72,13 +79,16 @@ public class EnemyNPC extends NPC implements HasHealth {
 
         setHealth(Math.max(0f, getHp() - amount));
 
-        if (getHp() <= 0.0001f) {
+        float hp = getHp();
+        float maxHp = getMaxHp();
+        System.out.println("BOSS HP: " + hp + "/" + maxHp + " | isDead: " + isDead());
+
+        if (hp <= 0.0001f) {
             this.isDead = true;
             this.isPlayingDeathAnimation = true;
             setCurrentAnimationName("DEATH");
         }
     }
-
 
     @Override
     public Healthbar getHealthbar() {

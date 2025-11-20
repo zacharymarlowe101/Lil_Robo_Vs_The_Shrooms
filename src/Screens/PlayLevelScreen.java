@@ -7,6 +7,7 @@ import GameObject.Rectangle;
 import Level.*;
 import Maps.EnemyMap1;
 import Maps.TutorialMap;
+import NPCs.MycorrhizalAmalgamation;
 import Players.Robot;
 import Utils.Direction;
 import Maps.TutorialMap;
@@ -18,7 +19,6 @@ import Maps.EnemyMap6;
 import Maps.EnemyMap7;
 import Maps.EnemyMap8;
 import Maps.BossMap;
-import Level.GameListener;
 
 
 
@@ -134,7 +134,6 @@ public class PlayLevelScreen extends Screen implements GameListener {
         mapcount = 0;
         System.out.println(mapcount);
     }
-    
 
     public void draw(GraphicsHandler graphicsHandler) {
         // based on screen state, draw appropriate graphics
@@ -146,6 +145,11 @@ public class PlayLevelScreen extends Screen implements GameListener {
                     playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
                     Rmap = (int)(Math.random() * 8) + 1; // Randomly choose between 1 and 2
                     mapcount = 0;
+                }
+
+                MycorrhizalAmalgamation boss = (MycorrhizalAmalgamation) map.getNPCById(102);
+                if (boss != null && !boss.isDead()) {
+                    boss.getHealthbar().draw(graphicsHandler.getGraphics(), 0, 0);
                 }
                 
 
@@ -222,7 +226,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
        
 
     System.out.println(Rmap);
-    // Rmap = 4;
+     //Rmap = 9;
         if (Rmap == 1) {
             map = new EnemyMap1();
         } else if (Rmap == 2) {

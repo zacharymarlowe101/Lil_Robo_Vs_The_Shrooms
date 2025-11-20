@@ -2,31 +2,24 @@ package NPCs;
 
 import java.util.HashMap;
 import Builders.FrameBuilder;
-import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
-import Level.EnemyNPC;
-import Level.HasHealth;
-import Level.Healthbar;
-import Level.Map;
-import Level.Player;
+import Level.*;
 import Projectiles.BossAOEAttack;
 import Projectiles.BossProjectileAttack;
 import Utils.Point;
 
 public class MycorrhizalAmalgamation extends EnemyNPC implements HasHealth {
-
-    private float hp = 10f;
-    private float maxHp = 10f;
-    private final Healthbar healthbar = new Healthbar(this);
+    private float hp;
+    private float maxHp;
+    private final Healthbar healthbar;
 
     private BossProjectileAttack projectileAttack;
     private BossAOEAttack aoeAttack;
 
     private boolean phaseOneComplete = false;
-    private boolean phaseTwoComplete = false;
     private boolean waitingForPhaseSwap = false;
     private int phaseSwapTimer = 0;
     private final int PHASE_SWAP_DELAY = 180;
@@ -37,13 +30,16 @@ public class MycorrhizalAmalgamation extends EnemyNPC implements HasHealth {
     public MycorrhizalAmalgamation(int id, Point location, int level) {
         super(id, location.x, location.y,
                 new SpriteSheet(ImageLoader.load("MycorrhizalAmalgamation.png"), 128, 128),
-                "WALK_RIGHT", 20, 2, level);
+                "WALK_RIGHT", 50, 3, level);
 
-        this.maxHp = 10f;
+        this.maxHp = 50f;
         this.hp = maxHp;
 
-        projectileAttack = new BossProjectileAttack();
-        aoeAttack = new BossAOEAttack();
+        this.healthbar = new Healthbar(this);
+        this.healthbar.setBossMode(true);
+
+        this.projectileAttack = new BossProjectileAttack();
+        this.aoeAttack = new BossAOEAttack();
         this.attack = projectileAttack;
 
         setNonLooping("ATTACK_LEFT");
@@ -51,18 +47,15 @@ public class MycorrhizalAmalgamation extends EnemyNPC implements HasHealth {
         setNonLooping("DEATH");
     }
 
-    @Override public float getX() { return super.getX(); }
-    @Override public float getY() { return super.getY(); }
     @Override public float getHp() { return hp; }
     @Override public float getMaxHp() { return maxHp; }
     @Override public float getHpRatio() { return hp / maxHp; }
-
-    @Override
-    public boolean isDead() {
-        return hp <= 0.0001f;
-    }
-
-    @Override public float getHealth() { return (int) hp; }
+    @Override public boolean isDead() { return hp <= 0.0001f; }
+    @Override public float getHealth() { return hp; }
+    @Override public void setHealth(float hp) { this.hp = hp; }
+    @Override public Healthbar getHealthbar() { return healthbar; }
+    @Override public int getHealthbarWidth() { return 120; }
+    @Override public int getHealthbarYOffset() { return -60; }
 
     @Override
     public void takeDamage(float dmg) {
@@ -71,20 +64,15 @@ public class MycorrhizalAmalgamation extends EnemyNPC implements HasHealth {
         System.out.println("BOSS HP: " + hp + "/" + maxHp + " | isDead: " + isDead());
     }
 
-    @Override
-    public void setHealth(float health) {
-        this.hp = health;
-    }
-
-    public Healthbar getHealthbar() { return healthbar; }
-
     private boolean areMinionsDefeated() {
         Map map = getMap();
         if (map == null) return true;
+
         for (int id = 300; id <= 323; id++) {
             EnemyNPC minion = (EnemyNPC) map.getNPCById(id);
             if (minion != null && !minion.isDead()) return false;
         }
+
         return true;
     }
 
@@ -134,8 +122,7 @@ public class MycorrhizalAmalgamation extends EnemyNPC implements HasHealth {
             else if (attack == aoeAttack) aoeAttack.startCooldown();
         }
 
-        boolean animatingAttack = currentAnimationName.startsWith("ATTACK") && !isCurrentAnimationFinished();
-        if (animatingAttack) return;
+        if (currentAnimationName.startsWith("ATTACK") && !isCurrentAnimationFinished()) return;
 
         currentAnimationName = playCX > npcCX ? "WALK_RIGHT" : "WALK_LEFT";
 
@@ -148,6 +135,7 @@ public class MycorrhizalAmalgamation extends EnemyNPC implements HasHealth {
 
         if (!phaseOneComplete) {
             projectileAttack.tickCooldown();
+
             if (projectileAttack.isInRange(this, player) && projectileAttack.isOffCooldown()) {
                 setCurrentAnimationName(playCX > npcCX ? "ATTACK_RIGHT" : "ATTACK_LEFT");
                 projectileAttack.perform(this, player);
@@ -167,25 +155,18 @@ public class MycorrhizalAmalgamation extends EnemyNPC implements HasHealth {
             return;
         }
 
-        if (!phaseTwoComplete) {
-            aoeAttack.tickCooldown();
-            if (aoeAttack.hasUsesRemaining() && aoeAttack.isInRange(this, player) && aoeAttack.isOffCooldown()) {
-                setCurrentAnimationName(playCX > npcCX ? "ATTACK_RIGHT" : "ATTACK_LEFT");
-                aoeAttack.perform(this, player);
-            }
+        aoeAttack.tickCooldown();
 
-            if (!aoeAttack.hasUsesRemaining() && !waitingForPhaseSwap) {
-                waitingForPhaseSwap = true;
-                phaseSwapTimer = 0;
-            }
+        if (aoeAttack.hasUsesRemaining() && aoeAttack.isInRange(this, player) && aoeAttack.isOffCooldown()) {
+            setCurrentAnimationName(playCX > npcCX ? "ATTACK_RIGHT" : "ATTACK_LEFT");
+            aoeAttack.perform(this, player);
+        }
 
-            if (waitingForPhaseSwap && ++phaseSwapTimer >= PHASE_SWAP_DELAY + 300) {
-                phaseOneComplete = false;
-                aoeAttack = new BossAOEAttack();
-                projectileAttack = new BossProjectileAttack();
-                this.attack = projectileAttack;
-                waitingForPhaseSwap = false;
-            }
+        if (!aoeAttack.hasUsesRemaining()) {
+            phaseOneComplete = false;
+            projectileAttack.reset();
+            aoeAttack.reset();
+            this.attack = projectileAttack;
         }
     }
 
@@ -228,17 +209,4 @@ public class MycorrhizalAmalgamation extends EnemyNPC implements HasHealth {
             });
         }};
     }
-
-    @Override
-    public void draw(GraphicsHandler graphicsHandler) {
-        super.draw(graphicsHandler);
-
-        float camX = this.getMap().getCamera().getX();
-        float camY = this.getMap().getCamera().getY();
-
-        healthbar.draw(graphicsHandler.getGraphics(), camX, camY);
-    }
-
-    @Override public int getHealthbarWidth() { return 120; }
-    @Override public int getHealthbarYOffset() { return -60; }
 }

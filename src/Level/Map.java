@@ -9,6 +9,7 @@ import ScriptActions.ChangeFlagScriptAction;
 //import Projectiles.Projectile;
 import Utils.Direction;
 import Utils.Point;
+import Game.GameSession;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -120,6 +121,7 @@ public abstract class Map {
         
         System.out.println("Map cleared: " + mapFileName);
     // Optional: trigger flags, sounds, events, etc.
+        GameSession.increaseDifficultyLevel();    
     }
 
     public void updateNPCs(Player player) {
@@ -133,8 +135,10 @@ public abstract class Map {
             }
 
             if (npc.isHidden()) {
-                if (npc.isDead()) {
+                if (npc.isDead() && player.reflectCount < 9) {
                     player.reflectCount += 2;
+                } else if(npc.isDead() && player.reflectCount == 9){
+                    player.reflectCount++;
                 }
 
                 iterator.remove();

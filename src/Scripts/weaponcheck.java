@@ -17,6 +17,8 @@ public class weaponcheck extends Script {
         scriptActions.add(new TextboxScriptAction() {{
             addText("Weapons online. ");
             addText("Please use SPACEBAR or LEFT CLICK to fire.");
+            addText("Killing Enemy's Charge up your Reflect");
+            addText("Press R to send Enemy Spores back at them.");
         }});
 
         

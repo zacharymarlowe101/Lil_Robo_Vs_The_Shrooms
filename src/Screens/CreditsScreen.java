@@ -16,6 +16,7 @@ public class CreditsScreen extends Screen {
     protected KeyLocker keyLocker = new KeyLocker();
     protected SpriteFont creditsLabel;
     protected SpriteFont createdByLabel;
+    protected SpriteFont andByLabel1, andByLabel2, andByLabel3, andByLabel4;
     protected SpriteFont returnInstructionsLabel;
 
     public CreditsScreen(ScreenCoordinator screenCoordinator) {
@@ -28,7 +29,11 @@ public class CreditsScreen extends Screen {
         background = new TitleScreenMap();
         background.setAdjustCamera(false);
         creditsLabel = new SpriteFont("Credits", 15, 7, "Times New Roman", 30, Color.white);
-        createdByLabel = new SpriteFont("Created by Alex Thimineur", 130, 121, "Times New Roman", 20, Color.white);
+        createdByLabel = new SpriteFont("Created by Alex Thimineur,", 130, 121, "Times New Roman", 20, Color.white);
+        andByLabel1 = new SpriteFont("Aiden Agas,", 130, 141, "Times New Roman", 20, Color.white);
+        andByLabel2 = new SpriteFont("Reed Scampoli,", 130, 161, "Times New Roman", 20, Color.white);
+        andByLabel3 = new SpriteFont("Zachary Nedell,", 130, 181, "Times New Roman", 20, Color.white);
+        andByLabel4 = new SpriteFont("And Zachary Marlowe", 130, 201, "Times New Roman", 20, Color.white);
         returnInstructionsLabel = new SpriteFont("Press Space to return to the menu", 20, 532, "Times New Roman", 30, Color.white);
         keyLocker.lockKey(Key.SPACE);
     }
@@ -51,6 +56,10 @@ public class CreditsScreen extends Screen {
         background.draw(graphicsHandler);
         creditsLabel.draw(graphicsHandler);
         createdByLabel.draw(graphicsHandler);
+        andByLabel1.draw(graphicsHandler);
+        andByLabel2.draw(graphicsHandler);
+        andByLabel3.draw(graphicsHandler);
+        andByLabel4.draw(graphicsHandler);
         returnInstructionsLabel.draw(graphicsHandler);
     }
 }

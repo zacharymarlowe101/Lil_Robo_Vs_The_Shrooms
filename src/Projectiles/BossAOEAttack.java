@@ -9,8 +9,10 @@ public class BossAOEAttack implements EnemyAttack {
 
     private int cooldown = 260;
     private int cooldownCounter = 0;
-    private int usesRemaining = 3;
+    private int usesRemaining;
     private int bulletLength = 16;
+    private int maxUses = 3;
+
 
     @Override
     public void perform(NPC npc, Player player) {
@@ -51,6 +53,12 @@ public class BossAOEAttack implements EnemyAttack {
     public void tickCooldown() {
         if (cooldownCounter > 0) cooldownCounter--;
     }
+
+    public void reset() {
+        usesRemaining = maxUses;
+    }
+
+
 
     public boolean hasUsesRemaining() {
         return usesRemaining > 0;
