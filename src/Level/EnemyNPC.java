@@ -8,6 +8,7 @@ import java.util.HashMap;
 public class EnemyNPC extends NPC implements HasHealth {
 
     private float baseHealth;
+    private float hp;
     private final int baseDamage;
     private int level = 1;
 
@@ -57,24 +58,19 @@ public class EnemyNPC extends NPC implements HasHealth {
 
     @Override
     public float getHpRatio() {
-        return hp / maxHp;
+        return getHp() / getMaxHp();
     }
 
     @Override
     public boolean isDead() {
         //Need to increase value of player thing when this is called... guess I should find where it is called...
-        return hp <= 0.0001f;
+        return getHp() <= 0.0001f;
     }
 
     @Override
     public void takeDamage(float amount) {
         if (isDead()) return;
-        hp = Math.max(0f, hp - amount);
-    }
-
-    @Override
-    public void takeDamage(int amount) {
-        takeDamage((float) amount);
+        hp = Math.max(0f, getHp() - amount);
     }
 
     @Override
