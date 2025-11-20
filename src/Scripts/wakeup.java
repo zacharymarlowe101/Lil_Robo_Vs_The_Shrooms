@@ -15,11 +15,11 @@ public class wakeup extends Script {
         scriptActions.add(new LockPlayerScriptAction());
         
         scriptActions.add(new TextboxScriptAction() {{
-            addText("Beep Boop. Initializing Dawn Protocol");
+            addText("Beep Boop. Initializing Dawn Protocol.");
              addText("All appendages functional. ");
-            addText("Please used WASD or arrow keys to move.");
+            addText("Please use WASD or arrow keys to move.");
+            addText("Press R to temporarily toggle reflect ability.");
         }});
-
         
 
         scriptActions.add(new ChangeFlagScriptAction("wakingup", true));

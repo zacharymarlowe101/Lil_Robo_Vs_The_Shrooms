@@ -57,7 +57,24 @@ public class EnemyNPC extends NPC implements HasHealth {
 
     @Override
     public float getHpRatio() {
-        return getHp() / getMaxHp();
+        return hp / maxHp;
+    }
+
+    @Override
+    public boolean isDead() {
+        //Need to increase value of player thing when this is called... guess I should find where it is called...
+        return hp <= 0.0001f;
+    }
+
+    @Override
+    public void takeDamage(float amount) {
+        if (isDead()) return;
+        hp = Math.max(0f, hp - amount);
+    }
+
+    @Override
+    public void takeDamage(int amount) {
+        takeDamage((float) amount);
     }
 
     @Override

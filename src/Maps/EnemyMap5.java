@@ -45,7 +45,7 @@ public class EnemyMap5 extends Map {
         );
 
         EnemySpawner spawner = new EnemySpawner(this, spawnPoints, enemyWeights);
-        List<NPC> randomEnemies = spawner.spawnMultipleEnemies(4);
+        List<NPC> randomEnemies = spawner.spawnMultipleEnemies(3);
 
         for (NPC enemy : randomEnemies) {
             npcs.add(enemy);

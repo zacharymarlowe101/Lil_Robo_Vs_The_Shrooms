@@ -73,6 +73,7 @@ public class EnemyProjectile extends Projectile {
 
     @Override
     public void update(Player player) {
+        
         moveX(velocityX);
         moveY(velocityY);
 
@@ -102,8 +103,11 @@ public class EnemyProjectile extends Projectile {
                     if (npcs.getHealth() > 0) {
                         npcs.takeDamage(playerDamage);
                         projectilesHit.add(this);
-                        this.isHidden = true; // Hide the projectile upon hitting the NPC
-                        map.getProjectiles().remove(this);
+                        
+                        if(!isPersistentBullet){
+                            this.isHidden = true; // Hide the projectile upon hitting the NPC
+                            map.getProjectiles().remove(this);
+                        }
                     }
                 }
                 //System.out.println("Checking projectile collisions for Wall " + MapCollisionHandler.isCollidingWithMapEntity(p, map, null));
@@ -113,15 +117,26 @@ public class EnemyProjectile extends Projectile {
                 if (player.getHealth() > 0) {
                         player.takeDamage(enemyDamage);
                         projectilesHit.add(this);
-                        this.isHidden = true; // Hide the projectile upon hitting the NPC
-                        map.getProjectiles().remove(this);
+                        if(!isPersistentBullet){
+                            this.isHidden = true; // Hide the projectile upon hitting the NPC
+                            map.getProjectiles().remove(this);
+                        }
                     }
+            }
+            if(!projectilesHit.contains(this) && MapCollisionHandler.isCollidingWithMapEntity(this, map, null)){ //checks if projectile hits wall
+               // System.out.println("Projectile hit wall");
+                projectilesHit.add(this);
+
+                if(!isPersistentBullet){
+                    this.isHidden = true;
+                    map.getProjectiles().remove(this);
+                }
             }
         }
 
         for(Projectile p : map.getProjectiles()){
             if(p.getOwner() != player && p.getBounds().intersects(player.getBounds()) && player.isReflecting){
-                player.reflectCount--;
+                //player.reflectCount--;
                 p.setOwner(player);
                 p.reverseDirection();
             }
@@ -131,6 +146,8 @@ public class EnemyProjectile extends Projectile {
             this.isHidden = true;
             map.getProjectiles().remove(this);
         }
+
+        super.update();
     }
 
     public void setSpeed(float newSpeed) {

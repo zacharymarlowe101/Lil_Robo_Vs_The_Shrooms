@@ -14,6 +14,7 @@ public class WinScreen extends Screen {
     protected KeyLocker keyLocker = new KeyLocker();
     protected PlayLevelScreen playLevelScreen;
     protected Sprite winCard;
+    protected Sprite bossBackground;
 
     public WinScreen(PlayLevelScreen playLevelScreen) {
         this.playLevelScreen = playLevelScreen;
@@ -25,6 +26,10 @@ public class WinScreen extends Screen {
         winCard = new Sprite(ImageLoader.load("WinCard.png"), 74, 128);
         winCard.setScale(3);
         winCard.setLocation((Config.GAME_WINDOW_WIDTH-winCard.getWidth())/2, (Config.GAME_WINDOW_HEIGHT-winCard.getHeight())/2);
+
+        bossBackground = new Sprite(ImageLoader.load("BossMapBackground.png"));
+        bossBackground.setScale(1);
+        bossBackground.setLocation(0,0);
 
         keyLocker.lockKey(Key.SPACE);
         keyLocker.lockKey(Key.ESC);
@@ -52,6 +57,7 @@ public class WinScreen extends Screen {
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
+        bossBackground.draw(graphicsHandler);
         winCard.draw(graphicsHandler);
     }
 }
