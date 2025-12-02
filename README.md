@@ -18,7 +18,7 @@ It can be accessed at [https://a-r-t.github.io/SER-225-Game-RPG/](https://a-r-t.
 Changes to content in the `docs` folder will not show up on the website unless they are pushed to the `master` branch.
 
 ## Credits
-**Zachary Nedell**: Programming and Map Design
-/n **Zachary Marlowe**: Programming and Character Gameplay
-/n **Reed Scampoli**: Programming and Art
-/n **Aidan Agas**: Programming and Enemy Mechanics
+**Zachary Nedell**: Programming and Map Design.<br>
+**Zachary Marlowe**: Programming and Character Gameplay<br>
+**Reed Scampoli**: Programming and Art<br>
+**Aidan Agas**: Programming and Enemy Mechanics
