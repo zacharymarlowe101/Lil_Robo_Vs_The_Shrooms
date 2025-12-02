@@ -19,6 +19,6 @@ Changes to content in the `docs` folder will not show up on the website unless t
 
 ## Credits
 **Zachary Nedell**: Programming and Map Design
-\n **Zachary Marlowe**: Programming and Character Gameplay
-\n **Reed Scampoli**: Programming and Art
-\n **Aidan Agas**: Programming and Enemy Mechanics
+/n **Zachary Marlowe**: Programming and Character Gameplay
+/n **Reed Scampoli**: Programming and Art
+/n **Aidan Agas**: Programming and Enemy Mechanics
